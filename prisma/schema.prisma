@@ -1,0 +1,305 @@
+// Cabala Database Schema
+// This schema defines the database structure for the Cabala e-learning platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id                String             @id @default(cuid())
+  email             String             @unique
+  emailVerified     DateTime?
+  name              String?
+  firstName         String?
+  lastName          String?
+  password          String?            // For custom authentication
+  avatar            String?
+  phone             String?
+  role              UserRole           @default(STUDENT)
+  moodleUserId      Int?               @unique
+  moodleUsername    String?            @unique
+  isActive          Boolean            @default(true)
+  lastLogin         DateTime?
+  
+  // Relationships
+  accounts          Account[]
+  sessions          Session[]
+  enrollments       Enrollment[]
+  payments          Payment[]
+  reviews           Review[]
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@map("users")
+}
+
+// NextAuth Account model
+model Account {
+  id                String             @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?            @db.Text
+  access_token      String?            @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?            @db.Text
+  session_state     String?
+  
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+// NextAuth Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+// NextAuth Verification Token model
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Course Management
+model Course {
+  id                String             @id @default(cuid())
+  moodleCourseId    Int                @unique
+  title             String
+  slug              String             @unique
+  description       String?            @db.Text
+  shortDescription  String?
+  thumbnail         String?
+  price             Decimal            @default(0) @db.Decimal(10, 2)
+  originalPrice     Decimal?           @db.Decimal(10, 2)
+  currency          String             @default("VND")
+  
+  // Course details
+  level             CourseLevel        @default(BEGINNER)
+  duration          Int?               // in minutes
+  language          String             @default("vi")
+  requirements      String?            @db.Text
+  whatYouWillLearn  String?            @db.Text
+  
+  // Instructor info (from Moodle)
+  instructorName    String?
+  instructorEmail   String?
+  instructorBio     String?            @db.Text
+  
+  // SEO and metadata
+  metaTitle         String?
+  metaDescription   String?
+  keywords          String[]           @default([])
+  
+  // Status and visibility
+  isActive          Boolean            @default(true)
+  isVisible         Boolean            @default(true)
+  isFeatured        Boolean            @default(false)
+  
+  // Pricing and promotion
+  isOnSale          Boolean            @default(false)
+  saleEndsAt        DateTime?
+  
+  // Analytics
+  viewCount         Int                @default(0)
+  enrollmentCount   Int                @default(0)
+  averageRating     Float              @default(0)
+  totalReviews      Int                @default(0)
+  
+  // Relationships
+  categoryId        String?
+  category          Category?          @relation(fields: [categoryId], references: [id])
+  enrollments       Enrollment[]
+  payments          Payment[]
+  reviews           Review[]
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@map("courses")
+}
+
+// Course Categories
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  icon        String?
+  color       String?
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  
+  // Relationships
+  courses     Course[]
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("categories")
+}
+
+// Student Course Enrollment
+model Enrollment {
+  id              String           @id @default(cuid())
+  userId          String
+  courseId        String
+  status          EnrollmentStatus @default(PENDING)
+  progress        Int              @default(0) // 0-100
+  completedAt     DateTime?
+  certificateUrl  String?
+  
+  // Moodle integration
+  moodleEnrollmentId Int?          @unique
+  
+  // Relationships
+  user            User             @relation(fields: [userId], references: [id])
+  course          Course           @relation(fields: [courseId], references: [id])
+  
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+// Payment Management
+model Payment {
+  id                String        @id @default(cuid())
+  userId            String
+  courseId          String
+  amount            Decimal       @db.Decimal(10, 2)
+  currency          String        @default("VND")
+  
+  // Payment details
+  paymentMethod     PaymentMethod @default(BANK_TRANSFER)
+  bankName          String?
+  bankAccountNumber String?
+  transactionId     String?
+  
+  // QR Code info
+  qrCodeUrl         String?
+  qrCodeData        String?
+  
+  // Receipt and verification
+  receiptUrl        String?
+  receiptUploadedAt DateTime?
+  
+  // Payment status
+  status            PaymentStatus @default(PENDING)
+  paidAt            DateTime?
+  verifiedAt        DateTime?
+  verifiedBy        String?       // Admin user ID
+  
+  // Rejection details
+  rejectionReason   String?
+  rejectedAt        DateTime?
+  rejectedBy        String?       // Admin user ID
+  
+  // Metadata
+  notes             String?
+  metadata          Json?
+  
+  // Relationships
+  user              User          @relation(fields: [userId], references: [id])
+  course            Course        @relation(fields: [courseId], references: [id])
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@map("payments")
+}
+
+// Course Reviews and Ratings
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  rating    Int      // 1-5 stars
+  title     String?
+  comment   String?  @db.Text
+  isVisible Boolean  @default(true)
+  
+  // Relationships
+  user      User     @relation(fields: [userId], references: [id])
+  course    Course   @relation(fields: [courseId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([userId, courseId])
+  @@map("reviews")
+}
+
+// System Settings
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("settings")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  COURSE_MANAGER
+  INSTRUCTOR
+  STUDENT
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum EnrollmentStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  SUSPENDED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  CREDIT_CARD
+  PAYPAL
+  MOMO
+  ZALOPAY
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  VERIFIED
+  REJECTED
+  REFUNDED
+  CANCELLED
+}

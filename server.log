@@ -1,0 +1,297 @@
+
+> cabala-website@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.5
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.194:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 5s
+ ○ Compiling / ...
+ ✓ Compiled / in 12s (815 modules)
+ HEAD / 200 in 12881ms
+ HEAD / 200 in 155ms
+ GET / 200 in 427ms
+ ✓ Compiled in 1604ms (338 modules)
+ ✓ Compiled in 304ms (338 modules)
+ ✓ Compiled in 824ms (354 modules)
+ ✓ Compiled in 429ms (354 modules)
+ ✓ Compiled in 544ms (354 modules)
+ ✓ Compiled in 594ms (354 modules)
+ ✓ Compiled in 2.6s (354 modules)
+ ✓ Compiled in 479ms (354 modules)
+ ✓ Compiled in 568ms (354 modules)
+ ✓ Compiled in 349ms (354 modules)
+ ✓ Compiled in 208ms (354 modules)
+ ✓ Compiled in 442ms (354 modules)
+ ✓ Compiled in 169ms (354 modules)
+ ✓ Compiled in 366ms (354 modules)
+ ✓ Compiled in 1610ms (354 modules)
+ ✓ Compiled in 207ms (354 modules)
+ ✓ Compiled in 288ms (354 modules)
+ ✓ Compiled in 176ms (354 modules)
+ ✓ Compiled in 194ms (354 modules)
+ ✓ Compiled in 322ms (354 modules)
+ ✓ Compiled in 192ms (354 modules)
+ ✓ Compiled in 198ms (354 modules)
+ ✓ Compiled in 1030ms (354 modules)
+ ✓ Compiled in 383ms (354 modules)
+ ✓ Compiled in 1598ms (354 modules)
+ ✓ Compiled in 944ms (354 modules)
+ ✓ Compiled in 865ms (354 modules)
+ ✓ Compiled in 329ms (354 modules)
+ ✓ Compiled in 402ms (340 modules)
+ ✓ Compiled in 1193ms (354 modules)
+ ✓ Compiled in 833ms (340 modules)
+ ✓ Compiled in 383ms (354 modules)
+ ✓ Compiled in 1022ms (354 modules)
+ ✓ Compiled in 420ms (354 modules)
+   Reload env: .env.local
+ ✓ Compiled in 369ms (340 modules)
+ ✓ Compiled in 364ms (354 modules)
+ ✓ Compiled in 611ms (354 modules)
+ ✓ Compiled in 222ms (354 modules)
+ ✓ Compiled in 264ms (354 modules)
+ ✓ Compiled in 255ms (354 modules)
+ ✓ Compiled in 351ms (354 modules)
+ ✓ Compiled in 535ms (354 modules)
+ ✓ Compiled in 146ms (354 modules)
+ ✓ Compiled in 981ms (354 modules)
+ ✓ Compiled in 279ms (354 modules)
+ ✓ Compiled in 442ms (354 modules)
+ ✓ Compiled in 425ms (354 modules)
+ ✓ Compiled in 292ms (354 modules)
+ ✓ Compiled in 397ms (354 modules)
+ ✓ Compiled in 1687ms (354 modules)
+ ✓ Compiled in 1072ms (354 modules)
+ ✓ Compiled in 1030ms (354 modules)
+ ✓ Compiled in 1944ms (354 modules)
+ ✓ Compiled in 506ms (354 modules)
+ ✓ Compiled in 771ms (354 modules)
+ ✓ Compiled in 289ms (354 modules)
+ ✓ Compiled in 563ms (354 modules)
+ ✓ Compiled in 292ms (354 modules)
+ ✓ Compiled in 489ms (354 modules)
+ ✓ Compiled in 238ms (354 modules)
+ ✓ Compiled in 462ms (354 modules)
+ ✓ Compiled in 746ms (354 modules)
+ ✓ Compiled in 446ms (354 modules)
+ ✓ Compiled in 1503ms (340 modules)
+ ✓ Compiled in 1069ms (354 modules)
+ ✓ Compiled in 1068ms (340 modules)
+ ✓ Compiled in 200ms (354 modules)
+ ✓ Compiled in 763ms (354 modules)
+ ✓ Compiled in 271ms (354 modules)
+ ✓ Compiled in 701ms (354 modules)
+ ✓ Compiled in 676ms (340 modules)
+ ✓ Compiled in 190ms (354 modules)
+ ✓ Compiled in 188ms (354 modules)
+ ✓ Compiled in 168ms (354 modules)
+ ✓ Compiled in 190ms (354 modules)
+ ✓ Compiled in 144ms (354 modules)
+ ✓ Compiled in 194ms (354 modules)
+ ✓ Compiled in 368ms (340 modules)
+ ✓ Compiled in 371ms (354 modules)
+ ✓ Compiled in 196ms (354 modules)
+ ✓ Compiled in 291ms (354 modules)
+ ✓ Compiled in 259ms (354 modules)
+ ✓ Compiled in 159ms (354 modules)
+ ✓ Compiled in 133ms (354 modules)
+ ✓ Compiled in 342ms (354 modules)
+ ✓ Compiled in 191ms (354 modules)
+ ✓ Compiled in 162ms (354 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 4.9s (826 modules)
+ ○ Compiling /_not-found ...
+ GET / 200 in 10254ms
+ ✓ Compiled /_not-found in 4.8s (830 modules)
+ GET /_next/static/css/app/layout.css?v=1752218239294 404 in 5560ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 5572ms
+ GET /_next/static/chunks/main-app.js?v=1752218239294 404 in 5584ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 937ms (499 modules)
+ GET /favicon.ico 200 in 1295ms
+ GET /courses/technology 404 in 631ms
+ GET /_next/static/css/app/layout.css?v=1752218264201 404 in 157ms
+ GET /_next/static/chunks/main-app.js?v=1752218264201 404 in 295ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 295ms
+ HEAD / 200 in 577ms
+ ○ Compiling /courses ...
+ ✓ Compiled /courses in 3s (826 modules)
+ GET /courses 200 in 3867ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 576ms (830 modules)
+ GET /_next/static/css/app/layout.css?v=1752219638452 404 in 1223ms
+ GET /_next/static/chunks/main-app.js?v=1752219638452 404 in 1241ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 1246ms
+ GET /_next/static/css/app/layout.css?v=1752219655413 404 in 181ms
+ GET /about 404 in 507ms
+ GET /_next/static/chunks/main-app.js?v=1752219655413 404 in 393ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 387ms
+ GET /_next/static/css/app/layout.css?v=1752219657814 404 in 528ms
+ GET /courses 200 in 930ms
+ GET /_next/static/chunks/main-app.js?v=1752219657814 404 in 627ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 615ms
+ GET /courses/design 404 in 245ms
+ GET /_next/static/css/app/layout.css?v=1752219665154 404 in 181ms
+ GET /_next/static/chunks/main-app.js?v=1752219665154 404 in 328ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 326ms
+ ✓ Compiled in 1881ms (361 modules)
+ ✓ Compiled in 459ms (361 modules)
+ ✓ Compiled in 1810ms (361 modules)
+ ✓ Compiled in 500ms (361 modules)
+ ✓ Compiled in 237ms (361 modules)
+ ✓ Compiled in 218ms (361 modules)
+ ✓ Compiled in 216ms (361 modules)
+ ✓ Compiled in 430ms (361 modules)
+ ✓ Compiled in 800ms (361 modules)
+ ✓ Compiled in 309ms (361 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.4s (798 modules)
+ GET /courses/design 404 in 4474ms
+ GET /_next/static/chunks/main-app.js?v=1752221704957 404 in 713ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 705ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 960ms (464 modules)
+ GET /favicon.ico 200 in 1188ms
+ ○ Compiling / ...
+ ✓ Compiled / in 765ms (498 modules)
+ GET / 200 in 2818ms
+ GET /_next/static/chunks/main-app.js?v=1752221712945 404 in 820ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 835ms
+ ✓ Compiled in 1184ms (862 modules)
+ ✓ Compiled in 778ms (361 modules)
+ ✓ Compiled in 1774ms (361 modules)
+ ✓ Compiled in 683ms (361 modules)
+ ✓ Compiled in 239ms (361 modules)
+ ✓ Compiled in 793ms (361 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1191ms (481 modules)
+ GET / 200 in 2088ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 590ms (832 modules)
+ GET /_next/static/chunks/main-app.js?v=1752221914568 404 in 1186ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 1177ms
+ ✓ Compiled /favicon.ico in 232ms (498 modules)
+ GET /favicon.ico 200 in 396ms
+ ✓ Compiled in 3s (361 modules)
+ ○ Compiling / ...
+ ⨯ ./src/app/page.tsx
+Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | export default function Home() {
+ [2m4[0m |   return (
+ [2m5[0m |     <div className="min-h-screen bg-white">
+   : [35;1m     ^^^[0m
+ [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
+ [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
+ [2m8[0m |         {/* Background decorative elements */}
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ⨯ ./src/app/page.tsx
+Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | export default function Home() {
+ [2m4[0m |   return (
+ [2m5[0m |     <div className="min-h-screen bg-white">
+   : [35;1m     ^^^[0m
+ [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
+ [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
+ [2m8[0m |         {/* Background decorative elements */}
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ⨯ ./src/app/page.tsx
+Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | export default function Home() {
+ [2m4[0m |   return (
+ [2m5[0m |     <div className="min-h-screen bg-white">
+   : [35;1m     ^^^[0m
+ [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
+ [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
+ [2m8[0m |         {/* Background decorative elements */}
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ GET / 500 in 59875ms
+ ⨯ ./src/app/page.tsx
+Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | export default function Home() {
+ [2m4[0m |   return (
+ [2m5[0m |     <div className="min-h-screen bg-white">
+   : [35;1m     ^^^[0m
+ [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
+ [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
+ [2m8[0m |         {/* Background decorative elements */}
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ GET /_next/static/webpack/f271dfc5e2852da0.webpack.hot-update.json 500 in 2119ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 500 in 133ms
+ GET / 500 in 64ms
+ GET /_next/static/chunks/fallback/webpack.js 500 in 98ms
+ GET /_next/static/chunks/fallback/main.js 500 in 101ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 98ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 97ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 96ms
+ GET / 500 in 38ms
+ GET /_next/static/chunks/fallback/webpack.js 500 in 79ms
+ GET /_next/static/chunks/fallback/main.js 500 in 77ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 77ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 78ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 81ms
+ GET / 500 in 35ms
+ GET /_next/static/chunks/fallback/webpack.js 500 in 98ms
+ GET /_next/static/chunks/fallback/main.js 500 in 95ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 97ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 97ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 96ms
+ ✓ Compiled /favicon.ico in 5.3s (703 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/cache/webpack/client-development/10.pack.gz_' -> '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/cache/webpack/client-development/10.pack.gz'
+ ✓ Compiled in 975ms (607 modules)
+ ✓ Compiled in 1098ms (607 modules)
+ ✓ Compiled in 1147ms (607 modules)
+ ✓ Compiled in 1337ms (607 modules)
+ ✓ Compiled in 1090ms (607 modules)
+ ✓ Compiled in 2.3s (607 modules)
+ ✓ Compiled in 1165ms (607 modules)
+ ✓ Compiled in 2.2s (607 modules)
+ ✓ Compiled in 933ms (607 modules)
+ ✓ Compiled in 3.1s (607 modules)
+ ✓ Compiled in 2.5s (607 modules)
+ ✓ Compiled in 460ms (607 modules)
+ ✓ Compiled in 320ms (607 modules)
+ ✓ Compiled in 380ms (607 modules)
+ ✓ Compiled in 478ms (607 modules)
+ ✓ Compiled in 265ms (607 modules)
+ ✓ Compiled in 1302ms (607 modules)
+ ✓ Compiled in 4s (703 modules)
+ ✓ Compiled in 523ms (607 modules)
+ ✓ Compiled in 699ms (607 modules)
+ ✓ Compiled in 571ms (607 modules)

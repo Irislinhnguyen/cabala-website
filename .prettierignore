@@ -1,0 +1,6 @@
+node_modules
+.next
+.env*
+*.config.js
+*.config.ts
+public
