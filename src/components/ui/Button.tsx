@@ -3,18 +3,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-cabala-orange text-white hover:bg-cabala-orange-dark',
-        secondary: 'bg-cabala-teal text-white hover:bg-cabala-teal-dark',
-        outline: 'border border-cabala-orange text-cabala-orange hover:bg-cabala-orange hover:text-white',
-        ghost: 'text-cabala-orange hover:bg-cabala-orange/10',
-        link: 'text-cabala-orange underline-offset-4 hover:underline',
-        success: 'bg-success text-white hover:bg-success/90',
-        warning: 'bg-warning text-white hover:bg-warning/90',
-        error: 'bg-error text-white hover:bg-error/90',
+        default: 'btn-primary',
+        secondary: 'btn-secondary',
+        outline: 'border border-current text-interactive hover:bg-interactive hover:text-white',
+        ghost: 'text-interactive hover:bg-interactive/10',
+        link: 'text-interactive underline-offset-4 hover:underline',
+        success: 'bg-green-600 text-white hover:bg-green-700',
+        warning: 'bg-yellow-600 text-white hover:bg-yellow-700',
+        error: 'bg-red-600 text-white hover:bg-red-700',
       },
       size: {
         default: 'h-10 px-4 py-2',

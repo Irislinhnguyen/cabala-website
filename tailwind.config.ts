@@ -9,58 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Keep all standard Tailwind colors and add Cabala Brand Colors
-        cabala: {
-          // Primary Blue Colors
-          blue: '#2563eb',
-          'blue-light': '#3b82f6',
-          'blue-dark': '#1d4ed8',
-          'blue-50': '#eff6ff',
-          'blue-100': '#dbeafe',
-          'blue-200': '#bfdbfe',
-          'blue-300': '#93c5fd',
-          'blue-400': '#60a5fa',
-          'blue-500': '#3b82f6',
-          'blue-600': '#2563eb',
-          'blue-700': '#1d4ed8',
-          'blue-800': '#1e40af',
-          'blue-900': '#1e3a8a',
-          
-          // Navy for headings
-          navy: '#1e3a8a',
-          'navy-light': '#1e40af',
-          'navy-dark': '#1e293b',
-          
-          // Orange Accent (điểm nhấn)
-          orange: '#E55A2B',
-          'orange-light': '#FF6B3D',
-          'orange-dark': '#CC4B1F',
-          
-          // Neutral colors
-          neutral: '#F8F9FA',
-          'neutral-50': '#f8fafc',
-          'neutral-100': '#f1f5f9',
-          'neutral-200': '#e2e8f0',
-          'neutral-300': '#cbd5e1',
-          'neutral-400': '#94a3b8',
-          'neutral-500': '#64748b',
-          'neutral-600': '#475569',
-          'neutral-700': '#334155',
-          'neutral-800': '#1e293b',
-          'neutral-900': '#0f172a',
-        },
-        // Semantic Colors - Blue Primary
+        // Only keep standard Tailwind colors 
+        // Design system colors are handled via CSS variables
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: '#f0f9ff',
+          100: '#e0f2fe', 
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
         },
         secondary: {
           50: '#F0F8FC',

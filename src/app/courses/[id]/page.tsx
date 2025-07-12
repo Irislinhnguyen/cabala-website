@@ -104,9 +104,10 @@ export default function CourseDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-cabala-neutral">
-        <header className="bg-white border-b border-neutral-200 px-4 py-6">
-          <div className="container mx-auto">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+        <header className="border-b px-4 py-6" 
+                style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border-light)' }}>
+          <div className="container-wide">
             <div className="flex items-center space-x-4">
               <Link href="/courses">
                 <Button variant="ghost" size="sm">
@@ -117,13 +118,14 @@ export default function CourseDetailPage() {
                 </Button>
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-cabala-navy">Đang tải...</h1>
+                <h1 className="heading-2">Đang tải...</h1>
               </div>
             </div>
           </div>
         </header>
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin w-8 h-8 border-4 border-cabala-orange border-t-transparent rounded-full"></div>
+          <div className="animate-spin w-8 h-8 border-4 border-t-transparent rounded-full"
+               style={{ borderColor: 'var(--color-interactive)' }}></div>
         </div>
       </div>
     );
@@ -131,9 +133,10 @@ export default function CourseDetailPage() {
 
   if (error || !course) {
     return (
-      <div className="min-h-screen bg-cabala-neutral">
-        <header className="bg-white border-b border-neutral-200 px-4 py-6">
-          <div className="container mx-auto">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+        <header className="border-b px-4 py-6" 
+                style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border-light)' }}>
+          <div className="container-wide">
             <div className="flex items-center space-x-4">
               <Link href="/courses">
                 <Button variant="ghost" size="sm">
@@ -144,24 +147,25 @@ export default function CourseDetailPage() {
                 </Button>
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-cabala-navy">Lỗi</h1>
+                <h1 className="heading-2">Lỗi</h1>
               </div>
             </div>
           </div>
         </header>
-        <div className="container mx-auto px-4 py-12">
-          <Card>
+        <div className="container-wide py-12">
+          <Card className="card-base">
             <CardContent className="p-12 text-center">
-              <svg className="w-16 h-16 mx-auto text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   style={{ color: 'var(--color-text-muted)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.664-.833-2.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <h3 className="text-lg font-semibold text-cabala-navy mb-2">
+              <h3 className="heading-3 mb-2">
                 Không tìm thấy khóa học
               </h3>
-              <p className="text-neutral-600 mb-6">
+              <p className="body-base mb-6">
                 {error || 'Khóa học này có thể đã bị xóa hoặc không còn tồn tại'}
               </p>
-              <Button onClick={() => router.push('/courses')}>
+              <Button onClick={() => router.push('/courses')} className="btn-primary">
                 Xem tất cả khóa học
               </Button>
             </CardContent>
@@ -172,10 +176,11 @@ export default function CourseDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cabala-neutral">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
       {/* Header */}
-      <header className="bg-white border-b border-neutral-200 px-4 py-6">
-        <div className="container mx-auto">
+      <header className="border-b px-4 py-6" 
+              style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border-light)' }}>
+        <div className="container-wide">
           <div className="flex items-center space-x-4">
             <Link href="/courses">
               <Button variant="ghost" size="sm">
@@ -186,10 +191,10 @@ export default function CourseDetailPage() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-2xl font-bold text-cabala-navy line-clamp-1">
+              <h1 className="heading-2 line-clamp-1">
                 {course.title}
               </h1>
-              <p className="text-neutral-600 mt-1">
+              <p className="body-base mt-1">
                 Khóa học chi tiết
               </p>
             </div>
@@ -197,17 +202,18 @@ export default function CourseDetailPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container-wide py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Course Header */}
-            <Card>
+            <Card className="card-base">
               <CardContent className="p-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Course Image */}
                   <div className="relative">
-                    <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-cabala-blue-100 to-cabala-blue-200">
+                    <div className="aspect-video rounded-lg overflow-hidden" 
+                         style={{ backgroundColor: 'var(--color-interactive-light)' }}>
                       {course.courseImage ? (
                         <img 
                           src={course.courseImage} 
@@ -217,8 +223,8 @@ export default function CourseDetailPage() {
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <div className="text-center p-4">
-                            <div className="text-xl font-bold text-cabala-blue mb-2">{course.shortName}</div>
-                            <div className="text-sm text-cabala-blue-600 opacity-80">Khóa học chất lượng</div>
+                            <div className="text-xl font-bold text-interactive mb-2">{course.shortName}</div>
+                            <div className="text-sm text-interactive opacity-80">Khóa học chất lượng</div>
                           </div>
                         </div>
                       )}
@@ -226,7 +232,7 @@ export default function CourseDetailPage() {
                     
                     {/* Level Badge */}
                     <div className="absolute top-3 left-3">
-                      <Badge className="bg-cabala-blue text-white">
+                      <Badge className="text-white" style={{ backgroundColor: 'var(--color-interactive)' }}>
                         {course.level}
                       </Badge>
                     </div>
@@ -234,73 +240,73 @@ export default function CourseDetailPage() {
                     {/* Popular Badge */}
                     {course.rating >= 4.5 && (
                       <div className="absolute top-3 right-3">
-                        <Badge className="bg-cabala-orange text-white">
+                        <Badge className="text-white" style={{ backgroundColor: 'var(--color-accent-500)' }}>
                           Phổ biến
                         </Badge>
                       </div>
                     )}
                   </div>
 
-                  {/* Course Info */}
-                  <div className="space-y-4">
-                    <div>
-                      <h1 className="text-2xl font-bold text-cabala-navy mb-2">
-                        {course.title}
-                      </h1>
-                      <p className="text-lg text-cabala-blue font-medium">
-                        {course.instructor}
-                      </p>
-                    </div>
+                                      {/* Course Info */}
+                    <div className="space-y-4">
+                      <div>
+                        <h1 className="heading-2 mb-2">
+                          {course.title}
+                        </h1>
+                        <p className="body-large text-interactive font-medium">
+                          {course.instructor}
+                        </p>
+                      </div>
 
-                    {/* Rating and Students */}
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i}
-                              className={`w-4 h-4 ${i < Math.floor(course.rating) ? 'text-warning' : 'text-neutral-300'}`}
-                              fill="currentColor" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                            </svg>
-                          ))}
+                      {/* Rating and Students */}
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-1">
+                          <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                              <svg 
+                                key={i}
+                                className={`w-4 h-4 ${i < Math.floor(course.rating) ? 'text-warning' : 'text-border'}`}
+                                fill="currentColor" 
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                              </svg>
+                            ))}
+                          </div>
+                          <span className="text-secondary font-medium ml-2">{course.rating}</span>
                         </div>
-                        <span className="text-neutral-600 font-medium ml-2">{course.rating}</span>
+                        <div className="text-secondary">
+                          ({course.students.toLocaleString()} học viên)
+                        </div>
                       </div>
-                      <div className="text-neutral-500">
-                        ({course.students.toLocaleString()} học viên)
-                      </div>
-                    </div>
 
-                    {/* Course Details */}
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-neutral-600">{course.duration}</span>
+                                          {/* Course Details */}
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="flex items-center space-x-2">
+                          <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-secondary">{course.duration}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                          </svg>
+                          <span className="text-secondary">{course.language === 'vi' ? 'Tiếng Việt' : 'English'}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span className="text-secondary">Bắt đầu: {formatDate(course.startDate)}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-secondary">Kết thúc: {formatDate(course.endDate)}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                        </svg>
-                        <span className="text-neutral-600">{course.language === 'vi' ? 'Tiếng Việt' : 'English'}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span className="text-neutral-600">Bắt đầu: {formatDate(course.startDate)}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-neutral-600">Kết thúc: {formatDate(course.endDate)}</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </CardContent>

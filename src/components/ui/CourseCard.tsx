@@ -45,11 +45,12 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
 
   return (
     <Card className={cn(
-      'group hover:shadow-lg transition-all duration-200 overflow-hidden border border-cabala-neutral-200 bg-white h-full',
+      'group hover:shadow-lg transition-all duration-200 overflow-hidden h-full card-base',
       className
     )}>
       {/* Course Thumbnail */}
-      <div className="relative h-36 sm:h-40 overflow-hidden bg-cabala-blue-50">
+      <div className="relative h-36 sm:h-40 overflow-hidden" 
+           style={{ backgroundColor: 'var(--color-surface)' }}>
         {course.courseImage ? (
           <img 
             src={course.courseImage} 
@@ -57,10 +58,19 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-cabala-blue-100 to-cabala-blue-200 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br flex items-center justify-center"
+               style={{ 
+                 background: `linear-gradient(135deg, var(--color-interactive-light) 0%, var(--color-primary-100) 100%)` 
+               }}>
             <div className="text-center p-3 sm:p-4">
-              <div className="text-base sm:text-lg font-bold text-cabala-blue mb-1">{course.shortName}</div>
-              <div className="text-xs sm:text-sm text-cabala-blue-600 opacity-80">Khóa học chất lượng</div>
+              <div className="text-base sm:text-lg font-bold mb-1"
+                   style={{ color: 'var(--color-interactive)' }}>
+                {course.shortName}
+              </div>
+              <div className="text-xs sm:text-sm opacity-80"
+                   style={{ color: 'var(--color-interactive)' }}>
+                Khóa học chất lượng
+              </div>
             </div>
           </div>
         )}
@@ -69,7 +79,8 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
         <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
           <Badge 
             variant="secondary" 
-            className="bg-cabala-blue text-white text-xs font-medium px-2 py-1"
+            className="text-white text-xs font-medium px-2 py-1"
+            style={{ backgroundColor: 'var(--color-interactive)' }}
           >
             {course.level}
           </Badge>
@@ -78,7 +89,8 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
         {/* Popular Badge (Orange điểm nhấn) */}
         {course.rating >= 4.5 && (
           <div className="absolute top-2 sm:top-3 right-2 sm:right-3">
-            <Badge className="bg-cabala-orange text-white text-xs font-medium px-2 py-1">
+            <Badge className="text-white text-xs font-medium px-2 py-1"
+                   style={{ backgroundColor: 'var(--color-accent-500)' }}>
               Phổ biến
             </Badge>
           </div>
@@ -88,12 +100,16 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
       <CardHeader className="p-3 sm:p-4 pb-2">
         <div className="space-y-2">
           {/* Course Title */}
-          <h3 className="text-sm sm:text-base font-semibold text-cabala-navy leading-tight group-hover:text-cabala-blue transition-colors line-clamp-2">
+          <h3 className="text-sm sm:text-base font-semibold leading-tight transition-colors line-clamp-2"
+              style={{ color: 'var(--color-text-primary)' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-interactive)'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}>
             {course.title}
           </h3>
 
           {/* Instructor */}
-          <p className="text-xs sm:text-sm text-cabala-neutral-600 font-medium">
+          <p className="text-xs sm:text-sm font-medium"
+             style={{ color: 'var(--color-text-secondary)' }}>
             {course.instructor}
           </p>
 
@@ -104,7 +120,8 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
                 {[...Array(5)].map((_, i) => (
                   <svg 
                     key={i}
-                    className={`w-3 h-3 ${i < Math.floor(course.rating) ? 'text-warning' : 'text-cabala-neutral-300'}`}
+                    className="w-3 h-3"
+                    style={{ color: i < Math.floor(course.rating) ? 'var(--color-accent-500)' : 'var(--color-border)' }}
                     fill="currentColor" 
                     viewBox="0 0 24 24"
                   >
@@ -112,15 +129,18 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
                   </svg>
                 ))}
               </div>
-              <span className="text-cabala-neutral-600 font-medium">{course.rating}</span>
+              <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                {course.rating}
+              </span>
             </div>
-            <div className="text-cabala-neutral-500 truncate">
+            <div className="truncate" style={{ color: 'var(--color-text-muted)' }}>
               ({course.students.toLocaleString()})
             </div>
           </div>
 
           {/* Duration */}
-          <div className="flex items-center space-x-1 text-xs sm:text-sm text-cabala-neutral-600">
+          <div className="flex items-center space-x-1 text-xs sm:text-sm"
+               style={{ color: 'var(--color-text-secondary)' }}>
             <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -134,9 +154,13 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
           {/* Price */}
           <div className="space-y-1 flex-1 min-w-0">
             {course.price === 0 ? (
-              <div className="text-base sm:text-lg font-bold text-cabala-blue">Miễn phí</div>
+              <div className="text-base sm:text-lg font-bold"
+                   style={{ color: 'var(--color-interactive)' }}>
+                Miễn phí
+              </div>
             ) : (
-              <div className="text-base sm:text-lg font-bold text-cabala-navy truncate">
+              <div className="text-base sm:text-lg font-bold truncate"
+                   style={{ color: 'var(--color-text-primary)' }}>
                 {formatPrice(course.price)}
               </div>
             )}
@@ -146,7 +170,7 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
           <Link href={`/courses/${course.id}`}>
             <Button 
               size="sm" 
-              className="bg-cabala-blue hover:bg-cabala-blue-dark text-white font-medium px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap touch-manipulation"
+              className="btn-primary font-medium px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap touch-manipulation"
             >
               Xem chi tiết
             </Button>

@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   keywords: "học trực tuyến, khóa học online, giáo dục, Cabala, học lập trình, kỹ năng",
   authors: [{ name: "Cabala Team" }],
   robots: "index, follow",
+  icons: {
+    icon: '/Cabala.png',
+    shortcut: '/Cabala.png',
+    apple: '/Cabala.png',
+  },
   openGraph: {
     type: "website",
     locale: "vi_VN",
@@ -31,11 +36,20 @@ export const metadata: Metadata = {
     title: "Cabala - Nền tảng học trực tuyến hàng đầu",
     description: "Khám phá hàng ngàn khóa học chất lượng cao từ các chuyên gia hàng đầu",
     siteName: "Cabala",
+    images: [
+      {
+        url: '/Cabala.png',
+        width: 1200,
+        height: 630,
+        alt: 'Cabala Logo',
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Cabala - Nền tảng học trực tuyến hàng đầu",
     description: "Khám phá hàng ngàn khóa học chất lượng cao từ các chuyên gia hàng đầu",
+    images: ['/Cabala.png'],
   },
 };
 

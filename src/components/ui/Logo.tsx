@@ -1,50 +1,60 @@
 import React from 'react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
 
 interface LogoProps {
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'default' | 'dark' | 'light';
   showText?: boolean;
+  className?: string;
 }
 
-const Logo = ({ className, size = 'md', showText = true }: LogoProps) => {
-  const logoSizes = {
-    sm: { width: 32, height: 32 },
-    md: { width: 40, height: 40 },
-    lg: { width: 56, height: 56 },
+export default function Logo({ 
+  size = 'md', 
+  variant = 'default',
+  showText = true,
+  className = '' 
+}: LogoProps) {
+  const sizeMap = {
+    sm: { icon: 24, text: 'text-lg' },
+    md: { icon: 32, text: 'text-xl' },
+    lg: { icon: 40, text: 'text-2xl' },
+    xl: { icon: 48, text: 'text-3xl' }
   };
 
-  const textSizeClasses = {
-    sm: 'text-lg',
-    md: 'text-2xl',
-    lg: 'text-3xl',
+  const colorMap = {
+    default: {
+      text: '#0f172a'
+    },
+    dark: {
+      text: '#ffffff'
+    },
+    light: {
+      text: '#ffffff'
+    }
   };
+
+  const colors = colorMap[variant];
+  const sizes = sizeMap[size];
 
   return (
-    <div className={cn('flex items-center space-x-3', className)}>
-      {/* Real Cabala Logo */}
-      <div className="relative">
-        <Image
-          src="/Cabala.png"
-          alt="Cabala Logo"
-          width={logoSizes[size].width}
-          height={logoSizes[size].height}
-          className="object-contain"
-          priority
-        />
-      </div>
-      
+    <div className={`flex items-center ${className}`}>
+      {/* Logo Image - Using actual Cabala.png */}
+      <img 
+        src="/Cabala.png" 
+        alt="Cabala"
+        width={sizes.icon}
+        height={sizes.icon}
+        className="mr-2 object-contain"
+      />
+
+      {/* Text */}
       {showText && (
-        <span className={cn(
-          'font-bold text-cabala-navy',
-          textSizeClasses[size]
-        )}>
+        <span 
+          className={`font-bold ${sizes.text} tracking-tight`}
+          style={{ color: colors.text }}
+        >
           Cabala
         </span>
       )}
     </div>
   );
-};
-
-export default Logo;
+}
