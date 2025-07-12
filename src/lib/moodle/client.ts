@@ -119,10 +119,34 @@ export class MoodleClient {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const text = await response.text();
+      
+      // Handle empty responses
+      if (!text || text.trim() === '') {
+        console.log(`Moodle API returned empty response for ${wsfunction} - treating as success`);
+        return {} as T;
+      }
 
-      // Enhanced error handling
-      if (data.exception) {
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseError) {
+        console.error('Failed to parse Moodle API response:', {
+          wsfunction,
+          responseText: text,
+          parseError,
+        });
+        throw new Error(`Invalid JSON response from Moodle API: ${text.substring(0, 100)}...`);
+      }
+
+      // Handle null response (common for successful operations)
+      if (data === null) {
+        console.log(`Moodle API returned null for ${wsfunction} - treating as success`);
+        return {} as T;
+      }
+
+      // Enhanced error handling for object responses
+      if (data && typeof data === 'object' && data.exception) {
         console.error('Moodle API Exception:', {
           wsfunction,
           exception: data.exception,
@@ -133,7 +157,8 @@ export class MoodleClient {
         throw new Error(`Moodle API Error: ${data.message || data.exception} (${data.errorcode || 'Unknown'})`);
       }
 
-      if (data.warnings && data.warnings.length > 0) {
+      // Handle warnings
+      if (data && data.warnings && Array.isArray(data.warnings) && data.warnings.length > 0) {
         console.warn('Moodle API Warnings:', data.warnings);
       }
 
@@ -203,15 +228,22 @@ export class MoodleClient {
       throw new Error('Invalid email format');
     }
 
+    console.log('🔍 Attempting to create Moodle user with data:', cleanUserData);
+    
     const response = await this.makeRequest<{ id: number }[]>('core_user_create_users', {
       users: [cleanUserData],
     });
+    
+    console.log('🔍 Moodle user creation response:', response);
     
     if (!response || !response[0] || !response[0].id) {
       throw new Error('Failed to create user - no ID returned');
     }
     
-    return this.getUserById(response[0].id);
+    const createdUser = await this.getUserById(response[0].id);
+    console.log('🔍 Retrieved created user:', createdUser);
+    
+    return createdUser;
   }
 
   // Course Management
@@ -241,16 +273,46 @@ export class MoodleClient {
   }
 
   // Enrollment Management
-  async enrollUser(courseId: number, userId: number, roleId: number = 5): Promise<void> {
-    await this.makeRequest('enrol_manual_enrol_users', {
-      enrolments: [
-        {
-          roleid: roleId, // 5 = Student role
-          userid: userId,
-          courseid: courseId,
-        },
-      ],
-    });
+  async checkUserEnrollment(courseId: number, userId: number): Promise<boolean> {
+    try {
+      const enrolledUsers = await this.makeRequest<any[]>('core_enrol_get_enrolled_users', {
+        courseid: courseId,
+      });
+      
+      return enrolledUsers.some(user => user.id === userId);
+    } catch (error) {
+      console.warn('Could not check enrollment status:', error);
+      return false; // Assume not enrolled if we can't check
+    }
+  }
+
+  async enrollUser(courseId: number, userId: number, roleId: number = 5): Promise<{ success: boolean; alreadyEnrolled?: boolean }> {
+    try {
+      // First check if user is already enrolled
+      const isEnrolled = await this.checkUserEnrollment(courseId, userId);
+      
+      if (isEnrolled) {
+        console.log(`User ${userId} is already enrolled in course ${courseId}`);
+        return { success: true, alreadyEnrolled: true };
+      }
+
+      // Attempt enrollment
+      await this.makeRequest('enrol_manual_enrol_users', {
+        enrolments: [
+          {
+            roleid: roleId, // 5 = Student role
+            userid: userId,
+            courseid: courseId,
+          },
+        ],
+      });
+
+      console.log(`Successfully enrolled user ${userId} in course ${courseId}`);
+      return { success: true, alreadyEnrolled: false };
+    } catch (error) {
+      console.error('Enrollment failed:', error);
+      throw error;
+    }
   }
 
   async unenrollUser(courseId: number, userId: number): Promise<void> {
@@ -280,6 +342,53 @@ export class MoodleClient {
       return { token: response.token };
     } catch (error) {
       return { error: error instanceof Error ? error.message : 'Authentication failed' };
+    }
+  }
+
+  // Generate autologin token for SSO
+  async generateLoginToken(userId: number): Promise<string | null> {
+    try {
+      // Try to get available authentication methods
+      const siteInfo = await this.getSiteInfo();
+      const functions = siteInfo.functions as any[] || [];
+      
+      // Check if token-based auth is available
+      const hasTokenAuth = functions.some(f => 
+        f.name.includes('auth') || 
+        f.name.includes('token') || 
+        f.name.includes('login')
+      );
+      
+      if (!hasTokenAuth) {
+        console.warn('No token-based authentication functions available in Moodle');
+        return null;
+      }
+      
+      // For now, return null as we need to configure Moodle plugins
+      return null;
+    } catch (error) {
+      console.error('Failed to generate login token:', error);
+      return null;
+    }
+  }
+
+  // Generate secure autologin URL
+  async generateAutologinUrl(userId: number, redirectUrl: string): Promise<string> {
+    const moodleUrl = process.env.MOODLE_URL;
+    if (!moodleUrl) {
+      throw new Error('Moodle URL not configured');
+    }
+
+    // Try to generate login token
+    const token = await this.generateLoginToken(userId);
+    
+    if (token) {
+      // Use token-based autologin (requires Moodle auth plugin)
+      return `${moodleUrl}/auth/userkey/login.php?key=${token}&redirect=${encodeURIComponent(redirectUrl)}`;
+    } else {
+      // Fallback: direct course URL (user will need to login manually)
+      console.warn('Token-based SSO not available, using direct course URL');
+      return redirectUrl;
     }
   }
 
@@ -313,7 +422,8 @@ export class MoodleClient {
         'core_user_get_users_by_field',
         'core_user_create_users',
         'core_course_get_courses',
-        'enrol_manual_enrol_users'
+        'enrol_manual_enrol_users',
+        'core_enrol_get_enrolled_users'
       ];
       
       console.log('Available Moodle functions:', functions.map(f => f.name));

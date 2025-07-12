@@ -24,6 +24,7 @@ model User {
   role              UserRole           @default(STUDENT)
   moodleUserId      Int?               @unique
   moodleUsername    String?            @unique
+  moodlePassword    String?            // Encrypted Moodle password for SSO
   isActive          Boolean            @default(true)
   lastLogin         DateTime?
   

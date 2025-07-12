@@ -8,361 +8,1123 @@
    - Environments: .env.local, .env
 
  ✓ Starting...
- ✓ Ready in 4.6s
+ ✓ Ready in 7.7s
  ○ Compiling / ...
- ✓ Compiled / in 8s (700 modules)
- HEAD / 200 in 8805ms
- ✓ Compiled in 1238ms (321 modules)
- GET / 200 in 984ms
+ ✓ Compiled / in 11s (792 modules)
+ ✓ Compiled in 1605ms (333 modules)
+ GET / 200 in 12682ms
  ○ Compiling /api/courses ...
- ✓ Compiled /api/courses in 1597ms (702 modules)
- GET /api/courses 200 in 2246ms
- ○ Compiling /courses ...
- ✓ Compiled /courses in 2.5s (772 modules)
- GET /courses 200 in 2952ms
- GET / 200 in 153ms
- ✓ Compiled in 2.1s (777 modules)
- GET / 200 in 491ms
- ✓ Compiled /api/courses in 229ms (450 modules)
- GET /api/courses 200 in 802ms
- GET /api/courses 200 in 250ms
- GET / 200 in 492ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 517ms (452 modules)
- GET /favicon.ico 200 in 763ms
- GET /api/courses 200 in 923ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 1023ms (787 modules)
- GET /courses/2 404 in 1337ms
- GET / 200 in 333ms
- GET /api/courses 200 in 448ms
- ○ Compiling /courses ...
- ✓ Compiled /courses in 755ms (467 modules)
- GET /courses 200 in 962ms
- GET /api/courses 200 in 232ms
- GET /api/courses 200 in 219ms
- ✓ Compiled in 970ms (345 modules)
- ✓ Compiled in 1831ms (791 modules)
- ✓ Compiled in 525ms (345 modules)
- ✓ Compiled in 1613ms (777 modules)
- ✓ Compiled in 1308ms (791 modules)
- ✓ Compiled in 550ms (345 modules)
- ✓ Compiled in 532ms (345 modules)
- ✓ Compiled in 1605ms (791 modules)
- ✓ Compiled in 963ms (791 modules)
- ✓ Compiled in 2.4s (791 modules)
- ✓ Compiled in 1095ms (791 modules)
- ○ Compiling /api/courses ...
- ✓ Compiled /api/courses in 1031ms (464 modules)
- GET /api/courses 200 in 1701ms
- ○ Compiling /api/courses/[id] ...
- ✓ Compiled /api/courses/[id] in 858ms (798 modules)
-Error: Route "/api/courses/[id]" used `params.id`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
-    at GET (src/app/api/courses/[id]/route.ts:9:37)
-   7 | ) {
-   8 |   try {
->  9 |     const courseId = parseInt(params.id);
-     |                                     ^
-  10 |     
-  11 |     if (isNaN(courseId)) {
-  12 |       return NextResponse.json(
-Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
-    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
-    at async MoodleClient.getCourseById (src/lib/moodle/client.ts:141:21)
-    at async GET (src/app/api/courses/[id]/route.ts:22:19)
-  93 |
-  94 |       if (data.exception) {
-> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
-     |              ^
-  96 |       }
-  97 |
-  98 |       return data;
-Error fetching course details: Error: Moodle API Error: Invalid parameter value detected
-    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
-    at async MoodleClient.getCourseById (src/lib/moodle/client.ts:141:21)
-    at async GET (src/app/api/courses/[id]/route.ts:22:19)
-  93 |
-  94 |       if (data.exception) {
-> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
-     |              ^
-  96 |       }
-  97 |
-  98 |       return data;
- GET /api/courses/2 500 in 3483ms
- ✓ Compiled in 877ms (812 modules)
- ✓ Compiled in 1001ms (812 modules)
- GET /api/courses/2 200 in 345ms
+ ✓ Compiled /login in 4s (826 modules)
+ GET /login 200 in 3593ms
+ GET /api/courses 200 in 5232ms
+ ○ Compiling /api/auth/login ...
+ ✓ Compiled /api/auth/login in 1493ms (910 modules)
+ POST /api/auth/login 200 in 4385ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1777ms (921 modules)
+ GET /dashboard 200 in 2395ms
+ ○ Compiling /api/my-enrollments ...
+ GET /api/courses 200 in 646ms
+ ✓ Compiled /api/my-enrollments in 1166ms (924 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 2119ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 454ms
  ○ Compiling /courses/[id] ...
- ✓ Compiled /courses/[id] in 974ms (805 modules)
- GET /courses/2 200 in 3096ms
- GET /courses 200 in 339ms
- ✓ Compiled /api/courses in 451ms (472 modules)
- ✓ Compiled (474 modules)
- GET /favicon.ico 200 in 1301ms
- GET /api/courses 200 in 1430ms
- GET /courses/5 200 in 216ms
- GET /api/courses/5 200 in 295ms
- GET /api/courses/5 200 in 239ms
- ✓ Compiled in 2.9s (798 modules)
- GET /courses/5 200 in 441ms
+ ✓ Compiled /courses/[id] in 1110ms (931 modules)
+ GET /courses/5 200 in 3489ms
+ GET /courses/5 200 in 127ms
  ○ Compiling /api/courses/[id] ...
- ✓ Compiled /api/courses/[id] in 932ms (470 modules)
- GET /api/courses/5 200 in 1803ms
- ✓ Compiled in 2.2s (817 modules)
- GET /courses/5 200 in 385ms
- GET /api/courses/5 200 in 370ms
- ✓ Compiled in 1502ms (817 modules)
- GET /courses/5 200 in 170ms
- GET /api/courses/5 200 in 283ms
- ✓ Compiled in 1034ms (347 modules)
- GET /courses/5 200 in 330ms
- GET /courses/5 200 in 74ms
- ✓ Compiled in 679ms (347 modules)
- GET /courses/5 200 in 257ms
- GET /courses/5 200 in 80ms
- ✓ Compiled in 441ms (347 modules)
- GET /courses/5 200 in 106ms
- GET /courses/5 200 in 169ms
- ✓ Compiled in 455ms (347 modules)
- GET /courses/5 200 in 185ms
- ✓ Compiled in 377ms (347 modules)
- GET /courses/5 200 in 326ms
- ✓ Compiled in 515ms (347 modules)
- GET /courses/5 200 in 295ms
- ✓ Compiled in 861ms (347 modules)
- GET /courses/5 200 in 198ms
- ✓ Compiled in 528ms (347 modules)
- GET /courses/5 200 in 195ms
- ✓ Compiled in 380ms (347 modules)
- GET /courses/5 200 in 164ms
- ✓ Compiled in 667ms (347 modules)
- GET /courses/5 200 in 145ms
- ✓ Compiled in 743ms (347 modules)
- GET /courses/5 200 in 335ms
- ✓ Compiled in 769ms (347 modules)
- GET /courses/5 200 in 193ms
- ○ Compiling /api/my-enrollments ...
- ✓ Compiled /api/my-enrollments in 2.7s (898 modules)
- GET /api/my-enrollments 401 in 2988ms
- GET /courses/5 200 in 580ms
- ✓ Compiled /api/courses/[id]/status in 423ms (886 modules)
- GET /api/courses/5/status 401 in 1839ms
- GET /courses/5 200 in 346ms
- ✓ Compiled in 436ms (347 modules)
- GET /courses/5 200 in 205ms
- ✓ Compiled in 337ms (347 modules)
- GET /courses/5 200 in 177ms
- ✓ Compiled in 1705ms (897 modules)
- GET /courses/5 200 in 245ms
- ✓ Compiled in 637ms (347 modules)
- GET /courses/5 200 in 245ms
- ✓ Compiled in 798ms (347 modules)
- GET /courses/5 200 in 142ms
- GET /courses/5 200 in 675ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /api/courses/[id] in 1133ms (467 modules)
- ✓ Compiled (472 modules)
- GET /favicon.ico 200 in 2479ms
- GET /api/courses/5 200 in 2284ms
- GET /courses 200 in 260ms
- ✓ Compiled /api/courses in 380ms (474 modules)
- GET /api/courses 200 in 655ms
- GET /api/courses 200 in 235ms
- GET /courses/14 200 in 209ms
- GET /api/courses/14 200 in 225ms
- GET /api/courses/14 200 in 239ms
- ○ Compiling /login ...
- ✓ Compiled /login in 3.6s (863 modules)
- GET /login?return=%2Fcourses%2F14 200 in 4045ms
- GET /login?return=%2Fcourses%2F14 200 in 97ms
- GET /login?return=%2Fcourses%2F14 200 in 32ms
- ○ Compiling /register ...
- ✓ Compiled /register in 994ms (856 modules)
- GET /register 200 in 1218ms
- ○ Compiling /api/auth/register ...
- ✓ Compiled /api/auth/register in 1917ms (940 modules)
-Registration error: Error [PrismaClientKnownRequestError]: 
-Invalid `prisma.user.findUnique()` invocation:
-
-
-The column `users.firstName` does not exist in the current database.
-    at async POST (src/app/api/auth/register/route.ts:38:25)
-  36 |
-  37 |     // Check if user already exists
-> 38 |     const existingUser = await prisma.user.findUnique({
-     |                         ^
-  39 |       where: { email },
-  40 |     });
-  41 | {
-  code: 'P2022',
-  meta: [Object],
-  clientVersion: '6.11.1'
+ ✓ Compiled /api/courses/[id] in 1223ms (933 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
 }
- POST /api/auth/register 500 in 2823ms
- ✓ Compiled in 2.9s (847 modules)
- GET /register 200 in 382ms
- ✓ Compiled in 572ms (368 modules)
- GET /register 200 in 120ms
- ✓ Compiled in 1104ms (368 modules)
- GET /register 200 in 320ms
- ✓ Compiled in 378ms (368 modules)
- GET /register 200 in 79ms
- ○ Compiling /api/auth/register ...
- ✓ Compiled /api/auth/register in 1021ms (579 modules)
- GET /register 200 in 423ms
-Registration error: Error [PrismaClientKnownRequestError]: 
-Invalid `prisma.user.findUnique()` invocation:
-
-
-The column `users.password` does not exist in the current database.
-    at async POST (src/app/api/auth/register/route.ts:38:25)
-  36 |
-  37 |     // Check if user already exists
-> 38 |     const existingUser = await prisma.user.findUnique({
-     |                         ^
-  39 |       where: { email },
-  40 |     });
-  41 | {
-  code: 'P2022',
-  meta: [Object],
-  clientVersion: '6.11.1'
+ GET /api/courses/5 200 in 2980ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
 }
- POST /api/auth/register 500 in 2093ms
- GET /register 200 in 417ms
- ✓ Compiled /favicon.ico in 465ms (581 modules)
- GET /favicon.ico 200 in 610ms
-Registration error: Error [PrismaClientKnownRequestError]: 
-Invalid `prisma.user.findUnique()` invocation:
-
-
-The column `users.password` does not exist in the current database.
-    at async POST (src/app/api/auth/register/route.ts:38:25)
-  36 |
-  37 |     // Check if user already exists
-> 38 |     const existingUser = await prisma.user.findUnique({
-     |                         ^
-  39 |       where: { email },
-  40 |     });
-  41 | {
-  code: 'P2022',
-  meta: [Object],
-  clientVersion: '6.11.1'
-}
- POST /api/auth/register 500 in 836ms
- GET /register 200 in 1038ms
- GET /favicon.ico 200 in 40ms
-Registration error: Error [PrismaClientUnknownRequestError]: 
-Invalid `prisma.user.findUnique()` invocation:
-
-
-Error occurred during query execution:
-ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: "42P05", message: "prepared statement \"s3\" already exists", severity: "ERROR", detail: None, column: None, hint: None }), transient: false })
-    at async POST (src/app/api/auth/register/route.ts:38:25)
-  36 |
-  37 |     // Check if user already exists
-> 38 |     const existingUser = await prisma.user.findUnique({
-     |                         ^
-  39 |       where: { email },
-  40 |     });
-  41 | {
-  clientVersion: '6.11.1'
-}
- POST /api/auth/register 500 in 1240ms
- GET / 200 in 780ms
- ○ Compiling /api/courses ...
- ✓ Compiled /api/courses in 1868ms (497 modules)
- GET /api/courses 200 in 2652ms
-   Reload env: .env.local
- ✓ Compiled in 1593ms (851 modules)
- GET / 200 in 213ms
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 3.4s (858 modules)
- GET /dashboard 200 in 3826ms
- GET /courses 200 in 2522ms
- GET /courses 200 in 171ms
- GET /courses 200 in 100ms
- GET /api/courses 200 in 308ms
- GET /api/courses 200 in 256ms
- ✓ Compiled in 887ms (370 modules)
- GET /courses 200 in 80ms
- GET / 200 in 557ms
- GET /api/courses 200 in 423ms
- GET /courses 200 in 77ms
- GET /api/courses 200 in 328ms
- GET /api/courses 200 in 236ms
- GET /courses/14 200 in 93ms
- ○ Compiling /api/courses/[id] ...
- ✓ Compiled /api/courses/[id] in 3.1s (500 modules)
- GET /api/courses/14 200 in 3675ms
- GET /api/courses/14 200 in 324ms
- GET /login?return=%2Fcourses%2F14 200 in 202ms
- GET /register 200 in 84ms
- ○ Compiling /api/auth/register ...
- ✓ Compiled /api/auth/register in 1719ms (587 modules)
- GET /register 200 in 644ms
- GET /courses 200 in 646ms
-prisma:query BEGIN
-prisma:query DEALLOCATE ALL
-prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
-prisma:query COMMIT
-prisma:query BEGIN
-prisma:query DEALLOCATE ALL
-prisma:query INSERT INTO "public"."users" ("id","email","name","firstName","lastName","password","role","isActive","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,CAST($7::text AS "public"."UserRole"),$8,$9,$10) RETURNING "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt"
-prisma:query COMMIT
- POST /api/auth/register 200 in 4051ms
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 642ms (592 modules)
- GET /dashboard 200 in 1101ms
- GET /api/courses 200 in 547ms
- ○ Compiling /api/my-enrollments ...
- ✓ Compiled /api/my-enrollments in 999ms (594 modules)
- GET /courses 200 in 307ms
- GET /dashboard 200 in 460ms
- GET /api/my-enrollments 200 in 2223ms
- GET /api/my-enrollments 200 in 520ms
- GET /courses/7 200 in 150ms
- GET /api/courses/7 200 in 284ms
- GET /api/courses/7 200 in 263ms
+ GET /api/courses/5 200 in 250ms
  ○ Compiling /api/courses/[id]/status ...
- ✓ Compiled /api/courses/[id]/status in 1844ms (591 modules)
+ ✓ Compiled /api/courses/[id]/status in 1451ms (935 modules)
  ○ Compiling /api/courses/[id]/enroll ...
- GET /api/courses/7/status 200 in 3283ms
- ✓ Compiled /api/courses/[id]/enroll in 5.7s (963 modules)
- GET /courses 200 in 854ms
- GET /courses/7 200 in 974ms
- GET /api/courses/7/status 200 in 5899ms
-Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
-    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
-    at async MoodleClient.getUserByEmail (src/lib/moodle/client.ts:115:21)
-    at async POST (src/app/api/courses/[id]/enroll/route.ts:112:23)
-  93 |
-  94 |       if (data.exception) {
-> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
-     |              ^
-  96 |       }
-  97 |
-  98 |       return data;
-Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
-    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
-    at async MoodleClient.createUser (src/lib/moodle/client.ts:129:21)
-    at async POST (src/app/api/courses/[id]/enroll/route.ts:118:23)
-  93 |
-  94 |       if (data.exception) {
-> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
-     |              ^
-  96 |       }
-  97 |
-  98 |       return data;
-Error creating Moodle user: Error: Moodle API Error: Invalid parameter value detected
-    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
-    at async MoodleClient.createUser (src/lib/moodle/client.ts:129:21)
-    at async POST (src/app/api/courses/[id]/enroll/route.ts:118:23)
-  93 |
-  94 |       if (data.exception) {
-> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
-     |              ^
-  96 |       }
-  97 |
-  98 |       return data;
- POST /api/courses/7/enroll 500 in 11701ms
- ✓ Compiled in 1140ms (479 modules)
+ ✓ Compiled /api/courses/[id]/enroll in 1133ms (939 modules)
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/courses/5/status 200 in 5899ms
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."courses"."id", "public"."courses"."moodleCourseId", "public"."courses"."title", "public"."courses"."slug", "public"."courses"."description", "public"."courses"."shortDescription", "public"."courses"."thumbnail", "public"."courses"."price", "public"."courses"."originalPrice", "public"."courses"."currency", "public"."courses"."level"::text, "public"."courses"."duration", "public"."courses"."language", "public"."courses"."requirements", "public"."courses"."whatYouWillLearn", "public"."courses"."instructorName", "public"."courses"."instructorEmail", "public"."courses"."instructorBio", "public"."courses"."metaTitle", "public"."courses"."metaDescription", "public"."courses"."keywords", "public"."courses"."isActive", "public"."courses"."isVisible", "public"."courses"."isFeatured", "public"."courses"."isOnSale", "public"."courses"."saleEndsAt", "public"."courses"."viewCount", "public"."courses"."enrollmentCount", "public"."courses"."averageRating", "public"."courses"."totalReviews", "public"."courses"."categoryId", "public"."courses"."createdAt", "public"."courses"."updatedAt" FROM "public"."courses" WHERE ("public"."courses"."moodleCourseId" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt" FROM "public"."enrollments" WHERE (("public"."enrollments"."userId" = $1 AND "public"."enrollments"."courseId" = $2) AND 1=1) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+Moodle API Request: {
+  wsfunction: 'core_webservice_get_site_info',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_webservice_get_site_info',
+    moodlewsrestformat: 'json'
+  }
+}
+Moodle connection successful: {
+  sitename: 'Inner Embrace',
+  siteurl: 'https://learn.cabala.com.vn',
+  version: '2024100704',
+  functions: 7
+}
+Moodle API Request: {
+  wsfunction: 'core_webservice_get_site_info',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_webservice_get_site_info',
+    moodlewsrestformat: 'json'
+  }
+}
+Available Moodle functions: [
+  'core_course_get_categories',
+  'core_course_get_courses',
+  'core_user_create_users',
+  'core_user_get_users_by_field',
+  'core_webservice_get_site_info',
+  'enrol_manual_enrol_users',
+  'core_enrol_get_enrolled_users'
+]
+Required functions check:
+  core_user_get_users_by_field: ✅
+  core_user_create_users: ✅
+  core_course_get_courses: ✅
+  enrol_manual_enrol_users: ✅
+  core_enrol_get_enrolled_users: ✅
+🔧 Creating Moodle user with Cabala prefix and unique email: {
+  username: 'Cabala_linhnt.ftu52_1752306172372',
+  email: 'linhnt.ftu52_website@cabala.com.vn',
+  originalEmail: 'linhnt.ftu52@gmail.com',
+  firstname: 'Linh',
+  lastname: 'Nguyen'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'linhnt.ftu52_website@cabala.com.vn' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'linhnt.ftu52_website@cabala.com.vn'
+  }
+}
+🆕 Creating new Cabala Moodle user...
+🔍 Attempting to create Moodle user with data: {
+  username: 'Cabala_linhnt.ftu52_1752306172372',
+  email: 'linhnt.ftu52_website@cabala.com.vn',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  password: 'Moodlelinhnt.ftu522024!',
+  auth: 'manual',
+  lang: 'en',
+  timezone: 'Asia/Ho_Chi_Minh'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_create_users',
+  params: { users: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_create_users',
+    moodlewsrestformat: 'json',
+    'users[0][username]': 'Cabala_linhnt.ftu52_1752306172372',
+    'users[0][email]': 'linhnt.ftu52_website@cabala.com.vn',
+    'users[0][firstname]': 'Linh',
+    'users[0][lastname]': 'Nguyen',
+    'users[0][password]': 'Moodlelinhnt.ftu522024!',
+    'users[0][auth]': 'manual',
+    'users[0][lang]': 'en',
+    'users[0][timezone]': 'Asia/Ho_Chi_Minh'
+  }
+}
+ GET /api/courses/5/status 200 in 1108ms
+Moodle API Exception: {
+  wsfunction: 'core_user_create_users',
+  exception: 'core\\exception\\invalid_parameter_exception',
+  message: 'Invalid parameter value detected',
+  errorcode: 'invalidparameter',
+  debuginfo: undefined
+}
+Moodle API Error: {
+  wsfunction: 'core_user_create_users',
+  error: 'Moodle API Error: Invalid parameter value detected (invalidparameter)',
+  params: { users: [ [Object] ] }
+}
+Error creating Moodle user: Error: Moodle API Error: Invalid parameter value detected (invalidparameter)
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:157:14)
+    at async MoodleClient.createUser (src/lib/moodle/client.ts:233:21)
+    at async POST (src/app/api/courses/[id]/enroll/route.ts:153:23)
+  155 |           debuginfo: data.debuginfo,
+  156 |         });
+> 157 |         throw new Error(`Moodle API Error: ${data.message || data.exception} (${data.errorcode || 'Unknown'})`);
+      |              ^
+  158 |       }
+  159 |
+  160 |       // Handle warnings
+ POST /api/courses/5/enroll 500 in 5022ms
+ ○ Compiling /courses ...
+ ✓ Compiled /courses in 2.4s (946 modules)
+ GET /courses 200 in 3028ms
+ GET /courses 200 in 140ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses 200 in 459ms
+ GET /api/courses/5 200 in 341ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses 200 in 365ms
+ GET /api/courses/5 200 in 348ms
+ GET /api/courses 200 in 248ms
+ GET /api/courses 200 in 233ms
+ GET /api/courses/5/status 200 in 1296ms
+ GET /api/courses/5/status 200 in 664ms
+ GET /courses/7 200 in 109ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 248ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 261ms
+ GET /api/courses/7/status 200 in 605ms
+ GET /api/courses/7/status 200 in 663ms
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."courses"."id", "public"."courses"."moodleCourseId", "public"."courses"."title", "public"."courses"."slug", "public"."courses"."description", "public"."courses"."shortDescription", "public"."courses"."thumbnail", "public"."courses"."price", "public"."courses"."originalPrice", "public"."courses"."currency", "public"."courses"."level"::text, "public"."courses"."duration", "public"."courses"."language", "public"."courses"."requirements", "public"."courses"."whatYouWillLearn", "public"."courses"."instructorName", "public"."courses"."instructorEmail", "public"."courses"."instructorBio", "public"."courses"."metaTitle", "public"."courses"."metaDescription", "public"."courses"."keywords", "public"."courses"."isActive", "public"."courses"."isVisible", "public"."courses"."isFeatured", "public"."courses"."isOnSale", "public"."courses"."saleEndsAt", "public"."courses"."viewCount", "public"."courses"."enrollmentCount", "public"."courses"."averageRating", "public"."courses"."totalReviews", "public"."courses"."categoryId", "public"."courses"."createdAt", "public"."courses"."updatedAt" FROM "public"."courses" WHERE ("public"."courses"."moodleCourseId" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt" FROM "public"."enrollments" WHERE (("public"."enrollments"."userId" = $1 AND "public"."enrollments"."courseId" = $2) AND 1=1) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+Moodle API Request: {
+  wsfunction: 'core_webservice_get_site_info',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_webservice_get_site_info',
+    moodlewsrestformat: 'json'
+  }
+}
+Moodle connection successful: {
+  sitename: 'Inner Embrace',
+  siteurl: 'https://learn.cabala.com.vn',
+  version: '2024100704',
+  functions: 7
+}
+Moodle API Request: {
+  wsfunction: 'core_webservice_get_site_info',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_webservice_get_site_info',
+    moodlewsrestformat: 'json'
+  }
+}
+Available Moodle functions: [
+  'core_course_get_categories',
+  'core_course_get_courses',
+  'core_user_create_users',
+  'core_user_get_users_by_field',
+  'core_webservice_get_site_info',
+  'enrol_manual_enrol_users',
+  'core_enrol_get_enrolled_users'
+]
+Required functions check:
+  core_user_get_users_by_field: ✅
+  core_user_create_users: ✅
+  core_course_get_courses: ✅
+  enrol_manual_enrol_users: ✅
+  core_enrol_get_enrolled_users: ✅
+🔧 Creating Moodle user with Cabala prefix and unique email: {
+  username: 'Cabala_linhnt.ftu52_1752306192769',
+  email: 'linhnt.ftu52_website@cabala.com.vn',
+  originalEmail: 'linhnt.ftu52@gmail.com',
+  firstname: 'Linh',
+  lastname: 'Nguyen'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'linhnt.ftu52_website@cabala.com.vn' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'linhnt.ftu52_website@cabala.com.vn'
+  }
+}
+🆕 Creating new Cabala Moodle user...
+🔍 Attempting to create Moodle user with data: {
+  username: 'Cabala_linhnt.ftu52_1752306192769',
+  email: 'linhnt.ftu52_website@cabala.com.vn',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  password: 'Moodlelinhnt.ftu522024!',
+  auth: 'manual',
+  lang: 'en',
+  timezone: 'Asia/Ho_Chi_Minh'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_create_users',
+  params: { users: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_create_users',
+    moodlewsrestformat: 'json',
+    'users[0][username]': 'Cabala_linhnt.ftu52_1752306192769',
+    'users[0][email]': 'linhnt.ftu52_website@cabala.com.vn',
+    'users[0][firstname]': 'Linh',
+    'users[0][lastname]': 'Nguyen',
+    'users[0][password]': 'Moodlelinhnt.ftu522024!',
+    'users[0][auth]': 'manual',
+    'users[0][lang]': 'en',
+    'users[0][timezone]': 'Asia/Ho_Chi_Minh'
+  }
+}
+Moodle API Exception: {
+  wsfunction: 'core_user_create_users',
+  exception: 'core\\exception\\invalid_parameter_exception',
+  message: 'Invalid parameter value detected',
+  errorcode: 'invalidparameter',
+  debuginfo: undefined
+}
+Moodle API Error: {
+  wsfunction: 'core_user_create_users',
+  error: 'Moodle API Error: Invalid parameter value detected (invalidparameter)',
+  params: { users: [ [Object] ] }
+}
+Error creating Moodle user: Error: Moodle API Error: Invalid parameter value detected (invalidparameter)
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:157:14)
+    at async MoodleClient.createUser (src/lib/moodle/client.ts:233:21)
+    at async POST (src/app/api/courses/[id]/enroll/route.ts:153:23)
+  155 |           debuginfo: data.debuginfo,
+  156 |         });
+> 157 |         throw new Error(`Moodle API Error: ${data.message || data.exception} (${data.errorcode || 'Unknown'})`);
+      |              ^
+  158 |       }
+  159 |
+  160 |       // Handle warnings
+ POST /api/courses/7/enroll 500 in 1944ms
+ ✓ Compiled in 2.8s (479 modules)
+ ✓ Compiled in 1083ms (368 modules)
+ ✓ Compiled in 638ms (368 modules)
+ ✓ Compiled in 4.2s (847 modules)
+ ✓ Compiled in 2.5s (847 modules)
+ ✓ Compiled in 1612ms (847 modules)
+ ✓ Compiled in 2.7s (847 modules)
+ ✓ Compiled in 1671ms (847 modules)
+ ✓ Compiled in 555ms (368 modules)
+ ✓ Compiled in 377ms (368 modules)
+ GET /courses/7 200 in 1635ms
+ ○ Compiling /_not-found ...
+ GET /courses/7 200 in 895ms
+ GET /courses/7 200 in 1389ms
+ ✓ Compiled /api/courses/[id] in 8s (856 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ POST /api/courses/7/enroll 404 in 12522ms
+ GET /courses/7 200 in 8778ms
+ GET /courses/7 200 in 308ms
+ GET /api/courses/7 200 in 11015ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 242ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 215ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 250ms
+ ✓ Compiled in 2.3s (368 modules)
+ ✓ Compiled in 1123ms (368 modules)
+ ✓ Compiled in 594ms (368 modules)
+ ✓ Compiled in 1011ms (368 modules)
+ GET / 200 in 534ms
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 2.2s (497 modules)
+ GET /login 200 in 2742ms
+ GET /api/courses 200 in 3622ms
+ ○ Compiling /api/auth/login ...
+ ✓ Compiled /api/auth/login in 1254ms (581 modules)
+ POST /api/auth/login 401 in 2917ms
+ POST /api/auth/login 200 in 1408ms
+ GET /dashboard 200 in 550ms
+ GET /api/courses 200 in 492ms
+ ○ Compiling /api/my-enrollments ...
+ ✓ Compiled /api/my-enrollments in 1024ms (584 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 2414ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 714ms
+ GET /courses/7 200 in 184ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 1491ms (586 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 1942ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/7 200 in 276ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 1470ms (944 modules)
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'linhnt.ftu52@gmail.com',
+  moodleUserId: null,
+  moodleUsername: null,
+  courseId: 7
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'linhnt.ftu52@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'linhnt.ftu52@gmail.com'
+  }
+}
+✅ Email found in Moodle: { id: 63, username: 'irislinhnguyen', email: 'linhnt.ftu52@gmail.com' }
+⚠️ Email exists but username mismatch - creating new account with unique email
+🔍 Creating new Moodle account: {
+  username: 'cabala_linhnt_ftu52_1752308472028',
+  email: 'linhnt.ftu52_1752308472028@cabala.com.vn',
+  originalEmail: 'linhnt.ftu52@gmail.com',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  needsUniqueEmail: true,
+  passwordLength: 22
+}
+🔍 Attempting to create Moodle user with data: {
+  username: 'cabala_linhnt_ftu52_1752308472028',
+  email: 'linhnt.ftu52_1752308472028@cabala.com.vn',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  password: 'Cabalalinhntftu522024!',
+  auth: 'manual',
+  lang: 'en',
+  timezone: 'Asia/Ho_Chi_Minh'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_create_users',
+  params: { users: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_create_users',
+    moodlewsrestformat: 'json',
+    'users[0][username]': 'cabala_linhnt_ftu52_1752308472028',
+    'users[0][email]': 'linhnt.ftu52_1752308472028@cabala.com.vn',
+    'users[0][firstname]': 'Linh',
+    'users[0][lastname]': 'Nguyen',
+    'users[0][password]': 'Cabalalinhntftu522024!',
+    'users[0][auth]': 'manual',
+    'users[0][lang]': 'en',
+    'users[0][timezone]': 'Asia/Ho_Chi_Minh'
+  }
+}
+🔍 Moodle user creation response: [ { id: 98, username: 'cabala_linhnt_ftu52_1752308472028' } ]
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'id', values: [ 98 ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'id',
+    'values[0]': '98'
+  }
+}
+🔍 Retrieved created user: {
+  id: 98,
+  username: 'cabala_linhnt_ftu52_1752308472028',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  fullname: 'Linh Nguyen',
+  email: 'linhnt.ftu52_1752308472028@cabala.com.vn',
+  department: '',
+  firstaccess: 0,
+  lastaccess: 0,
+  auth: 'manual',
+  suspended: false,
+  confirmed: true,
+  lang: 'en',
+  theme: '',
+  timezone: 'Asia/Ho_Chi_Minh',
+  mailformat: 1,
+  trackforums: 0,
+  profileimageurlsmall: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f2',
+  profileimageurl: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f1'
+}
+✅ Moodle account created successfully: {
+  id: 98,
+  username: 'cabala_linhnt_ftu52_1752308472028',
+  email: 'linhnt.ftu52_1752308472028@cabala.com.vn'
+}
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."users" SET "moodleUserId" = $1, "moodleUsername" = $2, "moodlePassword" = $3, "updatedAt" = $4 WHERE ("public"."users"."id" = $5 AND 1=1) RETURNING "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query COMMIT
+✅ Database updated with new Moodle credentials
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 7 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '7'
+  }
+}
+🎓 User not enrolled - enrolling now...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 7 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '7'
+  }
+}
+Moodle API Request: {
+  wsfunction: 'enrol_manual_enrol_users',
+  params: { enrolments: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'enrol_manual_enrol_users',
+    moodlewsrestformat: 'json',
+    'enrolments[0][roleid]': '5',
+    'enrolments[0][userid]': '98',
+    'enrolments[0][courseid]': '7'
+  }
+}
+Moodle API returned null for enrol_manual_enrol_users - treating as success
+Successfully enrolled user 98 in course 7
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt" FROM "public"."enrollments" LEFT JOIN "public"."courses" AS "j0" ON ("j0"."id") = ("public"."enrollments"."courseId") WHERE ("public"."enrollments"."userId" = $1 AND ("j0"."moodleCourseId" = $2 AND ("j0"."id" IS NOT NULL))) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."courses"."id", "public"."courses"."moodleCourseId", "public"."courses"."title", "public"."courses"."slug", "public"."courses"."description", "public"."courses"."shortDescription", "public"."courses"."thumbnail", "public"."courses"."price", "public"."courses"."originalPrice", "public"."courses"."currency", "public"."courses"."level"::text, "public"."courses"."duration", "public"."courses"."language", "public"."courses"."requirements", "public"."courses"."whatYouWillLearn", "public"."courses"."instructorName", "public"."courses"."instructorEmail", "public"."courses"."instructorBio", "public"."courses"."metaTitle", "public"."courses"."metaDescription", "public"."courses"."keywords", "public"."courses"."isActive", "public"."courses"."isVisible", "public"."courses"."isFeatured", "public"."courses"."isOnSale", "public"."courses"."saleEndsAt", "public"."courses"."viewCount", "public"."courses"."enrollmentCount", "public"."courses"."averageRating", "public"."courses"."totalReviews", "public"."courses"."categoryId", "public"."courses"."createdAt", "public"."courses"."updatedAt" FROM "public"."courses" WHERE "public"."courses"."moodleCourseId" = $1 LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query INSERT INTO "public"."enrollments" ("id","userId","courseId","status","progress","createdAt","updatedAt") VALUES ($1,$2,$3,CAST($4::text AS "public"."EnrollmentStatus"),$5,$6,$7) RETURNING "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt"
+prisma:query COMMIT
+✅ Local enrollment record created
+🔍 Step 3: Generating SSO token...
+✅ SSO process completed successfully: {
+  finalMoodleUserId: 98,
+  finalMoodleUsername: 'cabala_linhnt_ftu52_1752308472028',
+  courseId: 7,
+  ssoUrl: 'https://learn.cabala.com.vn/auth/sso/login.php?jwt_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWJhbGFfbGluaG50X2Z0dTUyXzE3NTIzMDg0NzQyNTgiLCJ1c2VybmFtZSI6ImNhYmFsYV9saW5obnRfZnR1NTJfMTc1MjMwODQ3NDI1OCIsInByZWZlcnJlZF91c2VybmFtZSI6ImNhYmFsYV9saW5obnRfZnR1NTJfMTc1MjMwODQ3NDI1OCIsImVtYWlsIjoibGluaG50LmZ0dTUyQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW5oIiwiZmFtaWx5X25hbWUiOiJOZ3V5ZW4iLCJpYXQiOjE3NTIzMDg0NzQsImV4cCI6MTc1MjMxMjA3NCwiaXNzIjoiY2FiYWxhLWxlYXJuaW5nLXN5c3RlbSJ9.CwYCMGrV1h8BsuzkQdkY4c6fWrr2OFZxykT9laMhCFE&redirect=https%3A%2F%2Flearn.cabala.com.vn%2Fcourse%2Fview.php%3Fid%3D7'
+}
+ GET /api/courses/7/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6bmFiMGswMDAwanFiaW0xNXBkNmU4IiwiZW1haWwiOiJsaW5obnQuZnR1NTJAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTIzMDg0NTUsImV4cCI6MTc1MjkxMzI1NX0.twKAJDtctZMTymlDe7Y0aWl6Ga3DZFIfF05dzsTf2C4 200 in 5993ms
+ ✓ Compiled in 2.3s (847 modules)
+ ✓ Compiled in 521ms (368 modules)
+ ✓ Compiled in 480ms (368 modules)
+ ✓ Compiled in 382ms (368 modules)
+ ✓ Compiled in 741ms (368 modules)
+ GET / 200 in 1272ms
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 1496ms (497 modules)
+ GET /login 200 in 1960ms
+ GET /api/courses 200 in 3025ms
+ ○ Compiling /api/auth/login ...
+ ✓ Compiled /api/auth/login in 507ms (581 modules)
+ POST /api/auth/login 200 in 2523ms
+ GET /dashboard 200 in 527ms
+ ○ Compiling /api/my-enrollments ...
+ ✓ Compiled /api/my-enrollments in 1363ms (584 modules)
+ GET /api/courses 200 in 2302ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 3154ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 660ms
+ GET /courses/5 200 in 157ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 970ms (586 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/5 200 in 1308ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/5 200 in 239ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 1340ms (590 modules)
+ GET /courses/5 200 in 546ms
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'linhnt.ftu52@gmail.com',
+  moodleUserId: 98,
+  moodleUsername: 'cabala_linhnt_ftu52_1752308472028',
+  courseId: 5
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'linhnt.ftu52@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'linhnt.ftu52@gmail.com'
+  }
+}
+✅ Email found in Moodle: { id: 63, username: 'irislinhnguyen', email: 'linhnt.ftu52@gmail.com' }
+⚠️ Email exists but username mismatch - creating new account with unique email
+🔍 Creating new Moodle account: {
+  username: 'cabala_linhnt_ftu52_1752308795357',
+  email: 'linhnt.ftu52_1752308795357@cabala.com.vn',
+  originalEmail: 'linhnt.ftu52@gmail.com',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  needsUniqueEmail: true,
+  passwordLength: 22
+}
+🔍 Attempting to create Moodle user with data: {
+  username: 'cabala_linhnt_ftu52_1752308795357',
+  email: 'linhnt.ftu52_1752308795357@cabala.com.vn',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  password: 'Cabalalinhntftu522024!',
+  auth: 'manual',
+  lang: 'en',
+  timezone: 'Asia/Ho_Chi_Minh'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_create_users',
+  params: { users: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_create_users',
+    moodlewsrestformat: 'json',
+    'users[0][username]': 'cabala_linhnt_ftu52_1752308795357',
+    'users[0][email]': 'linhnt.ftu52_1752308795357@cabala.com.vn',
+    'users[0][firstname]': 'Linh',
+    'users[0][lastname]': 'Nguyen',
+    'users[0][password]': 'Cabalalinhntftu522024!',
+    'users[0][auth]': 'manual',
+    'users[0][lang]': 'en',
+    'users[0][timezone]': 'Asia/Ho_Chi_Minh'
+  }
+}
+🔍 Moodle user creation response: [ { id: 99, username: 'cabala_linhnt_ftu52_1752308795357' } ]
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'id', values: [ 99 ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'id',
+    'values[0]': '99'
+  }
+}
+🔍 Retrieved created user: {
+  id: 99,
+  username: 'cabala_linhnt_ftu52_1752308795357',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  fullname: 'Linh Nguyen',
+  email: 'linhnt.ftu52_1752308795357@cabala.com.vn',
+  department: '',
+  firstaccess: 0,
+  lastaccess: 0,
+  auth: 'manual',
+  suspended: false,
+  confirmed: true,
+  lang: 'en',
+  theme: '',
+  timezone: 'Asia/Ho_Chi_Minh',
+  mailformat: 1,
+  trackforums: 0,
+  profileimageurlsmall: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f2',
+  profileimageurl: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f1'
+}
+✅ Moodle account created successfully: {
+  id: 99,
+  username: 'cabala_linhnt_ftu52_1752308795357',
+  email: 'linhnt.ftu52_1752308795357@cabala.com.vn'
+}
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."users" SET "moodleUserId" = $1, "moodleUsername" = $2, "moodlePassword" = $3, "updatedAt" = $4 WHERE ("public"."users"."id" = $5 AND 1=1) RETURNING "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query COMMIT
+✅ Database updated with new Moodle credentials
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 5 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '5'
+  }
+}
+🎓 User not enrolled - enrolling now...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 5 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '5'
+  }
+}
+Moodle API Request: {
+  wsfunction: 'enrol_manual_enrol_users',
+  params: { enrolments: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'enrol_manual_enrol_users',
+    moodlewsrestformat: 'json',
+    'enrolments[0][roleid]': '5',
+    'enrolments[0][userid]': '99',
+    'enrolments[0][courseid]': '5'
+  }
+}
+Moodle API returned null for enrol_manual_enrol_users - treating as success
+Successfully enrolled user 99 in course 5
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt" FROM "public"."enrollments" LEFT JOIN "public"."courses" AS "j0" ON ("j0"."id") = ("public"."enrollments"."courseId") WHERE ("public"."enrollments"."userId" = $1 AND ("j0"."moodleCourseId" = $2 AND ("j0"."id" IS NOT NULL))) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."courses"."id", "public"."courses"."moodleCourseId", "public"."courses"."title", "public"."courses"."slug", "public"."courses"."description", "public"."courses"."shortDescription", "public"."courses"."thumbnail", "public"."courses"."price", "public"."courses"."originalPrice", "public"."courses"."currency", "public"."courses"."level"::text, "public"."courses"."duration", "public"."courses"."language", "public"."courses"."requirements", "public"."courses"."whatYouWillLearn", "public"."courses"."instructorName", "public"."courses"."instructorEmail", "public"."courses"."instructorBio", "public"."courses"."metaTitle", "public"."courses"."metaDescription", "public"."courses"."keywords", "public"."courses"."isActive", "public"."courses"."isVisible", "public"."courses"."isFeatured", "public"."courses"."isOnSale", "public"."courses"."saleEndsAt", "public"."courses"."viewCount", "public"."courses"."enrollmentCount", "public"."courses"."averageRating", "public"."courses"."totalReviews", "public"."courses"."categoryId", "public"."courses"."createdAt", "public"."courses"."updatedAt" FROM "public"."courses" WHERE "public"."courses"."moodleCourseId" = $1 LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query INSERT INTO "public"."enrollments" ("id","userId","courseId","status","progress","createdAt","updatedAt") VALUES ($1,$2,$3,CAST($4::text AS "public"."EnrollmentStatus"),$5,$6,$7) RETURNING "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt"
+✅ Local enrollment record created
+🔍 Step 3: Generating SSO token...
+🔍 Using email for JWT: linhnt.ftu52_1752308795357@cabala.com.vn
+✅ SSO process completed successfully: {
+  finalMoodleUserId: 99,
+  finalMoodleUsername: 'cabala_linhnt_ftu52_1752308795357',
+  finalMoodleEmail: 'linhnt.ftu52_1752308795357@cabala.com.vn',
+  courseId: 5,
+  ssoUrl: 'https://learn.cabala.com.vn/auth/sso/login.php?jwt_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWJhbGFfbGluaG50X2Z0dTUyXzE3NTIzMDg3OTUzNTdfMTc1MjMwODc5NzQ5MSIsInVzZXJuYW1lIjoiY2FiYWxhX2xpbmhudF9mdHU1Ml8xNzUyMzA4Nzk1MzU3XzE3NTIzMDg3OTc0OTEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJjYWJhbGFfbGluaG50X2Z0dTUyXzE3NTIzMDg3OTUzNTdfMTc1MjMwODc5NzQ5MSIsImVtYWlsIjoibGluaG50LmZ0dTUyXzE3NTIzMDg3OTUzNTdAY2FiYWxhLmNvbS52biIsImdpdmVuX25hbWUiOiJMaW5oIiwiZmFtaWx5X25hbWUiOiJOZ3V5ZW4iLCJpYXQiOjE3NTIzMDg3OTcsImV4cCI6MTc1MjMxMjM5NywiaXNzIjoiY2FiYWxhLWxlYXJuaW5nLXN5c3RlbSJ9.FwE3ss9cVE3kW4FN1Z-6xWvvzYUq_XWjQOPBdthXBXo&redirect=https%3A%2F%2Flearn.cabala.com.vn%2Fcourse%2Fview.php%3Fid%3D5'
+}
+ GET /api/courses/5/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6bmFiMGswMDAwanFiaW0xNXBkNmU4IiwiZW1haWwiOiJsaW5obnQuZnR1NTJAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTIzMDg3NzYsImV4cCI6MTc1MjkxMzU3Nn0.lOE_apERDiBf9NzcwIFMpifsGm0MHuQXZ0jPg1T8PbY 200 in 4550ms
+prisma:query COMMIT
+ ✓ Compiled in 1600ms (479 modules)
+ ✓ Compiled in 1032ms (368 modules)
+ GET /courses/5 200 in 1488ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 2.1s (498 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /courses 200 in 603ms
+ GET /api/courses/5 200 in 2867ms
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 792ms (500 modules)
+ GET /api/courses 200 in 1224ms
+ GET /api/courses 200 in 344ms
+ GET /courses/5 200 in 237ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/5 200 in 418ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/5 200 in 609ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 581ms (585 modules)
+ GET /courses/5 200 in 438ms
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'linhnt.ftu52@gmail.com',
+  moodleUserId: 99,
+  moodleUsername: 'cabala_linhnt_ftu52_1752308795357',
+  courseId: 5
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'linhnt.ftu52@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'linhnt.ftu52@gmail.com'
+  }
+}
+✅ Email found in Moodle: { id: 63, username: 'irislinhnguyen', email: 'linhnt.ftu52@gmail.com' }
+⚠️ Email exists but username mismatch - creating new account with unique email
+🔍 Creating new Moodle account: {
+  username: 'cabala_linhnt_ftu52_1752309179456',
+  email: 'linhnt.ftu52_1752309179457@cabala.com.vn',
+  originalEmail: 'linhnt.ftu52@gmail.com',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  needsUniqueEmail: true,
+  passwordLength: 22
+}
+🔍 Attempting to create Moodle user with data: {
+  username: 'cabala_linhnt_ftu52_1752309179456',
+  email: 'linhnt.ftu52_1752309179457@cabala.com.vn',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  password: 'Cabalalinhntftu522024!',
+  auth: 'manual',
+  lang: 'en',
+  timezone: 'Asia/Ho_Chi_Minh'
+}
+Moodle API Request: {
+  wsfunction: 'core_user_create_users',
+  params: { users: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_create_users',
+    moodlewsrestformat: 'json',
+    'users[0][username]': 'cabala_linhnt_ftu52_1752309179456',
+    'users[0][email]': 'linhnt.ftu52_1752309179457@cabala.com.vn',
+    'users[0][firstname]': 'Linh',
+    'users[0][lastname]': 'Nguyen',
+    'users[0][password]': 'Cabalalinhntftu522024!',
+    'users[0][auth]': 'manual',
+    'users[0][lang]': 'en',
+    'users[0][timezone]': 'Asia/Ho_Chi_Minh'
+  }
+}
+🔍 Moodle user creation response: [ { id: 100, username: 'cabala_linhnt_ftu52_1752309179456' } ]
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'id', values: [ 100 ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'id',
+    'values[0]': '100'
+  }
+}
+🔍 Retrieved created user: {
+  id: 100,
+  username: 'cabala_linhnt_ftu52_1752309179456',
+  firstname: 'Linh',
+  lastname: 'Nguyen',
+  fullname: 'Linh Nguyen',
+  email: 'linhnt.ftu52_1752309179457@cabala.com.vn',
+  department: '',
+  firstaccess: 0,
+  lastaccess: 0,
+  auth: 'manual',
+  suspended: false,
+  confirmed: true,
+  lang: 'en',
+  theme: '',
+  timezone: 'Asia/Ho_Chi_Minh',
+  mailformat: 1,
+  trackforums: 0,
+  profileimageurlsmall: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f2',
+  profileimageurl: 'https://learn.cabala.com.vn/theme/image.php/boost/core/1752214186/u/f1'
+}
+✅ Moodle account created successfully: {
+  id: 100,
+  username: 'cabala_linhnt_ftu52_1752309179456',
+  email: 'linhnt.ftu52_1752309179457@cabala.com.vn'
+}
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."users" SET "moodleUserId" = $1, "moodleUsername" = $2, "moodlePassword" = $3, "updatedAt" = $4 WHERE ("public"."users"."id" = $5 AND 1=1) RETURNING "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query COMMIT
+✅ Database updated with new Moodle credentials
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 5 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '5'
+  }
+}
+🎓 User not enrolled - enrolling now...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 5 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '5'
+  }
+}
+Moodle API Request: {
+  wsfunction: 'enrol_manual_enrol_users',
+  params: { enrolments: [ [Object] ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'enrol_manual_enrol_users',
+    moodlewsrestformat: 'json',
+    'enrolments[0][roleid]': '5',
+    'enrolments[0][userid]': '100',
+    'enrolments[0][courseid]': '5'
+  }
+}
+Moodle API returned null for enrol_manual_enrol_users - treating as success
+Successfully enrolled user 100 in course 5
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."enrollments"."id", "public"."enrollments"."userId", "public"."enrollments"."courseId", "public"."enrollments"."status"::text, "public"."enrollments"."progress", "public"."enrollments"."completedAt", "public"."enrollments"."certificateUrl", "public"."enrollments"."moodleEnrollmentId", "public"."enrollments"."createdAt", "public"."enrollments"."updatedAt" FROM "public"."enrollments" LEFT JOIN "public"."courses" AS "j0" ON ("j0"."id") = ("public"."enrollments"."courseId") WHERE ("public"."enrollments"."userId" = $1 AND ("j0"."moodleCourseId" = $2 AND ("j0"."id" IS NOT NULL))) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+🔍 Step 3: Generating SSO token...
+🔍 Using email for JWT: linhnt.ftu52_1752309179457@cabala.com.vn
+🔍 Using username for JWT: cabala_linhnt_ftu52_1752309179456
+✅ SSO process completed successfully: {
+  finalMoodleUserId: 100,
+  finalMoodleUsername: 'cabala_linhnt_ftu52_1752309179456',
+  finalMoodleEmail: 'linhnt.ftu52_1752309179457@cabala.com.vn',
+  courseId: 5,
+  ssoUrl: 'https://learn.cabala.com.vn/auth/sso/login.php?jwt_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWJhbGFfbGluaG50X2Z0dTUyXzE3NTIzMDkxNzk0NTYiLCJ1c2VybmFtZSI6ImNhYmFsYV9saW5obnRfZnR1NTJfMTc1MjMwOTE3OTQ1NiIsInByZWZlcnJlZF91c2VybmFtZSI6ImNhYmFsYV9saW5obnRfZnR1NTJfMTc1MjMwOTE3OTQ1NiIsImVtYWlsIjoibGluaG50LmZ0dTUyXzE3NTIzMDkxNzk0NTdAY2FiYWxhLmNvbS52biIsImdpdmVuX25hbWUiOiJMaW5oIiwiZmFtaWx5X25hbWUiOiJOZ3V5ZW4iLCJpYXQiOjE3NTIzMDkxODEsImV4cCI6MTc1MjMxMjc4MSwiaXNzIjoiY2FiYWxhLWxlYXJuaW5nLXN5c3RlbSJ9.vrSO22tkA0HG_MwLPK3eC3pd8QQ8mKquERudjagIo5c&redirect=https%3A%2F%2Flearn.cabala.com.vn%2Fcourse%2Fview.php%3Fid%3D5'
+}
+ GET /api/courses/5/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6bmFiMGswMDAwanFiaW0xNXBkNmU4IiwiZW1haWwiOiJsaW5obnQuZnR1NTJAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTIzMDg3NzYsImV4cCI6MTc1MjkxMzU3Nn0.lOE_apERDiBf9NzcwIFMpifsGm0MHuQXZ0jPg1T8PbY 200 in 3325ms
+ ✓ Compiled in 1676ms (479 modules)
+[?25h

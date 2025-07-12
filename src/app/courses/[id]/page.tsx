@@ -39,9 +39,7 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
-  const [enrollmentStatus, setEnrollmentStatus] = useState<'not_enrolled' | 'enrolled' | 'loading'>('not_enrolled');
-  const [enrolling, setEnrolling] = useState(false);
-  const [showEnrollModal, setShowEnrollModal] = useState(false);
+  // Removed enrollment state - using direct SSO flow
 
   useEffect(() => {
     if (params.id) {
@@ -50,11 +48,7 @@ export default function CourseDetailPage() {
     }
   }, [params.id]);
 
-  useEffect(() => {
-    if (user && course) {
-      checkEnrollmentStatus();
-    }
-  }, [user, course]);
+  // Removed enrollment status checking - using direct SSO flow
 
   const checkAuthentication = () => {
     const token = localStorage.getItem('auth_token');
@@ -74,86 +68,7 @@ export default function CourseDetailPage() {
     }
   };
 
-  const checkEnrollmentStatus = async () => {
-    if (!user || !course) return;
-    
-    try {
-      const response = await fetch(`/api/courses/${course.id}/status`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setEnrollmentStatus(data.enrolled ? 'enrolled' : 'not_enrolled');
-      }
-    } catch (error) {
-      console.error('Error checking enrollment status:', error);
-    }
-  };
-
-  const handleEnrollment = async () => {
-    if (!user) {
-      // Redirect to login with return URL
-      const returnUrl = encodeURIComponent(window.location.pathname);
-      router.push(`/login?return=${returnUrl}`);
-      return;
-    }
-
-    setEnrolling(true);
-    setShowEnrollModal(true);
-    
-    try {
-      const response = await fetch(`/api/courses/${course?.id}/enroll`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      });
-
-      const data = await response.json();
-      
-      if (data.success) {
-        setEnrollmentStatus('enrolled');
-        setTimeout(() => {
-          setShowEnrollModal(false);
-          setEnrolling(false);
-        }, 2000);
-      } else {
-        throw new Error(data.error || 'Enrollment failed');
-      }
-    } catch (error) {
-      console.error('Enrollment error:', error);
-      alert('Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại.');
-      setShowEnrollModal(false);
-      setEnrolling(false);
-    }
-  };
-
-  const handleStartLearning = async () => {
-    if (!user || !course) return;
-    
-    try {
-      const response = await fetch(`/api/courses/${course.id}/access`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      });
-      
-      const data = await response.json();
-      
-      if (data.success && data.moodleUrl) {
-        window.open(data.moodleUrl, '_blank');
-      } else {
-        throw new Error(data.error || 'Access failed');
-      }
-    } catch (error) {
-      console.error('Course access error:', error);
-      alert('Không thể truy cập khóa học. Vui lòng thử lại.');
-    }
-  };
+  // Removed enrollment and access functions - using direct SSO flow
 
   const fetchCourse = async (courseId: string) => {
     try {
@@ -468,22 +383,19 @@ export default function CourseDetailPage() {
                   >
                     Đăng nhập để đăng ký
                   </Button>
-                ) : enrollmentStatus === 'enrolled' ? (
-                  <Button 
-                    size="lg" 
-                    className="w-full bg-cabala-teal hover:bg-cabala-teal-dark"
-                    onClick={handleStartLearning}
-                  >
-                    Bắt đầu học
-                  </Button>
                 ) : (
                   <Button 
                     size="lg" 
-                    className="w-full bg-cabala-orange hover:bg-cabala-orange-dark"
-                    onClick={handleEnrollment}
-                    disabled={enrolling}
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={() => {
+                      // Direct SSO link - miniOrange handles enrollment and login automatically
+                      const authToken = localStorage.getItem('auth_token');
+                      if (authToken) {
+                        window.location.href = `/api/courses/${course.id}/sso?token=${authToken}`;
+                      }
+                    }}
                   >
-                    {enrolling ? 'Đang đăng ký...' : 'Đăng ký ngay'}
+                    Bắt đầu học
                   </Button>
                 )}
 
@@ -534,54 +446,7 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
-      {/* Enrollment Modal */}
-      {showEnrollModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl p-8 max-w-md w-full mx-4 text-center">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-cabala-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                {enrolling ? (
-                  <div className="w-8 h-8 border-4 border-cabala-orange border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  <svg className="w-8 h-8 text-cabala-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </div>
-              <h3 className="text-xl font-bold text-cabala-navy mb-2">
-                {enrolling ? 'Đang thiết lập...' : 'Thiết lập hoàn tất!'}
-              </h3>
-              <p className="text-neutral-600">
-                {enrolling 
-                  ? 'Đang tạo tài khoản Moodle và ghi danh khóa học...' 
-                  : 'Tài khoản Moodle đã được tạo và bạn đã được ghi danh thành công!'
-                }
-              </p>
-            </div>
-            
-            {!enrolling && (
-              <div className="space-y-3">
-                <Button 
-                  onClick={() => {
-                    setShowEnrollModal(false);
-                    window.location.reload();
-                  }}
-                  className="w-full bg-cabala-orange hover:bg-cabala-orange-dark"
-                >
-                  Làm mới trang
-                </Button>
-                <Button 
-                  variant="outline"
-                  onClick={() => setShowEnrollModal(false)}
-                  className="w-full"
-                >
-                  Đóng
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Removed enrollment modal - using direct SSO flow */}
     </div>
   );
 }
