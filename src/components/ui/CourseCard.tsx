@@ -18,6 +18,7 @@ interface Course {
   students: number;
   duration: string;
   thumbnail: string;
+  courseImage?: string;
   visible: boolean;
 }
 
@@ -49,12 +50,20 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
     )}>
       {/* Course Thumbnail */}
       <div className="relative h-36 sm:h-40 overflow-hidden bg-cabala-blue-50">
-        <div className="w-full h-full bg-gradient-to-br from-cabala-blue-100 to-cabala-blue-200 flex items-center justify-center">
-          <div className="text-center p-3 sm:p-4">
-            <div className="text-base sm:text-lg font-bold text-cabala-blue mb-1">{course.shortName}</div>
-            <div className="text-xs sm:text-sm text-cabala-blue-600 opacity-80">Khóa học chất lượng</div>
+        {course.courseImage ? (
+          <img 
+            src={course.courseImage} 
+            alt={course.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-cabala-blue-100 to-cabala-blue-200 flex items-center justify-center">
+            <div className="text-center p-3 sm:p-4">
+              <div className="text-base sm:text-lg font-bold text-cabala-blue mb-1">{course.shortName}</div>
+              <div className="text-xs sm:text-sm text-cabala-blue-600 opacity-80">Khóa học chất lượng</div>
+            </div>
           </div>
-        </div>
+        )}
         
         {/* Level Badge */}
         <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
@@ -134,12 +143,12 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
           </div>
 
           {/* Enroll Button */}
-          <Link href={`/course/${course.id}`}>
+          <Link href={`/courses/${course.id}`}>
             <Button 
               size="sm" 
               className="bg-cabala-blue hover:bg-cabala-blue-dark text-white font-medium px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap touch-manipulation"
             >
-              Đăng ký ngay
+              Xem chi tiết
             </Button>
           </Link>
         </div>

@@ -32,9 +32,18 @@ interface Course {
   visible: boolean;
 }
 
+interface Enrollment {
+  id: string;
+  status: string;
+  progress: number;
+  enrolledAt: string;
+  course: Course;
+}
+
 export default function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [stats, setStats] = useState({ enrolled: 0, completed: 0, certificates: 0 });
   const [loading, setLoading] = useState(true);
 
@@ -63,10 +72,29 @@ export default function Dashboard() {
       return;
     }
 
-    // Fetch courses and stats
+    // Fetch courses, enrollments and stats
     fetchCourses();
+    fetchUserEnrollments();
     fetchUserStats();
   }, []);
+
+  const fetchUserEnrollments = async () => {
+    try {
+      const response = await fetch('/api/my-enrollments', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setEnrollments(data.enrollments);
+      }
+    } catch (error) {
+      console.error('Error fetching user enrollments:', error);
+    }
+  };
 
   const fetchUserStats = async () => {
     try {
@@ -224,6 +252,73 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* My Enrolled Courses */}
+            {enrollments.length > 0 && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle>Khóa học đã đăng ký</CardTitle>
+                  <CardDescription>
+                    Các khóa học bạn đã đăng ký và có thể bắt đầu học
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {enrollments.slice(0, 4).map((enrollment) => (
+                      <div key={enrollment.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-cabala-navy mb-1 line-clamp-2">
+                              {enrollment.course.title}
+                            </h3>
+                            <p className="text-sm text-neutral-600 mb-2">
+                              {enrollment.course.instructor}
+                            </p>
+                            <div className="flex items-center space-x-4 text-xs text-neutral-500">
+                              <span>Tiến độ: {enrollment.progress}%</span>
+                              <span>Trạng thái: {enrollment.status === 'ACTIVE' ? 'Đang học' : enrollment.status}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Progress Bar */}
+                        <div className="w-full bg-neutral-200 rounded-full h-2 mb-4">
+                          <div 
+                            className="bg-cabala-orange h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${enrollment.progress}%` }}
+                          ></div>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-neutral-500">
+                            Đăng ký: {new Date(enrollment.enrolledAt).toLocaleDateString('vi-VN')}
+                          </span>
+                          <button
+                            onClick={() => {
+                              // Navigate to course access
+                              window.open(`/api/courses/${enrollment.course.id}/access`, '_blank');
+                            }}
+                            className="bg-cabala-teal text-white px-4 py-2 text-sm rounded hover:bg-cabala-teal-dark transition-colors"
+                          >
+                            Tiếp tục học
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {enrollments.length > 4 && (
+                    <div className="text-center mt-6">
+                      <Link href="/my-courses">
+                        <Button variant="outline">
+                          Xem tất cả {enrollments.length} khóa học
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Available Courses */}
             <Card>

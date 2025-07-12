@@ -66,15 +66,45 @@ export class MoodleClient {
   ): Promise<T> {
     const url = new URL(`${this.config.baseUrl}/webservice/rest/server.php`);
     
+    // Improved parameter handling for Moodle API
     const requestParams = new URLSearchParams({
       wstoken: this.config.token,
       wsfunction,
       moodlewsrestformat: format,
-      ...Object.entries(params).reduce((acc, [key, value]) => {
-        acc[key] = typeof value === 'object' ? JSON.stringify(value) : String(value);
-        return acc;
-      }, {} as Record<string, string>),
     });
+
+    // Handle parameters properly for Moodle API format
+    Object.entries(params).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        // Handle arrays properly for Moodle
+        value.forEach((item, index) => {
+          if (typeof item === 'object') {
+            Object.entries(item).forEach(([subKey, subValue]) => {
+              requestParams.append(`${key}[${index}][${subKey}]`, String(subValue));
+            });
+          } else {
+            requestParams.append(`${key}[${index}]`, String(item));
+          }
+        });
+      } else if (typeof value === 'object' && value !== null) {
+        // Handle nested objects
+        Object.entries(value).forEach(([subKey, subValue]) => {
+          requestParams.append(`${key}[${subKey}]`, String(subValue));
+        });
+      } else {
+        requestParams.append(key, String(value));
+      }
+    });
+
+    // Debug logging in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Moodle API Request:', {
+        wsfunction,
+        params,
+        url: url.toString(),
+        formattedParams: Object.fromEntries(requestParams.entries()),
+      });
+    }
 
     try {
       const response = await fetch(url.toString(), {
@@ -91,13 +121,29 @@ export class MoodleClient {
 
       const data = await response.json();
 
+      // Enhanced error handling
       if (data.exception) {
-        throw new Error(`Moodle API Error: ${data.message}`);
+        console.error('Moodle API Exception:', {
+          wsfunction,
+          exception: data.exception,
+          message: data.message,
+          errorcode: data.errorcode,
+          debuginfo: data.debuginfo,
+        });
+        throw new Error(`Moodle API Error: ${data.message || data.exception} (${data.errorcode || 'Unknown'})`);
+      }
+
+      if (data.warnings && data.warnings.length > 0) {
+        console.warn('Moodle API Warnings:', data.warnings);
       }
 
       return data;
     } catch (error) {
-      console.error('Moodle API Error:', error);
+      console.error('Moodle API Error:', {
+        wsfunction,
+        error: error instanceof Error ? error.message : error,
+        params,
+      });
       throw error;
     }
   }
@@ -111,12 +157,20 @@ export class MoodleClient {
     return response[0];
   }
 
-  async getUserByEmail(email: string): Promise<MoodleUser> {
-    const response = await this.makeRequest<MoodleUser[]>('core_user_get_users_by_field', {
-      field: 'email',
-      values: [email],
-    });
-    return response[0];
+  async getUserByEmail(email: string): Promise<MoodleUser | null> {
+    try {
+      const response = await this.makeRequest<MoodleUser[]>('core_user_get_users_by_field', {
+        field: 'email',
+        values: [email],
+      });
+      return response && response.length > 0 ? response[0] : null;
+    } catch (error) {
+      // If user not found, return null instead of throwing
+      if (error instanceof Error && error.message.includes('Invalid parameter value detected')) {
+        return null;
+      }
+      throw error;
+    }
   }
 
   async createUser(userData: {
@@ -126,9 +180,37 @@ export class MoodleClient {
     lastname: string;
     password: string;
   }): Promise<MoodleUser> {
+    // Validate and sanitize user data
+    const cleanUserData = {
+      username: userData.username.trim(),
+      email: userData.email.trim().toLowerCase(),
+      firstname: userData.firstname.trim() || 'User',
+      lastname: userData.lastname.trim() || 'Unknown',
+      password: userData.password,
+      auth: 'manual', // Specify auth method
+      lang: 'en', // Default language
+      timezone: 'Asia/Ho_Chi_Minh', // Vietnam timezone
+    };
+
+    // Ensure required fields are not empty
+    if (!cleanUserData.username || !cleanUserData.email || !cleanUserData.password) {
+      throw new Error('Username, email, and password are required');
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanUserData.email)) {
+      throw new Error('Invalid email format');
+    }
+
     const response = await this.makeRequest<{ id: number }[]>('core_user_create_users', {
-      users: [userData],
+      users: [cleanUserData],
     });
+    
+    if (!response || !response[0] || !response[0].id) {
+      throw new Error('Failed to create user - no ID returned');
+    }
+    
     return this.getUserById(response[0].id);
   }
 
@@ -204,7 +286,13 @@ export class MoodleClient {
   // Utilities
   async testConnection(): Promise<boolean> {
     try {
-      await this.makeRequest('core_webservice_get_site_info');
+      const siteInfo = await this.makeRequest('core_webservice_get_site_info');
+      console.log('Moodle connection successful:', {
+        sitename: siteInfo.sitename,
+        siteurl: siteInfo.siteurl,
+        version: siteInfo.version,
+        functions: siteInfo.functions?.length || 0,
+      });
       return true;
     } catch (error) {
       console.error('Moodle connection test failed:', error);
@@ -214,6 +302,30 @@ export class MoodleClient {
 
   async getSiteInfo(): Promise<Record<string, unknown>> {
     return this.makeRequest('core_webservice_get_site_info');
+  }
+
+  async checkCapabilities(): Promise<void> {
+    try {
+      const siteInfo = await this.getSiteInfo();
+      const functions = siteInfo.functions as any[] || [];
+      
+      const requiredFunctions = [
+        'core_user_get_users_by_field',
+        'core_user_create_users',
+        'core_course_get_courses',
+        'enrol_manual_enrol_users'
+      ];
+      
+      console.log('Available Moodle functions:', functions.map(f => f.name));
+      console.log('Required functions check:');
+      
+      requiredFunctions.forEach(func => {
+        const available = functions.some(f => f.name === func);
+        console.log(`  ${func}: ${available ? '✅' : '❌'}`);
+      });
+    } catch (error) {
+      console.error('Failed to check capabilities:', error);
+    }
   }
 }
 

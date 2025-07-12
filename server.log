@@ -8,290 +8,361 @@
    - Environments: .env.local, .env
 
  ✓ Starting...
- ✓ Ready in 5s
+ ✓ Ready in 4.6s
  ○ Compiling / ...
- ✓ Compiled / in 12s (815 modules)
- HEAD / 200 in 12881ms
- HEAD / 200 in 155ms
- GET / 200 in 427ms
- ✓ Compiled in 1604ms (338 modules)
- ✓ Compiled in 304ms (338 modules)
- ✓ Compiled in 824ms (354 modules)
- ✓ Compiled in 429ms (354 modules)
- ✓ Compiled in 544ms (354 modules)
- ✓ Compiled in 594ms (354 modules)
- ✓ Compiled in 2.6s (354 modules)
- ✓ Compiled in 479ms (354 modules)
- ✓ Compiled in 568ms (354 modules)
- ✓ Compiled in 349ms (354 modules)
- ✓ Compiled in 208ms (354 modules)
- ✓ Compiled in 442ms (354 modules)
- ✓ Compiled in 169ms (354 modules)
- ✓ Compiled in 366ms (354 modules)
- ✓ Compiled in 1610ms (354 modules)
- ✓ Compiled in 207ms (354 modules)
- ✓ Compiled in 288ms (354 modules)
- ✓ Compiled in 176ms (354 modules)
- ✓ Compiled in 194ms (354 modules)
- ✓ Compiled in 322ms (354 modules)
- ✓ Compiled in 192ms (354 modules)
- ✓ Compiled in 198ms (354 modules)
- ✓ Compiled in 1030ms (354 modules)
- ✓ Compiled in 383ms (354 modules)
- ✓ Compiled in 1598ms (354 modules)
- ✓ Compiled in 944ms (354 modules)
- ✓ Compiled in 865ms (354 modules)
- ✓ Compiled in 329ms (354 modules)
- ✓ Compiled in 402ms (340 modules)
- ✓ Compiled in 1193ms (354 modules)
- ✓ Compiled in 833ms (340 modules)
- ✓ Compiled in 383ms (354 modules)
- ✓ Compiled in 1022ms (354 modules)
- ✓ Compiled in 420ms (354 modules)
-   Reload env: .env.local
- ✓ Compiled in 369ms (340 modules)
- ✓ Compiled in 364ms (354 modules)
- ✓ Compiled in 611ms (354 modules)
- ✓ Compiled in 222ms (354 modules)
- ✓ Compiled in 264ms (354 modules)
- ✓ Compiled in 255ms (354 modules)
- ✓ Compiled in 351ms (354 modules)
- ✓ Compiled in 535ms (354 modules)
- ✓ Compiled in 146ms (354 modules)
- ✓ Compiled in 981ms (354 modules)
- ✓ Compiled in 279ms (354 modules)
- ✓ Compiled in 442ms (354 modules)
- ✓ Compiled in 425ms (354 modules)
- ✓ Compiled in 292ms (354 modules)
- ✓ Compiled in 397ms (354 modules)
- ✓ Compiled in 1687ms (354 modules)
- ✓ Compiled in 1072ms (354 modules)
- ✓ Compiled in 1030ms (354 modules)
- ✓ Compiled in 1944ms (354 modules)
- ✓ Compiled in 506ms (354 modules)
- ✓ Compiled in 771ms (354 modules)
- ✓ Compiled in 289ms (354 modules)
- ✓ Compiled in 563ms (354 modules)
- ✓ Compiled in 292ms (354 modules)
- ✓ Compiled in 489ms (354 modules)
- ✓ Compiled in 238ms (354 modules)
- ✓ Compiled in 462ms (354 modules)
- ✓ Compiled in 746ms (354 modules)
- ✓ Compiled in 446ms (354 modules)
- ✓ Compiled in 1503ms (340 modules)
- ✓ Compiled in 1069ms (354 modules)
- ✓ Compiled in 1068ms (340 modules)
- ✓ Compiled in 200ms (354 modules)
- ✓ Compiled in 763ms (354 modules)
- ✓ Compiled in 271ms (354 modules)
- ✓ Compiled in 701ms (354 modules)
- ✓ Compiled in 676ms (340 modules)
- ✓ Compiled in 190ms (354 modules)
- ✓ Compiled in 188ms (354 modules)
- ✓ Compiled in 168ms (354 modules)
- ✓ Compiled in 190ms (354 modules)
- ✓ Compiled in 144ms (354 modules)
- ✓ Compiled in 194ms (354 modules)
- ✓ Compiled in 368ms (340 modules)
- ✓ Compiled in 371ms (354 modules)
- ✓ Compiled in 196ms (354 modules)
- ✓ Compiled in 291ms (354 modules)
- ✓ Compiled in 259ms (354 modules)
- ✓ Compiled in 159ms (354 modules)
- ✓ Compiled in 133ms (354 modules)
- ✓ Compiled in 342ms (354 modules)
- ✓ Compiled in 191ms (354 modules)
- ✓ Compiled in 162ms (354 modules)
- ○ Compiling / ...
- ✓ Compiled / in 4.9s (826 modules)
- ○ Compiling /_not-found ...
- GET / 200 in 10254ms
- ✓ Compiled /_not-found in 4.8s (830 modules)
- GET /_next/static/css/app/layout.css?v=1752218239294 404 in 5560ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 5572ms
- GET /_next/static/chunks/main-app.js?v=1752218239294 404 in 5584ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 937ms (499 modules)
- GET /favicon.ico 200 in 1295ms
- GET /courses/technology 404 in 631ms
- GET /_next/static/css/app/layout.css?v=1752218264201 404 in 157ms
- GET /_next/static/chunks/main-app.js?v=1752218264201 404 in 295ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 295ms
- HEAD / 200 in 577ms
+ ✓ Compiled / in 8s (700 modules)
+ HEAD / 200 in 8805ms
+ ✓ Compiled in 1238ms (321 modules)
+ GET / 200 in 984ms
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 1597ms (702 modules)
+ GET /api/courses 200 in 2246ms
  ○ Compiling /courses ...
- ✓ Compiled /courses in 3s (826 modules)
- GET /courses 200 in 3867ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 576ms (830 modules)
- GET /_next/static/css/app/layout.css?v=1752219638452 404 in 1223ms
- GET /_next/static/chunks/main-app.js?v=1752219638452 404 in 1241ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 1246ms
- GET /_next/static/css/app/layout.css?v=1752219655413 404 in 181ms
- GET /about 404 in 507ms
- GET /_next/static/chunks/main-app.js?v=1752219655413 404 in 393ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 387ms
- GET /_next/static/css/app/layout.css?v=1752219657814 404 in 528ms
- GET /courses 200 in 930ms
- GET /_next/static/chunks/main-app.js?v=1752219657814 404 in 627ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 615ms
- GET /courses/design 404 in 245ms
- GET /_next/static/css/app/layout.css?v=1752219665154 404 in 181ms
- GET /_next/static/chunks/main-app.js?v=1752219665154 404 in 328ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 326ms
- ✓ Compiled in 1881ms (361 modules)
- ✓ Compiled in 459ms (361 modules)
- ✓ Compiled in 1810ms (361 modules)
- ✓ Compiled in 500ms (361 modules)
- ✓ Compiled in 237ms (361 modules)
- ✓ Compiled in 218ms (361 modules)
- ✓ Compiled in 216ms (361 modules)
- ✓ Compiled in 430ms (361 modules)
- ✓ Compiled in 800ms (361 modules)
- ✓ Compiled in 309ms (361 modules)
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 2.4s (798 modules)
- GET /courses/design 404 in 4474ms
- GET /_next/static/chunks/main-app.js?v=1752221704957 404 in 713ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 705ms
+ ✓ Compiled /courses in 2.5s (772 modules)
+ GET /courses 200 in 2952ms
+ GET / 200 in 153ms
+ ✓ Compiled in 2.1s (777 modules)
+ GET / 200 in 491ms
+ ✓ Compiled /api/courses in 229ms (450 modules)
+ GET /api/courses 200 in 802ms
+ GET /api/courses 200 in 250ms
+ GET / 200 in 492ms
  ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 960ms (464 modules)
- GET /favicon.ico 200 in 1188ms
- ○ Compiling / ...
- ✓ Compiled / in 765ms (498 modules)
- GET / 200 in 2818ms
- GET /_next/static/chunks/main-app.js?v=1752221712945 404 in 820ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 835ms
- ✓ Compiled in 1184ms (862 modules)
- ✓ Compiled in 778ms (361 modules)
- ✓ Compiled in 1774ms (361 modules)
- ✓ Compiled in 683ms (361 modules)
- ✓ Compiled in 239ms (361 modules)
- ✓ Compiled in 793ms (361 modules)
- ○ Compiling / ...
- ✓ Compiled / in 1191ms (481 modules)
- GET / 200 in 2088ms
+ ✓ Compiled /favicon.ico in 517ms (452 modules)
+ GET /favicon.ico 200 in 763ms
+ GET /api/courses 200 in 923ms
  ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 590ms (832 modules)
- GET /_next/static/chunks/main-app.js?v=1752221914568 404 in 1186ms
- GET /_next/static/chunks/app-pages-internals.js 404 in 1177ms
- ✓ Compiled /favicon.ico in 232ms (498 modules)
- GET /favicon.ico 200 in 396ms
- ✓ Compiled in 3s (361 modules)
- ○ Compiling / ...
- ⨯ ./src/app/page.tsx
-Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
-   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
- [2m2[0m | 
- [2m3[0m | export default function Home() {
- [2m4[0m |   return (
- [2m5[0m |     <div className="min-h-screen bg-white">
-   : [35;1m     ^^^[0m
- [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
- [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
- [2m8[0m |         {/* Background decorative elements */}
-   `----
+ ✓ Compiled /_not-found in 1023ms (787 modules)
+ GET /courses/2 404 in 1337ms
+ GET / 200 in 333ms
+ GET /api/courses 200 in 448ms
+ ○ Compiling /courses ...
+ ✓ Compiled /courses in 755ms (467 modules)
+ GET /courses 200 in 962ms
+ GET /api/courses 200 in 232ms
+ GET /api/courses 200 in 219ms
+ ✓ Compiled in 970ms (345 modules)
+ ✓ Compiled in 1831ms (791 modules)
+ ✓ Compiled in 525ms (345 modules)
+ ✓ Compiled in 1613ms (777 modules)
+ ✓ Compiled in 1308ms (791 modules)
+ ✓ Compiled in 550ms (345 modules)
+ ✓ Compiled in 532ms (345 modules)
+ ✓ Compiled in 1605ms (791 modules)
+ ✓ Compiled in 963ms (791 modules)
+ ✓ Compiled in 2.4s (791 modules)
+ ✓ Compiled in 1095ms (791 modules)
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 1031ms (464 modules)
+ GET /api/courses 200 in 1701ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 858ms (798 modules)
+Error: Route "/api/courses/[id]" used `params.id`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at GET (src/app/api/courses/[id]/route.ts:9:37)
+   7 | ) {
+   8 |   try {
+>  9 |     const courseId = parseInt(params.id);
+     |                                     ^
+  10 |     
+  11 |     if (isNaN(courseId)) {
+  12 |       return NextResponse.json(
+Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
+    at async MoodleClient.getCourseById (src/lib/moodle/client.ts:141:21)
+    at async GET (src/app/api/courses/[id]/route.ts:22:19)
+  93 |
+  94 |       if (data.exception) {
+> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
+     |              ^
+  96 |       }
+  97 |
+  98 |       return data;
+Error fetching course details: Error: Moodle API Error: Invalid parameter value detected
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
+    at async MoodleClient.getCourseById (src/lib/moodle/client.ts:141:21)
+    at async GET (src/app/api/courses/[id]/route.ts:22:19)
+  93 |
+  94 |       if (data.exception) {
+> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
+     |              ^
+  96 |       }
+  97 |
+  98 |       return data;
+ GET /api/courses/2 500 in 3483ms
+ ✓ Compiled in 877ms (812 modules)
+ ✓ Compiled in 1001ms (812 modules)
+ GET /api/courses/2 200 in 345ms
+ ○ Compiling /courses/[id] ...
+ ✓ Compiled /courses/[id] in 974ms (805 modules)
+ GET /courses/2 200 in 3096ms
+ GET /courses 200 in 339ms
+ ✓ Compiled /api/courses in 451ms (472 modules)
+ ✓ Compiled (474 modules)
+ GET /favicon.ico 200 in 1301ms
+ GET /api/courses 200 in 1430ms
+ GET /courses/5 200 in 216ms
+ GET /api/courses/5 200 in 295ms
+ GET /api/courses/5 200 in 239ms
+ ✓ Compiled in 2.9s (798 modules)
+ GET /courses/5 200 in 441ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 932ms (470 modules)
+ GET /api/courses/5 200 in 1803ms
+ ✓ Compiled in 2.2s (817 modules)
+ GET /courses/5 200 in 385ms
+ GET /api/courses/5 200 in 370ms
+ ✓ Compiled in 1502ms (817 modules)
+ GET /courses/5 200 in 170ms
+ GET /api/courses/5 200 in 283ms
+ ✓ Compiled in 1034ms (347 modules)
+ GET /courses/5 200 in 330ms
+ GET /courses/5 200 in 74ms
+ ✓ Compiled in 679ms (347 modules)
+ GET /courses/5 200 in 257ms
+ GET /courses/5 200 in 80ms
+ ✓ Compiled in 441ms (347 modules)
+ GET /courses/5 200 in 106ms
+ GET /courses/5 200 in 169ms
+ ✓ Compiled in 455ms (347 modules)
+ GET /courses/5 200 in 185ms
+ ✓ Compiled in 377ms (347 modules)
+ GET /courses/5 200 in 326ms
+ ✓ Compiled in 515ms (347 modules)
+ GET /courses/5 200 in 295ms
+ ✓ Compiled in 861ms (347 modules)
+ GET /courses/5 200 in 198ms
+ ✓ Compiled in 528ms (347 modules)
+ GET /courses/5 200 in 195ms
+ ✓ Compiled in 380ms (347 modules)
+ GET /courses/5 200 in 164ms
+ ✓ Compiled in 667ms (347 modules)
+ GET /courses/5 200 in 145ms
+ ✓ Compiled in 743ms (347 modules)
+ GET /courses/5 200 in 335ms
+ ✓ Compiled in 769ms (347 modules)
+ GET /courses/5 200 in 193ms
+ ○ Compiling /api/my-enrollments ...
+ ✓ Compiled /api/my-enrollments in 2.7s (898 modules)
+ GET /api/my-enrollments 401 in 2988ms
+ GET /courses/5 200 in 580ms
+ ✓ Compiled /api/courses/[id]/status in 423ms (886 modules)
+ GET /api/courses/5/status 401 in 1839ms
+ GET /courses/5 200 in 346ms
+ ✓ Compiled in 436ms (347 modules)
+ GET /courses/5 200 in 205ms
+ ✓ Compiled in 337ms (347 modules)
+ GET /courses/5 200 in 177ms
+ ✓ Compiled in 1705ms (897 modules)
+ GET /courses/5 200 in 245ms
+ ✓ Compiled in 637ms (347 modules)
+ GET /courses/5 200 in 245ms
+ ✓ Compiled in 798ms (347 modules)
+ GET /courses/5 200 in 142ms
+ GET /courses/5 200 in 675ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /api/courses/[id] in 1133ms (467 modules)
+ ✓ Compiled (472 modules)
+ GET /favicon.ico 200 in 2479ms
+ GET /api/courses/5 200 in 2284ms
+ GET /courses 200 in 260ms
+ ✓ Compiled /api/courses in 380ms (474 modules)
+ GET /api/courses 200 in 655ms
+ GET /api/courses 200 in 235ms
+ GET /courses/14 200 in 209ms
+ GET /api/courses/14 200 in 225ms
+ GET /api/courses/14 200 in 239ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3.6s (863 modules)
+ GET /login?return=%2Fcourses%2F14 200 in 4045ms
+ GET /login?return=%2Fcourses%2F14 200 in 97ms
+ GET /login?return=%2Fcourses%2F14 200 in 32ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 994ms (856 modules)
+ GET /register 200 in 1218ms
+ ○ Compiling /api/auth/register ...
+ ✓ Compiled /api/auth/register in 1917ms (940 modules)
+Registration error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
 
-Caused by:
-    Syntax Error
 
-Import trace for requested module:
-./src/app/page.tsx
- ⨯ ./src/app/page.tsx
-Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
-   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
- [2m2[0m | 
- [2m3[0m | export default function Home() {
- [2m4[0m |   return (
- [2m5[0m |     <div className="min-h-screen bg-white">
-   : [35;1m     ^^^[0m
- [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
- [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
- [2m8[0m |         {/* Background decorative elements */}
-   `----
+The column `users.firstName` does not exist in the current database.
+    at async POST (src/app/api/auth/register/route.ts:38:25)
+  36 |
+  37 |     // Check if user already exists
+> 38 |     const existingUser = await prisma.user.findUnique({
+     |                         ^
+  39 |       where: { email },
+  40 |     });
+  41 | {
+  code: 'P2022',
+  meta: [Object],
+  clientVersion: '6.11.1'
+}
+ POST /api/auth/register 500 in 2823ms
+ ✓ Compiled in 2.9s (847 modules)
+ GET /register 200 in 382ms
+ ✓ Compiled in 572ms (368 modules)
+ GET /register 200 in 120ms
+ ✓ Compiled in 1104ms (368 modules)
+ GET /register 200 in 320ms
+ ✓ Compiled in 378ms (368 modules)
+ GET /register 200 in 79ms
+ ○ Compiling /api/auth/register ...
+ ✓ Compiled /api/auth/register in 1021ms (579 modules)
+ GET /register 200 in 423ms
+Registration error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
 
-Caused by:
-    Syntax Error
 
-Import trace for requested module:
-./src/app/page.tsx
- ⨯ ./src/app/page.tsx
-Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
-   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
- [2m2[0m | 
- [2m3[0m | export default function Home() {
- [2m4[0m |   return (
- [2m5[0m |     <div className="min-h-screen bg-white">
-   : [35;1m     ^^^[0m
- [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
- [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
- [2m8[0m |         {/* Background decorative elements */}
-   `----
+The column `users.password` does not exist in the current database.
+    at async POST (src/app/api/auth/register/route.ts:38:25)
+  36 |
+  37 |     // Check if user already exists
+> 38 |     const existingUser = await prisma.user.findUnique({
+     |                         ^
+  39 |       where: { email },
+  40 |     });
+  41 | {
+  code: 'P2022',
+  meta: [Object],
+  clientVersion: '6.11.1'
+}
+ POST /api/auth/register 500 in 2093ms
+ GET /register 200 in 417ms
+ ✓ Compiled /favicon.ico in 465ms (581 modules)
+ GET /favicon.ico 200 in 610ms
+Registration error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
 
-Caused by:
-    Syntax Error
 
-Import trace for requested module:
-./src/app/page.tsx
- GET / 500 in 59875ms
- ⨯ ./src/app/page.tsx
-Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
-   ,-[[36;1;4m/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/src/app/page.tsx[0m:5:1]
- [2m2[0m | 
- [2m3[0m | export default function Home() {
- [2m4[0m |   return (
- [2m5[0m |     <div className="min-h-screen bg-white">
-   : [35;1m     ^^^[0m
- [2m6[0m |       {/* Hero Section - Modern Coursera Style with Gradient */}
- [2m7[0m |       <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-20 pb-24 overflow-hidden">
- [2m8[0m |         {/* Background decorative elements */}
-   `----
+The column `users.password` does not exist in the current database.
+    at async POST (src/app/api/auth/register/route.ts:38:25)
+  36 |
+  37 |     // Check if user already exists
+> 38 |     const existingUser = await prisma.user.findUnique({
+     |                         ^
+  39 |       where: { email },
+  40 |     });
+  41 | {
+  code: 'P2022',
+  meta: [Object],
+  clientVersion: '6.11.1'
+}
+ POST /api/auth/register 500 in 836ms
+ GET /register 200 in 1038ms
+ GET /favicon.ico 200 in 40ms
+Registration error: Error [PrismaClientUnknownRequestError]: 
+Invalid `prisma.user.findUnique()` invocation:
 
-Caused by:
-    Syntax Error
 
-Import trace for requested module:
-./src/app/page.tsx
- GET /_next/static/webpack/f271dfc5e2852da0.webpack.hot-update.json 500 in 2119ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 500 in 133ms
- GET / 500 in 64ms
- GET /_next/static/chunks/fallback/webpack.js 500 in 98ms
- GET /_next/static/chunks/fallback/main.js 500 in 101ms
- GET /_next/static/chunks/fallback/pages/_app.js 500 in 98ms
- GET /_next/static/chunks/fallback/pages/_error.js 500 in 97ms
- GET /_next/static/chunks/fallback/react-refresh.js 500 in 96ms
- GET / 500 in 38ms
- GET /_next/static/chunks/fallback/webpack.js 500 in 79ms
- GET /_next/static/chunks/fallback/main.js 500 in 77ms
- GET /_next/static/chunks/fallback/react-refresh.js 500 in 77ms
- GET /_next/static/chunks/fallback/pages/_app.js 500 in 78ms
- GET /_next/static/chunks/fallback/pages/_error.js 500 in 81ms
- GET / 500 in 35ms
- GET /_next/static/chunks/fallback/webpack.js 500 in 98ms
- GET /_next/static/chunks/fallback/main.js 500 in 95ms
- GET /_next/static/chunks/fallback/react-refresh.js 500 in 97ms
- GET /_next/static/chunks/fallback/pages/_app.js 500 in 97ms
- GET /_next/static/chunks/fallback/pages/_error.js 500 in 96ms
- ✓ Compiled /favicon.ico in 5.3s (703 modules)
-<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/cache/webpack/client-development/10.pack.gz_' -> '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/cache/webpack/client-development/10.pack.gz'
- ✓ Compiled in 975ms (607 modules)
- ✓ Compiled in 1098ms (607 modules)
- ✓ Compiled in 1147ms (607 modules)
- ✓ Compiled in 1337ms (607 modules)
- ✓ Compiled in 1090ms (607 modules)
- ✓ Compiled in 2.3s (607 modules)
- ✓ Compiled in 1165ms (607 modules)
- ✓ Compiled in 2.2s (607 modules)
- ✓ Compiled in 933ms (607 modules)
- ✓ Compiled in 3.1s (607 modules)
- ✓ Compiled in 2.5s (607 modules)
- ✓ Compiled in 460ms (607 modules)
- ✓ Compiled in 320ms (607 modules)
- ✓ Compiled in 380ms (607 modules)
- ✓ Compiled in 478ms (607 modules)
- ✓ Compiled in 265ms (607 modules)
- ✓ Compiled in 1302ms (607 modules)
- ✓ Compiled in 4s (703 modules)
- ✓ Compiled in 523ms (607 modules)
- ✓ Compiled in 699ms (607 modules)
- ✓ Compiled in 571ms (607 modules)
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: "42P05", message: "prepared statement \"s3\" already exists", severity: "ERROR", detail: None, column: None, hint: None }), transient: false })
+    at async POST (src/app/api/auth/register/route.ts:38:25)
+  36 |
+  37 |     // Check if user already exists
+> 38 |     const existingUser = await prisma.user.findUnique({
+     |                         ^
+  39 |       where: { email },
+  40 |     });
+  41 | {
+  clientVersion: '6.11.1'
+}
+ POST /api/auth/register 500 in 1240ms
+ GET / 200 in 780ms
+ ○ Compiling /api/courses ...
+ ✓ Compiled /api/courses in 1868ms (497 modules)
+ GET /api/courses 200 in 2652ms
+   Reload env: .env.local
+ ✓ Compiled in 1593ms (851 modules)
+ GET / 200 in 213ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 3.4s (858 modules)
+ GET /dashboard 200 in 3826ms
+ GET /courses 200 in 2522ms
+ GET /courses 200 in 171ms
+ GET /courses 200 in 100ms
+ GET /api/courses 200 in 308ms
+ GET /api/courses 200 in 256ms
+ ✓ Compiled in 887ms (370 modules)
+ GET /courses 200 in 80ms
+ GET / 200 in 557ms
+ GET /api/courses 200 in 423ms
+ GET /courses 200 in 77ms
+ GET /api/courses 200 in 328ms
+ GET /api/courses 200 in 236ms
+ GET /courses/14 200 in 93ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 3.1s (500 modules)
+ GET /api/courses/14 200 in 3675ms
+ GET /api/courses/14 200 in 324ms
+ GET /login?return=%2Fcourses%2F14 200 in 202ms
+ GET /register 200 in 84ms
+ ○ Compiling /api/auth/register ...
+ ✓ Compiled /api/auth/register in 1719ms (587 modules)
+ GET /register 200 in 644ms
+ GET /courses 200 in 646ms
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query INSERT INTO "public"."users" ("id","email","name","firstName","lastName","password","role","isActive","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,CAST($7::text AS "public"."UserRole"),$8,$9,$10) RETURNING "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query COMMIT
+ POST /api/auth/register 200 in 4051ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 642ms (592 modules)
+ GET /dashboard 200 in 1101ms
+ GET /api/courses 200 in 547ms
+ ○ Compiling /api/my-enrollments ...
+ ✓ Compiled /api/my-enrollments in 999ms (594 modules)
+ GET /courses 200 in 307ms
+ GET /dashboard 200 in 460ms
+ GET /api/my-enrollments 200 in 2223ms
+ GET /api/my-enrollments 200 in 520ms
+ GET /courses/7 200 in 150ms
+ GET /api/courses/7 200 in 284ms
+ GET /api/courses/7 200 in 263ms
+ ○ Compiling /api/courses/[id]/status ...
+ ✓ Compiled /api/courses/[id]/status in 1844ms (591 modules)
+ ○ Compiling /api/courses/[id]/enroll ...
+ GET /api/courses/7/status 200 in 3283ms
+ ✓ Compiled /api/courses/[id]/enroll in 5.7s (963 modules)
+ GET /courses 200 in 854ms
+ GET /courses/7 200 in 974ms
+ GET /api/courses/7/status 200 in 5899ms
+Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
+    at async MoodleClient.getUserByEmail (src/lib/moodle/client.ts:115:21)
+    at async POST (src/app/api/courses/[id]/enroll/route.ts:112:23)
+  93 |
+  94 |       if (data.exception) {
+> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
+     |              ^
+  96 |       }
+  97 |
+  98 |       return data;
+Moodle API Error: Error: Moodle API Error: Invalid parameter value detected
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
+    at async MoodleClient.createUser (src/lib/moodle/client.ts:129:21)
+    at async POST (src/app/api/courses/[id]/enroll/route.ts:118:23)
+  93 |
+  94 |       if (data.exception) {
+> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
+     |              ^
+  96 |       }
+  97 |
+  98 |       return data;
+Error creating Moodle user: Error: Moodle API Error: Invalid parameter value detected
+    at MoodleClient.makeRequest (src/lib/moodle/client.ts:95:14)
+    at async MoodleClient.createUser (src/lib/moodle/client.ts:129:21)
+    at async POST (src/app/api/courses/[id]/enroll/route.ts:118:23)
+  93 |
+  94 |       if (data.exception) {
+> 95 |         throw new Error(`Moodle API Error: ${data.message}`);
+     |              ^
+  96 |       }
+  97 |
+  98 |       return data;
+ POST /api/courses/7/enroll 500 in 11701ms
+ ✓ Compiled in 1140ms (479 modules)

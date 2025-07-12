@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -12,6 +13,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('return');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +35,8 @@ export default function LoginPage() {
       if (res.ok) {
         // Store token and redirect
         localStorage.setItem('auth_token', data.token);
-        window.location.href = '/dashboard';
+        const redirectUrl = returnUrl ? decodeURIComponent(returnUrl) : '/dashboard';
+        window.location.href = redirectUrl;
       } else {
         setError(data.error || 'Đăng nhập thất bại');
       }

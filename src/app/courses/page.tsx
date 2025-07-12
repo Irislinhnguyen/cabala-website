@@ -20,6 +20,7 @@ interface Course {
   students: number;
   duration: string;
   thumbnail: string;
+  courseImage?: string;
   visible: boolean;
 }
 

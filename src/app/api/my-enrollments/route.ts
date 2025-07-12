@@ -1,103 +1,79 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { verifyToken } from '@/lib/auth';
+import { createMoodleClient } from '@/lib/moodle/client';
 
 const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
-    // Get auth token
+    // Verify authentication
     const authHeader = request.headers.get('authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json(
-        { error: 'Token xác thực không hợp lệ' },
+        { success: false, error: 'Authentication required' },
         { status: 401 }
       );
     }
 
     const token = authHeader.substring(7);
-    const user = verifyToken(token);
-    if (!user) {
+    const decoded = verifyToken(token);
+    if (!decoded) {
       return NextResponse.json(
-        { error: 'Token xác thực không hợp lệ' },
+        { success: false, error: 'Invalid token' },
         { status: 401 }
       );
     }
 
-    // Fetch user's enrollments with course and payment information
+    // Get user enrollments from database with course details
     const enrollments = await prisma.enrollment.findMany({
       where: {
-        userId: user.userId,
+        userId: decoded.userId,
       },
       include: {
-        // Note: Since we don't have course data in DB yet, we'll fetch from Moodle API
-        // For now, we'll return enrollment data and fetch course details separately
+        course: true,
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     });
 
-    // Get course details from Moodle API
-    const coursesResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/courses`);
-    const coursesData = await coursesResponse.json();
-    
-    if (!coursesData.success) {
-      return NextResponse.json(
-        { error: 'Không thể tải thông tin khóa học' },
-        { status: 500 }
-      );
-    }
+    // Create Moodle client to get additional course data
+    const moodleClient = createMoodleClient();
+    const allMoodleCourses = await moodleClient.getAllCourses();
 
-    // Get payment information for each enrollment
-    const enrichedEnrollments = await Promise.all(
-      enrollments.map(async (enrollment) => {
-        // Find course details from Moodle API
-        const course = coursesData.courses.find((c: { id: number }) => c.id.toString() === enrollment.courseId);
-        
-        // Get payment information
-        const payment = await prisma.payment.findFirst({
-          where: {
-            userId: user.userId,
-            courseId: enrollment.courseId,
-          },
-          orderBy: {
-            createdAt: 'desc'
-          }
-        });
-
-        return {
-          id: enrollment.id,
-          status: enrollment.status,
-          progress: enrollment.progress,
-          createdAt: enrollment.createdAt,
-          updatedAt: enrollment.updatedAt,
-          course: course ? {
-            id: course.id.toString(),
-            title: course.title,
-            description: course.description || 'Mô tả khóa học',
-            level: course.level || 'Beginner',
-            duration: course.duration || '8 tuần',
-            instructor: course.instructor || 'Giảng viên Cabala',
-          } : {
-            id: enrollment.courseId,
-            title: 'Khóa học không tìm thấy',
-            description: 'Thông tin khóa học không khả dụng',
-            level: 'Unknown',
-            duration: 'Unknown',
-            instructor: 'Unknown',
-          },
-          payment: payment ? {
-            id: payment.id,
-            status: payment.status,
-            amount: parseFloat(payment.amount.toString()),
-            createdAt: payment.createdAt,
-            paidAt: payment.paidAt,
-            verifiedAt: payment.verifiedAt,
-          } : null,
-        };
-      })
-    );
+    // Transform enrollments to include Moodle course data
+    const enrichedEnrollments = enrollments.map(enrollment => {
+      const moodleCourseId = enrollment.course?.moodleCourseId;
+      const moodleCourse = moodleCourseId ? allMoodleCourses.find(c => c.id === moodleCourseId) : null;
+      
+      return {
+        id: enrollment.id,
+        status: enrollment.status,
+        progress: enrollment.progress,
+        enrolledAt: enrollment.createdAt,
+        course: {
+          id: moodleCourseId || 0,
+          title: moodleCourse?.fullname || enrollment.course?.title || 'Unknown Course',
+          shortName: moodleCourse?.shortname || 'unknown',
+          description: moodleCourse?.summary || enrollment.course?.description || 'No description available',
+          category: moodleCourse?.categoryid || 0,
+          visible: moodleCourse?.visible === 1,
+          startDate: moodleCourse?.startdate || 0,
+          endDate: moodleCourse?.enddate || 0,
+          format: moodleCourse?.format || 'topics',
+          courseImage: moodleCourse?.courseimage || null,
+          price: Number(enrollment.course?.price || 0), // Convert Decimal to number
+          currency: enrollment.course?.currency || 'VND',
+          level: enrollment.course?.level || 'Beginner',
+          instructor: enrollment.course?.instructorName || 'Teacher Linh Nguyen',
+          rating: 4.8,
+          students: enrollment.course?.enrollmentCount || 10,
+          duration: '8 tuần',
+          thumbnail: moodleCourse?.courseimage || `/api/placeholder/400/300?text=${encodeURIComponent(moodleCourse?.shortname || 'course')}`,
+        }
+      };
+    });
 
     return NextResponse.json({
       success: true,
@@ -106,9 +82,13 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Error fetching enrollments:', error);
+    console.error('Error fetching user enrollments:', error);
     return NextResponse.json(
-      { error: 'Đã xảy ra lỗi khi tải danh sách khóa học' },
+      {
+        success: false,
+        error: 'Failed to fetch enrollments',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     );
   }

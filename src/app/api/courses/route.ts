@@ -44,6 +44,7 @@ export async function GET() {
         startdate: number;
         enddate: number;
         format: string;
+        courseimage?: string;
       }) => ({
         id: course.id,
         title: course.fullname,
@@ -54,6 +55,7 @@ export async function GET() {
         startDate: course.startdate,
         endDate: course.enddate,
         format: course.format,
+        courseImage: course.courseimage || null,
         // Add default pricing (will be set by admin later)
         price: 0,
         currency: 'VND',
@@ -62,7 +64,7 @@ export async function GET() {
         rating: 4.8,
         students: Math.floor(Math.random() * 100) + 10, // Random for now
         duration: '8 tuần',
-        thumbnail: `/api/placeholder/400/300?text=${encodeURIComponent(course.shortname)}`,
+        thumbnail: course.courseimage || `/api/placeholder/400/300?text=${encodeURIComponent(course.shortname)}`,
       }));
 
     return NextResponse.json({
