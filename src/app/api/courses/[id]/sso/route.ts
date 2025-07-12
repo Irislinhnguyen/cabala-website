@@ -4,11 +4,20 @@ import { prisma } from '@/lib/prisma';
 import { generateJWTToken, generateSSOUrl, generateCabalaUsername, generateMoodleEmail } from '@/lib/jwt';
 import { createMoodleClient } from '@/lib/moodle/client';
 
+interface DatabaseUser {
+  id: string;
+  email: string;
+  firstName: string | null;
+  lastName: string | null;
+  moodleUserId: number | null;
+  moodleUsername: string | null;
+}
+
 // Helper function to create new Moodle account
-async function createNewMoodleAccount(user: any, needsUniqueEmail: boolean) {
+async function createNewMoodleAccount(user: DatabaseUser, needsUniqueEmail: boolean) {
   const moodleClient = createMoodleClient();
   
-  const username = generateCabalaUsername(user.email);
+  const username = generateCabalaUsername();
   const moodleEmail = generateMoodleEmail(user.email, needsUniqueEmail);
   
   // Generate a simpler password that meets Moodle requirements
@@ -172,7 +181,7 @@ export async function GET(
           }
           console.log('✅ Account verified by ID - proceeding with existing account');
           finalMoodleEmail = moodleUserById.email; // Use existing account email
-        } catch (error) {
+        } catch {
           console.log('❌ Account doesn\'t exist - creating new one');
           // Account doesn't exist - create new one
           const newMoodleUser = await createNewMoodleAccount(user, false);
@@ -213,11 +222,12 @@ export async function GET(
           dbCourse = await prisma.course.create({
             data: {
               title: moodleCourse.fullname,
+              slug: `course-${courseId}`,
               description: moodleCourse.summary || '',
               moodleCourseId: courseId,
               price: 0,
               currency: 'VND',
-              level: 'Beginner',
+              level: 'BEGINNER',
               instructorName: 'Teacher Linh Nguyen',
               enrollmentCount: 0
             }
@@ -245,7 +255,7 @@ export async function GET(
     console.log('🔍 Using username for JWT:', finalMoodleUsername);
     const jwtToken = generateJWTToken({
       email: finalMoodleEmail, // Use the correct Moodle email
-      username: finalMoodleUsername, // Use the actual Moodle username
+      username: finalMoodleUsername || '', // Use the actual Moodle username
       firstName: user.firstName,
       lastName: user.lastName
     });

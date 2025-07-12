@@ -12,7 +12,7 @@ export interface JWTUser {
   lastName?: string | null;
 }
 
-export function generateCabalaUsername(email: string): string {
+export function generateCabalaUsername(): string {
   // Generate UUID v4 format to match working miniOrange SSO format
   // Working example: c915c5ae-4d5b-4d59-8240-b69f37bcead5.inner-embrace
   const uuid = crypto.randomUUID();
@@ -30,7 +30,7 @@ export function generateMoodleEmail(email: string, needsUnique: boolean): string
 
 export function generateJWTToken(user: JWTUser): string {
   // Use the provided username or generate one if not provided (for backward compatibility)
-  const username = user.username || generateCabalaUsername(user.email);
+  const username = user.username || generateCabalaUsername();
   
   const payload = {
     sub: username,
@@ -61,9 +61,10 @@ export function generateSSOUrl(token: string, redirectUrl?: string): string {
 }
 
 // Utility function to verify JWT tokens (for debugging)
-export function verifyJWTToken(token: string): any {
+export function verifyJWTToken(token: string): JWTUser | null {
   try {
-    return jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
+    return typeof decoded === 'object' ? decoded as JWTUser : null;
   } catch (error) {
     console.error('JWT verification failed:', error);
     return null;

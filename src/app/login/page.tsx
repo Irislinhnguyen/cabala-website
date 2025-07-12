@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -56,9 +57,11 @@ export default function LoginPage() {
           {/* Logo & Title */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-3 mb-6">
-              <img 
+              <Image 
                 src="/Cabala.png" 
                 alt="Cabala"
+                width={48}
+                height={48}
                 className="h-10 w-10 sm:h-12 sm:w-12"
               />
               <span className="text-2xl sm:text-3xl font-bold text-primary">Cabala</span>

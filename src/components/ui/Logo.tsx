@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -38,7 +39,7 @@ export default function Logo({
   return (
     <div className={`flex items-center ${className}`}>
       {/* Logo Image - Using actual Cabala.png */}
-      <img 
+      <Image 
         src="/Cabala.png" 
         alt="Cabala"
         width={sizes.icon}

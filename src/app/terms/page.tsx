@@ -21,8 +21,8 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Giới thiệu</h2>
               <p className="text-gray-700 mb-4">
-                Chào mừng bạn đến với Cabala ("chúng tôi", "của chúng tôi", hoặc "Cabala"). 
-                Những điều khoản dịch vụ này ("Điều khoản") điều chỉnh việc sử dụng trang web, 
+                Chào mừng bạn đến với Cabala (&quot;chúng tôi&quot;, &quot;của chúng tôi&quot;, hoặc &quot;Cabala&quot;). 
+                Những điều khoản dịch vụ này (&quot;Điều khoản&quot;) điều chỉnh việc sử dụng trang web, 
                 ứng dụng di động và các dịch vụ khác được cung cấp bởi Cabala.
               </p>
               <p className="text-gray-700">

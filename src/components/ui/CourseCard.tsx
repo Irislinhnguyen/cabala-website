@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader } from './Card';
 import { Badge } from './Badge';
 import { Button } from './Button';
@@ -38,11 +39,6 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
     }).format(price);
   };
 
-  const truncateDescription = (text: string, maxLength: number = 100) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength).trim() + '...';
-  };
-
   return (
     <Card className={cn(
       'group hover:shadow-lg transition-all duration-200 overflow-hidden h-full card-base',
@@ -52,10 +48,11 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
       <div className="relative h-36 sm:h-40 overflow-hidden" 
            style={{ backgroundColor: 'var(--color-surface)' }}>
         {course.courseImage ? (
-          <img 
+          <Image 
             src={course.courseImage} 
             alt={course.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br flex items-center justify-center"

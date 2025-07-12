@@ -308,7 +308,7 @@ export default function AIAssistants() {
                 </div>
               </div>
               <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-                "AI Học Từ Vựng giúp tôi nhớ được hơn 500 từ chỉ trong 1 tháng. Phương pháp lặp lại ngắt quãng thực sự hiệu quả!"
+                &quot;AI Học Từ Vựng giúp tôi nhớ được hơn 500 từ chỉ trong 1 tháng. Phương pháp lặp lại ngắt quãng thực sự hiệu quả!&quot;
               </p>
               <div className="flex items-center">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
@@ -332,7 +332,7 @@ export default function AIAssistants() {
                 </div>
               </div>
               <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-                "AI Viết CV đã giúp tôi tạo ra một CV ấn tượng và nhận được offer từ Google. Tuyệt vời!"
+                &quot;AI Viết CV đã giúp tôi tạo ra một CV ấn tượng và nhận được offer từ Google. Tuyệt vời!&quot;
               </p>
               <div className="flex items-center">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
@@ -356,7 +356,7 @@ export default function AIAssistants() {
                 </div>
               </div>
               <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-                "AI Gia Sư như một thầy giáo cá nhân 24/7. Giải thích rất chi tiết và dễ hiểu, phù hợp với tốc độ học của tôi."
+                &quot;AI Gia Sư như một thầy giáo cá nhân 24/7. Giải thích rất chi tiết và dễ hiểu, phù hợp với tốc độ học của tôi.&quot;
               </p>
               <div className="flex items-center">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -33,14 +33,6 @@ export default function CoursesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState('all');
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    filterCourses();
-  }, [courses, searchTerm, selectedLevel]);
-
   const fetchCourses = async () => {
     try {
       const response = await fetch('/api/courses');
@@ -58,7 +50,7 @@ export default function CoursesPage() {
     }
   };
 
-  const filterCourses = () => {
+  const filterCourses = useCallback(() => {
     let filtered = courses;
 
     // Filter by search term
@@ -76,7 +68,15 @@ export default function CoursesPage() {
     }
 
     setFilteredCourses(filtered);
-  };
+  }, [courses, searchTerm, selectedLevel]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    filterCourses();
+  }, [filterCourses]);
 
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
   const levelLabels = {

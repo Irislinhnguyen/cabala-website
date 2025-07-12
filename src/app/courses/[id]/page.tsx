@@ -2,10 +2,27 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+
+interface CourseModule {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+interface Prerequisite {
+  id: string;
+  title: string;
+}
+
+interface LearningOutcome {
+  id: string;
+  description: string;
+}
 
 interface Course {
   id: number;
@@ -27,9 +44,9 @@ interface Course {
   duration: string;
   language: string;
   enrollmentMethods: string[];
-  modules: any[];
-  prerequisites: any[];
-  learningOutcomes: any[];
+  modules: CourseModule[];
+  prerequisites: Prerequisite[];
+  learningOutcomes: LearningOutcome[];
 }
 
 export default function CourseDetailPage() {
@@ -38,7 +55,7 @@ export default function CourseDetailPage() {
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ id: string; email: string; firstName?: string; lastName?: string } | null>(null);
   // Removed enrollment state - using direct SSO flow
 
   useEffect(() => {
@@ -58,8 +75,8 @@ export default function CourseDetailPage() {
         setUser({
           id: payload.userId,
           email: payload.email,
-          name: payload.name,
-          role: payload.role
+          firstName: payload.firstName,
+          lastName: payload.lastName
         });
       } catch (error) {
         console.error('Invalid token:', error);
@@ -215,10 +232,11 @@ export default function CourseDetailPage() {
                     <div className="aspect-video rounded-lg overflow-hidden" 
                          style={{ backgroundColor: 'var(--color-interactive-light)' }}>
                       {course.courseImage ? (
-                        <img 
+                        <Image 
                           src={course.courseImage} 
                           alt={course.title}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
@@ -346,7 +364,7 @@ export default function CourseDetailPage() {
                         <svg className="w-5 h-5 text-cabala-teal mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-neutral-700">{outcome}</span>
+                        <span className="text-neutral-700">{outcome.description}</span>
                       </li>
                     ))}
                   </ul>

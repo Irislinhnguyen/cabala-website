@@ -52,6 +52,27 @@ export interface MoodleEnrollment {
   enrol: string;
 }
 
+interface MoodleEnrolledUser {
+  id: number;
+  username: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+}
+
+interface MoodleFunction {
+  name: string;
+  version: string;
+}
+
+interface MoodleSiteInfo {
+  sitename?: string;
+  siteurl?: string;
+  version?: string;
+  functions?: MoodleFunction[];
+  [key: string]: unknown;
+}
+
 export class MoodleClient {
   private config: MoodleConfig;
 
@@ -275,7 +296,7 @@ export class MoodleClient {
   // Enrollment Management
   async checkUserEnrollment(courseId: number, userId: number): Promise<boolean> {
     try {
-      const enrolledUsers = await this.makeRequest<any[]>('core_enrol_get_enrolled_users', {
+      const enrolledUsers = await this.makeRequest<MoodleEnrolledUser[]>('core_enrol_get_enrolled_users', {
         courseid: courseId,
       });
       
@@ -346,11 +367,11 @@ export class MoodleClient {
   }
 
   // Generate autologin token for SSO
-  async generateLoginToken(userId: number): Promise<string | null> {
+  async generateLoginToken(): Promise<string | null> {
     try {
       // Try to get available authentication methods
       const siteInfo = await this.getSiteInfo();
-      const functions = siteInfo.functions as any[] || [];
+      const functions = siteInfo.functions as MoodleFunction[] || [];
       
       // Check if token-based auth is available
       const hasTokenAuth = functions.some(f => 
@@ -380,7 +401,7 @@ export class MoodleClient {
     }
 
     // Try to generate login token
-    const token = await this.generateLoginToken(userId);
+    const token = await this.generateLoginToken();
     
     if (token) {
       // Use token-based autologin (requires Moodle auth plugin)
@@ -395,7 +416,7 @@ export class MoodleClient {
   // Utilities
   async testConnection(): Promise<boolean> {
     try {
-      const siteInfo = await this.makeRequest('core_webservice_get_site_info');
+      const siteInfo = await this.makeRequest<MoodleSiteInfo>('core_webservice_get_site_info');
       console.log('Moodle connection successful:', {
         sitename: siteInfo.sitename,
         siteurl: siteInfo.siteurl,
@@ -409,14 +430,14 @@ export class MoodleClient {
     }
   }
 
-  async getSiteInfo(): Promise<Record<string, unknown>> {
+  async getSiteInfo(): Promise<MoodleSiteInfo> {
     return this.makeRequest('core_webservice_get_site_info');
   }
 
   async checkCapabilities(): Promise<void> {
     try {
       const siteInfo = await this.getSiteInfo();
-      const functions = siteInfo.functions as any[] || [];
+      const functions = siteInfo.functions as MoodleFunction[] || [];
       
       const requiredFunctions = [
         'core_user_get_users_by_field',
