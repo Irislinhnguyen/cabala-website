@@ -312,8 +312,14 @@ export default function Dashboard() {
                           </span>
                           <button
                             onClick={() => {
-                              // Navigate to course access
-                              window.open(`/api/courses/${enrollment.course.id}/access`, '_blank');
+                              // Navigate to course SSO with authentication token
+                              const authToken = localStorage.getItem('auth_token');
+                              if (authToken) {
+                                window.open(`/api/courses/${enrollment.course.id}/sso?token=${authToken}`, '_blank');
+                              } else {
+                                // If no token, redirect to login
+                                window.location.href = `/login?return=${encodeURIComponent(window.location.pathname)}`;
+                              }
                             }}
                             className="btn-primary px-4 py-2 text-sm"
                           >

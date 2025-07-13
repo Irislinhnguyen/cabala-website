@@ -229,7 +229,19 @@ export default function MyCoursesPage() {
                     {/* Actions */}
                     <div className="flex flex-col space-y-2">
                       {enrollment.status === 'ACTIVE' && (
-                        <Button className="btn-primary">
+                        <Button 
+                          className="btn-primary"
+                          onClick={() => {
+                            // Navigate to course SSO with authentication token
+                            const authToken = localStorage.getItem('auth_token');
+                            if (authToken) {
+                              window.location.href = `/api/courses/${enrollment.course.id}/sso?token=${authToken}`;
+                            } else {
+                              // If no token, redirect to login
+                              window.location.href = `/login?return=${encodeURIComponent(window.location.pathname)}`;
+                            }
+                          }}
+                        >
                           Tiếp tục học
                         </Button>
                       )}

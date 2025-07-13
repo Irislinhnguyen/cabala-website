@@ -1082,3 +1082,156 @@ Moodle API Request: {
   }
 }
  GET /api/courses/2 200 in 314ms
+ GET /courses 200 in 237ms
+ GET /favicon.ico 200 in 26ms
+ GET /api/courses 200 in 399ms
+ GET /api/courses 200 in 318ms
+ GET /login 200 in 100ms
+ GET /favicon.ico 200 in 28ms
+ POST /api/auth/login 200 in 1259ms
+ GET /dashboard 200 in 304ms
+ GET /favicon.ico 200 in 62ms
+ GET /api/courses 200 in 335ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 1293ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/my-enrollments 200 in 692ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 3.6s (949 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /api/courses/7/access 404 in 3951ms
+ ✓ Compiled in 22.7s (853 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ○ Compiling /_not-found ...
+ GET /dashboard 200 in 2618ms
+ GET /courses/4 200 in 2725ms
+ ✓ Compiled /favicon.ico in 6.4s (842 modules)
+ ✓ Compiled (858 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /favicon.ico 200 in 3830ms
+ GET /api/courses/7/access 404 in 8692ms
+ GET /api/courses/7/access 404 in 1262ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 2.1s (583 modules)
+🔍 Authentication check: {
+  hasAuthHeader: false,
+  hasTokenParam: false,
+  authHeaderPrefix: undefined,
+  tokenParamPrefix: undefined
+}
+❌ No authentication found - redirecting to login
+ GET /api/courses/7/sso 307 in 2497ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/login/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/login/page.js',
+  page: '/login'
+}
+ ○ Compiling /_error ...
+ ⨯ Failed to generate static paths for /api/courses/[id]/sso:
+Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/webpack-runtime.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/api/courses/[id]/sso/route.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/node_modules/next/dist/server/require.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/node_modules/next/dist/server/load-components.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/node_modules/next/dist/build/utils.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/nguyenthuylinh/Desktop/cabala website/cabala-website/node_modules/next/dist/compiled/jest-worker/processChild.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:203:28)
+    at <unknown> (.next/server/webpack-runtime.js:116:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:115:67) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ✓ Compiled /_not-found in 8.4s (1278 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js',
+  page: '/courses/4'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js',
+  page: '/dashboard'
+}
+ GET /login?redirect=%2Fcourses%2F7 500 in 10082ms
+ GET /api/courses/7/access 404 in 3988ms
+ GET /api/courses/7/access 404 in 817ms
+ GET /api/courses/7/access 404 in 268ms
+ GET /courses/4 500 in 4206ms
+ GET /dashboard 500 in 4467ms
+ GET /_next/static/css/app/layout.css?v=1752423859824 404 in 233ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js',
+  page: '/dashboard'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js',
+  page: '/courses/4'
+}
+ GET /_next/static/chunks/main-app.js?v=1752423859824 404 in 422ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 185ms
+ GET /dashboard 500 in 570ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/dashboard/page.js',
+  page: '/dashboard'
+}
+ GET /courses/4 500 in 793ms
+ GET /dashboard 500 in 573ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/courses/[id]/page.js',
+  page: '/courses/4'
+}
+ GET /courses/4 500 in 705ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 2.8s (1280 modules)
+ GET /favicon.ico 200 in 3203ms
+ GET /favicon.ico 200 in 267ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/page.js'] {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  path: '/Users/nguyenthuylinh/Desktop/cabala website/cabala-website/.next/server/app/page.js',
+  page: '/'
+}
+ GET / 500 in 575ms
+[?25h
