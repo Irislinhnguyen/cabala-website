@@ -37,14 +37,38 @@ export function generateJWTToken(user: JWTUser): string {
     username: username,
     preferred_username: username,
     email: user.email,
-    given_name: user.firstName || 'User',
-    family_name: user.lastName || 'Student',
+    firstName: user.firstName || 'User',
+    lastName: user.lastName || 'Student',
     iat: Math.floor(Date.now() / 1000),
     exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiration
     iss: JWT_ISSUER
   };
 
   return jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256' });
+}
+
+// Minimal JWT for Moodle SSO - only includes required fields
+export function generateMoodleJWT(user: JWTUser): string {
+  console.log('🔥 GENERATING MOODLE JWT - CODE IS RUNNING!');
+  console.log('🔥 Input user data:', user);
+  
+  // Use the provided username or generate one if not provided
+  const username = user.username || generateCabalaUsername();
+  
+  // Minimal payload with only required Moodle fields - using lowercase to match Moodle database
+  const payload = {
+    username: username,
+    email: user.email,
+    firstname: user.firstName || 'User',  // lowercase to match Moodle
+    lastname: user.lastName || 'Student'  // lowercase to match Moodle
+  };
+
+  console.log('🔥 FINAL JWT PAYLOAD:', payload);
+  
+  const token = jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256' });
+  console.log('🔥 GENERATED JWT TOKEN:', token);
+  
+  return token;
 }
 
 export function generateSSOUrl(token: string, redirectUrl?: string): string {

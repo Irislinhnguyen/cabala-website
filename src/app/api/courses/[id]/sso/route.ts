@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { generateJWTToken, generateSSOUrl, generateCabalaUsername, generateMoodleEmail } from '@/lib/jwt';
+import { generateCabalaUsername, generateMoodleEmail } from '@/lib/jwt';
 import { createMoodleClient } from '@/lib/moodle/client';
 
 interface DatabaseUser {
@@ -105,11 +105,16 @@ export async function GET(
     } else if (tokenParam) {
       token = tokenParam;
     } else {
-      return new NextResponse('Authentication required', { status: 401 });
+      // Redirect to login with course redirect
+      const loginUrl = `/login?redirect=${encodeURIComponent(`/courses/${courseId}`)}`;
+      return NextResponse.redirect(new URL(loginUrl, request.url));
     }
+    
     const decoded = verifyToken(token);
     if (!decoded) {
-      return new NextResponse('Invalid token', { status: 401 });
+      // Redirect to login with course redirect
+      const loginUrl = `/login?redirect=${encodeURIComponent(`/courses/${courseId}`)}`;
+      return NextResponse.redirect(new URL(loginUrl, request.url));
     }
 
     // Get user from database
@@ -249,92 +254,268 @@ export async function GET(
       console.log('✅ User already enrolled in course');
     }
 
-    // STEP 3: Generate JWT token for SSO
-    console.log('🔍 Step 3: Generating SSO token...');
-    console.log('🔍 Using email for JWT:', finalMoodleEmail);
-    console.log('🔍 Using username for JWT:', finalMoodleUsername);
-    const jwtToken = generateJWTToken({
-      email: finalMoodleEmail, // Use the correct Moodle email
-      username: finalMoodleUsername || '', // Use the actual Moodle username
-      firstName: user.firstName,
-      lastName: user.lastName
+    // STEP 3: Create manual login with prefilled credentials
+    console.log('🔍 Step 3: Creating manual login redirect...');
+    console.log('🔍 Using username:', finalMoodleUsername);
+    console.log('🔍 Using password from database');
+    
+    // Get stored password for this user
+    const userWithPassword = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { moodlePassword: true }
     });
+    
+    const moodlePassword = userWithPassword?.moodlePassword;
+    if (!moodlePassword) {
+      throw new Error('Moodle password not found for user');
+    }
 
-    // Create redirect URL to course after SSO login
+    // Create redirect URL to course after login
     const moodleUrl = process.env.MOODLE_URL;
     const courseUrl = `${moodleUrl}/course/view.php?id=${courseId}`;
     
-    // Generate SSO URL with JWT token
-    const ssoUrl = generateSSOUrl(jwtToken, courseUrl);
+    console.log('🔍 Will redirect to course:', courseUrl);
     
-    console.log('✅ SSO process completed successfully:', {
+    console.log('✅ Manual login process completed successfully:', {
       finalMoodleUserId,
       finalMoodleUsername,
       finalMoodleEmail,
       courseId,
-      ssoUrl
+      courseUrl
     });
 
-    // Create redirect HTML page
-    const redirectHtml = `
+    // Create credentials popup page that opens course in new tab
+    console.log('🔍 Creating credentials popup and opening course page');
+
+    const credentialsPopupHtml = `
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Redirecting to Course...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin đăng nhập Moodle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            min-height: 100vh;
         }
         .container {
-            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .credential-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .credential-item {
+            margin: 1.5rem 0;
+        }
+        .credential-label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .credential-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .credential-text {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+        }
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .copy-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .copy-btn.copied {
+            background: #17a2b8;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+        .step-number {
+            background: #ffc107;
+            color: #333;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .status {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        .success {
+            color: #28a745;
+        }
+        .info-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Đang đăng nhập vào Moodle...</h2>
-        <div class="spinner"></div>
-        <p>Bạn sẽ được chuyển hướng đến khóa học trong giây lát.</p>
+        <div class="header">
+            <h1>🎓 Thông tin đăng nhập khóa học</h1>
+            <div class="status success">✅ Tài khoản đã sẵn sàng!</div>
+        </div>
+
+        <div class="credential-box">
+            <div class="credential-item">
+                <div class="credential-label">👤 Tên đăng nhập:</div>
+                <div class="credential-value">
+                    <input type="text" class="credential-text" value="${finalMoodleUsername}" readonly id="username">
+                    <button class="copy-btn" onclick="copyToClipboard('username', this)">📋 Copy</button>
+                </div>
+            </div>
+            
+            <div class="credential-item">
+                <div class="credential-label">🔐 Mật khẩu:</div>
+                <div class="credential-value">
+                    <input type="text" class="credential-text" value="${moodlePassword}" readonly id="password">
+                    <button class="copy-btn" onclick="copyToClipboard('password', this)">📋 Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📝 Hướng dẫn đăng nhập:</h3>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>Đọc và ghi nhớ thông tin đăng nhập ở trên</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>Copy tên đăng nhập và mật khẩu (hoặc ghi nhớ)</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>Nhấn nút "Mở trang đăng nhập Moodle" bên dưới</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>Dán thông tin vào form đăng nhập Moodle</div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>Sau khi đăng nhập, bạn sẽ ở ngay trang khóa học!</div>
+            </div>
+        </div>
+
+        <button class="login-button" onclick="openMoodleLogin()" id="moodleBtn">
+            🚀 Mở trang đăng nhập Moodle
+        </button>
+
+        <div class="info-box">
+            <strong>💡 Lưu ý:</strong> Giữ trang này mở để có thể copy thông tin khi cần.
+            Trang Moodle sẽ mở trong tab mới.
+        </div>
     </div>
 
     <script>
-        // Redirect to SSO URL immediately
-        window.location.href = '${ssoUrl}';
+        const courseUrl = '${courseUrl}';
         
-        // Debug info for development
-        console.log('SSO URL:', '${ssoUrl}');
-        console.log('Course URL:', '${courseUrl}');
+        function openMoodleLogin() {
+            const moodleBtn = document.getElementById('moodleBtn');
+            moodleBtn.innerHTML = '🔄 Đang mở trang Moodle...';
+            moodleBtn.disabled = true;
+            
+            // Open course page in new tab
+            window.open(courseUrl, '_blank');
+            
+            setTimeout(() => {
+                moodleBtn.innerHTML = '✅ Đã mở! Chuyển sang tab Moodle để đăng nhập';
+                moodleBtn.style.background = '#17a2b8';
+            }, 1000);
+        }
+
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            element.select();
+            element.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                // Fallback for modern browsers
+                navigator.clipboard.writeText(element.value).then(() => {
+                    button.innerHTML = '✅ Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.innerHTML = '📋 Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        }
     </script>
 </body>
 </html>`;
 
-    return new NextResponse(redirectHtml, {
+    return new NextResponse(credentialsPopupHtml, {
       headers: {
-        'Content-Type': 'text/html',
+        'Content-Type': 'text/html; charset=utf-8',
       },
     });
 
@@ -367,8 +548,10 @@ export async function GET(
     // Return error page with Vietnamese message
     const errorHtml = `
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lỗi đăng ký khóa học</title>
     <style>
         body {
@@ -434,7 +617,7 @@ export async function GET(
     return new NextResponse(errorHtml, {
       status: statusCode,
       headers: {
-        'Content-Type': 'text/html',
+        'Content-Type': 'text/html; charset=utf-8',
       },
     });
   }
