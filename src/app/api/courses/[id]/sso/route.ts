@@ -99,23 +99,37 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const tokenParam = searchParams.get('token');
     
+    console.log('🔍 Authentication check:', {
+      hasAuthHeader: !!authHeader,
+      hasTokenParam: !!tokenParam,
+      authHeaderPrefix: authHeader?.substring(0, 10),
+      tokenParamPrefix: tokenParam?.substring(0, 10)
+    });
+    
     let token = null;
     if (authHeader?.startsWith('Bearer ')) {
       token = authHeader.substring(7);
+      console.log('✅ Using Bearer token from header');
     } else if (tokenParam) {
       token = tokenParam;
+      console.log('✅ Using token from query parameter');
     } else {
+      console.log('❌ No authentication found - redirecting to login');
       // Redirect to login with course redirect
       const loginUrl = `/login?redirect=${encodeURIComponent(`/courses/${courseId}`)}`;
       return NextResponse.redirect(new URL(loginUrl, request.url));
     }
     
+    console.log('🔍 Verifying token...');
     const decoded = verifyToken(token);
     if (!decoded) {
+      console.log('❌ Token verification failed - redirecting to login');
       // Redirect to login with course redirect
       const loginUrl = `/login?redirect=${encodeURIComponent(`/courses/${courseId}`)}`;
       return NextResponse.redirect(new URL(loginUrl, request.url));
     }
+    
+    console.log('✅ Authentication successful for user:', decoded.userId);
 
     // Get user from database
     const user = await prisma.user.findUnique({

@@ -72,6 +72,23 @@ export default function CourseDetailPage() {
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
+        
+        // Check if token is expired
+        if (payload.exp && payload.exp * 1000 < Date.now()) {
+          console.log('Token expired, removing from storage');
+          localStorage.removeItem('auth_token');
+          setUser(null);
+          return;
+        }
+        
+        // Validate required fields
+        if (!payload.userId || !payload.email) {
+          console.log('Invalid token payload, removing from storage');
+          localStorage.removeItem('auth_token');
+          setUser(null);
+          return;
+        }
+        
         setUser({
           id: payload.userId,
           email: payload.email,
@@ -79,9 +96,12 @@ export default function CourseDetailPage() {
           lastName: payload.lastName
         });
       } catch (error) {
-        console.error('Invalid token:', error);
+        console.error('Invalid token format:', error);
         localStorage.removeItem('auth_token');
+        setUser(null);
       }
+    } else {
+      setUser(null);
     }
   };
 
@@ -412,11 +432,17 @@ export default function CourseDetailPage() {
                     size="lg" 
                     className="w-full bg-green-600 hover:bg-green-700"
                     onClick={() => {
-                      // Direct SSO link - miniOrange handles enrollment and login automatically
+                      // Validate authentication before proceeding to SSO
                       const authToken = localStorage.getItem('auth_token');
-                      if (authToken) {
-                        window.location.href = `/api/courses/${course.id}/sso?token=${authToken}`;
+                      if (!authToken || !user.id) {
+                        // No valid authentication - redirect to login
+                        const returnUrl = encodeURIComponent(window.location.pathname);
+                        router.push(`/login?return=${returnUrl}`);
+                        return;
                       }
+                      
+                      // Valid authentication - proceed to SSO
+                      window.location.href = `/api/courses/${course.id}/sso?token=${authToken}`;
                     }}
                   >
                     Bắt đầu học

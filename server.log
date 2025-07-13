@@ -695,3 +695,390 @@ prisma:query COMMIT
  ✓ Compiled in 2.7s (853 modules)
  ✓ Compiled in 657ms (372 modules)
  ✓ Compiled in 1316ms (372 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /courses/2 200 in 1838ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 1718ms (500 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 2447ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 1481ms (585 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /courses/2 200 in 859ms
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'irislevine13@gmail.com',
+  moodleUserId: 97,
+  moodleUsername: 'irislevine13_1752297399863',
+  courseId: 2
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'irislevine13@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'irislevine13@gmail.com'
+  }
+}
+✅ Email found in Moodle: {
+  id: 97,
+  username: 'irislevine13_1752297399863',
+  email: 'irislevine13@gmail.com'
+}
+✅ Perfect match - using existing account
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 2 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '2'
+  }
+}
+✅ User already enrolled in course
+🔍 Step 3: Creating manual login redirect...
+🔍 Using username: irislevine13_1752297399863
+🔍 Using password from database
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."moodlePassword" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Will redirect to course: https://learn.cabala.com.vn/course/view.php?id=2
+✅ Manual login process completed successfully: {
+  finalMoodleUserId: 97,
+  finalMoodleUsername: 'irislevine13_1752297399863',
+  finalMoodleEmail: 'irislevine13@gmail.com',
+  courseId: 2,
+  courseUrl: 'https://learn.cabala.com.vn/course/view.php?id=2'
+}
+🔍 Creating credentials popup and opening course page
+ GET /api/courses/2/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6c21ld3kwMDAwanEzbjZkZnVmMjFkIiwiZW1haWwiOiJpcmlzbGV2aW5lMTNAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTIzOTE2OTIsImV4cCI6MTc1Mjk5NjQ5Mn0.HAJ3cqHbNuumeeTiE98Gc_WPTiDVnXHv0fyGmCKLxEA 200 in 6483ms
+ ✓ Compiled in 2.6s (853 modules)
+ ✓ Compiled in 3.2s (853 modules)
+ ✓ Compiled in 1345ms (853 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /courses/2 200 in 824ms
+ ○ Compiling /api/courses/[id] ...
+ ✓ Compiled /api/courses/[id] in 1061ms (500 modules)
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 1753ms
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /dashboard 200 in 284ms
+ ○ Compiling /api/my-enrollments ...
+ ✓ Compiled /api/my-enrollments in 1082ms (502 modules)
+ ✓ Compiled (585 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /api/courses 200 in 3014ms
+ GET /api/my-enrollments 200 in 3014ms
+ GET /login 200 in 2585ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /courses 200 in 54ms
+ GET /api/courses 200 in 248ms
+ GET /api/courses 200 in 226ms
+ GET /courses/2 200 in 275ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 253ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 240ms
+ ○ Compiling /api/courses/[id]/sso ...
+ ✓ Compiled /api/courses/[id]/sso in 1169ms (589 modules)
+🔍 Authentication check: {
+  hasAuthHeader: false,
+  hasTokenParam: true,
+  authHeaderPrefix: undefined,
+  tokenParamPrefix: 'eyJhbGciOi'
+}
+✅ Using token from query parameter
+🔍 Verifying token...
+✅ Authentication successful for user: cmczsmewy0000jq3n6dfuf21d
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /courses/2 200 in 595ms
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'irislevine13@gmail.com',
+  moodleUserId: 97,
+  moodleUsername: 'irislevine13_1752297399863',
+  courseId: 2
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'irislevine13@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'irislevine13@gmail.com'
+  }
+}
+✅ Email found in Moodle: {
+  id: 97,
+  username: 'irislevine13_1752297399863',
+  email: 'irislevine13@gmail.com'
+}
+✅ Perfect match - using existing account
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 2 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '2'
+  }
+}
+✅ User already enrolled in course
+🔍 Step 3: Creating manual login redirect...
+🔍 Using username: irislevine13_1752297399863
+🔍 Using password from database
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."moodlePassword" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+🔍 Will redirect to course: https://learn.cabala.com.vn/course/view.php?id=2
+✅ Manual login process completed successfully: {
+  finalMoodleUserId: 97,
+  finalMoodleUsername: 'irislevine13_1752297399863',
+  finalMoodleEmail: 'irislevine13@gmail.com',
+  courseId: 2,
+  courseUrl: 'https://learn.cabala.com.vn/course/view.php?id=2'
+}
+🔍 Creating credentials popup and opening course page
+ GET /api/courses/2/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6c21ld3kwMDAwanEzbjZkZnVmMjFkIiwiZW1haWwiOiJpcmlzbGV2aW5lMTNAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTIzOTE2OTIsImV4cCI6MTc1Mjk5NjQ5Mn0.HAJ3cqHbNuumeeTiE98Gc_WPTiDVnXHv0fyGmCKLxEA 200 in 2659ms
+prisma:query COMMIT
+ GET /courses/2 200 in 808ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 284ms
+ GET /courses 200 in 51ms
+ GET /api/courses 200 in 254ms
+ GET /api/courses 200 in 285ms
+ GET /courses/4 200 in 87ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/4 200 in 241ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/4 200 in 245ms
+ GET / 200 in 376ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 957ms (591 modules)
+ GET /favicon.ico 200 in 1564ms
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /api/courses 200 in 1476ms
+ GET /courses 200 in 273ms
+ GET /favicon.ico 200 in 17ms
+ GET /api/courses 200 in 277ms
+ GET /api/courses 200 in 222ms
+ GET /courses/2 200 in 303ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /favicon.ico 200 in 119ms
+ GET /api/courses/2 200 in 407ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 247ms
+ GET /login?return=%2Fcourses%2F2 200 in 69ms
+ GET /favicon.ico 200 in 19ms
+ ○ Compiling /api/auth/login ...
+ ✓ Compiled /api/auth/login in 583ms (594 modules)
+ POST /api/auth/login 200 in 2267ms
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /courses/2 200 in 427ms
+ GET /favicon.ico 200 in 22ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 272ms
+🔍 Authentication check: {
+  hasAuthHeader: false,
+  hasTokenParam: true,
+  authHeaderPrefix: undefined,
+  tokenParamPrefix: 'eyJhbGciOi'
+}
+✅ Using token from query parameter
+🔍 Verifying token...
+✅ Authentication successful for user: cmczsmewy0000jq3n6dfuf21d
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."emailVerified", "public"."users"."name", "public"."users"."firstName", "public"."users"."lastName", "public"."users"."password", "public"."users"."avatar", "public"."users"."phone", "public"."users"."role"::text, "public"."users"."moodleUserId", "public"."users"."moodleUsername", "public"."users"."moodlePassword", "public"."users"."isActive", "public"."users"."lastLogin", "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+🔍 Starting SSO process for user: {
+  email: 'irislevine13@gmail.com',
+  moodleUserId: 97,
+  moodleUsername: 'irislevine13_1752297399863',
+  courseId: 2
+}
+🔍 Step 1: Checking if email exists in Moodle...
+Moodle API Request: {
+  wsfunction: 'core_user_get_users_by_field',
+  params: { field: 'email', values: [ 'irislevine13@gmail.com' ] },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_user_get_users_by_field',
+    moodlewsrestformat: 'json',
+    field: 'email',
+    'values[0]': 'irislevine13@gmail.com'
+  }
+}
+✅ Email found in Moodle: {
+  id: 97,
+  username: 'irislevine13_1752297399863',
+  email: 'irislevine13@gmail.com'
+}
+✅ Perfect match - using existing account
+🔍 Step 2: Checking course enrollment...
+Moodle API Request: {
+  wsfunction: 'core_enrol_get_enrolled_users',
+  params: { courseid: 2 },
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_enrol_get_enrolled_users',
+    moodlewsrestformat: 'json',
+    courseid: '2'
+  }
+}
+✅ User already enrolled in course
+🔍 Step 3: Creating manual login redirect...
+🔍 Using username: irislevine13_1752297399863
+🔍 Using password from database
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."users"."id", "public"."users"."moodlePassword" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+🔍 Will redirect to course: https://learn.cabala.com.vn/course/view.php?id=2
+✅ Manual login process completed successfully: {
+  finalMoodleUserId: 97,
+  finalMoodleUsername: 'irislevine13_1752297399863',
+  finalMoodleEmail: 'irislevine13@gmail.com',
+  courseId: 2,
+  courseUrl: 'https://learn.cabala.com.vn/course/view.php?id=2'
+}
+🔍 Creating credentials popup and opening course page
+ GET /api/courses/2/sso?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWN6c21ld3kwMDAwanEzbjZkZnVmMjFkIiwiZW1haWwiOiJpcmlzbGV2aW5lMTNAZ21haWwuY29tIiwibmFtZSI6IkxpbmggTmd1eWVuIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NTI0MjMyMzIsImV4cCI6MTc1MzAyODAzMn0.tgdKdlalm4kiSt9UZaMIagtDGOqqMHR_ZXVsHSV5vlo 200 in 921ms
+prisma:query COMMIT
+ GET /favicon.ico 200 in 47ms
+ GET /courses/2 200 in 245ms
+ GET /favicon.ico 200 in 16ms
+Moodle API Request: {
+  wsfunction: 'core_course_get_courses',
+  params: {},
+  url: 'https://learn.cabala.com.vn/webservice/rest/server.php',
+  formattedParams: {
+    wstoken: '567fe59f13ca3bdb3a65a1672e764eeb',
+    wsfunction: 'core_course_get_courses',
+    moodlewsrestformat: 'json'
+  }
+}
+ GET /api/courses/2 200 in 314ms
