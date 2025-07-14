@@ -2,12 +2,122 @@
 import { prisma } from '@/lib/prisma';
 import { MoodleClient } from './client';
 import { slugify } from '@/lib/utils';
+import fs from 'fs/promises';
+import path from 'path';
 
 export class MoodleSyncService {
   private moodleClient: MoodleClient;
 
   constructor(moodleClient: MoodleClient) {
     this.moodleClient = moodleClient;
+  }
+
+  // Download and save image locally
+  private async downloadAndSaveImage(
+    imageUrl: string, 
+    courseId: number, 
+    filename: string
+  ): Promise<{
+    localPath: string;
+    mimeType: string;
+    fileSize: number;
+  } | null> {
+    try {
+      console.log(`📥 Downloading image: ${filename} for course ${courseId}`);
+      
+      // Get Moodle credentials for authenticated download
+      const baseUrl = process.env.MOODLE_URL;
+      const token = process.env.MOODLE_TOKEN;
+      
+      if (!baseUrl || !token) {
+        console.error('❌ Missing Moodle configuration for image download');
+        return null;
+      }
+
+      // Add token to URL if not already present
+      const authenticatedUrl = imageUrl.includes('?') 
+        ? `${imageUrl}&token=${token}` 
+        : `${imageUrl}?token=${token}`;
+
+      // Fetch the image
+      const response = await fetch(authenticatedUrl, {
+        headers: {
+          'User-Agent': 'Cabala-Website/1.0',
+          'Accept': 'image/*,*/*;q=0.8',
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`❌ Failed to download image: ${response.status} ${response.statusText}`);
+        return null;
+      }
+
+      // Get image data
+      const imageBuffer = await response.arrayBuffer();
+      const contentType = response.headers.get('content-type') || 'image/jpeg';
+      
+      // Generate safe filename
+      const ext = this.getFileExtension(filename, contentType);
+      const safeFilename = `course-${courseId}-${Date.now()}${ext}`;
+      const relativePath = `course-images/${safeFilename}`;
+      const fullPath = path.join(process.cwd(), 'public', relativePath);
+
+      // Ensure directory exists
+      await fs.mkdir(path.dirname(fullPath), { recursive: true });
+
+      // Save the file
+      await fs.writeFile(fullPath, Buffer.from(imageBuffer));
+
+      console.log(`✅ Image saved: ${relativePath} (${imageBuffer.byteLength} bytes)`);
+
+      return {
+        localPath: `/${relativePath}`, // Store with leading slash for web serving
+        mimeType: contentType,
+        fileSize: imageBuffer.byteLength,
+      };
+    } catch (error) {
+      console.error(`❌ Error downloading image for course ${courseId}:`, error);
+      return null;
+    }
+  }
+
+  // Get file extension from filename or content type
+  private getFileExtension(filename: string, contentType: string): string {
+    // Try to get extension from filename first
+    const fileExt = path.extname(filename).toLowerCase();
+    if (fileExt) return fileExt;
+
+    // Fallback to content type
+    switch (contentType.toLowerCase()) {
+      case 'image/jpeg':
+      case 'image/jpg':
+        return '.jpg';
+      case 'image/png':
+        return '.png';
+      case 'image/gif':
+        return '.gif';
+      case 'image/webp':
+        return '.webp';
+      default:
+        return '.jpg'; // Default fallback
+    }
+  }
+
+  // Check if image needs to be updated
+  private shouldUpdateImage(
+    overviewFile: any, 
+    existingLastModified?: Date,
+    existingFileSize?: number
+  ): boolean {
+    if (!existingLastModified || !existingFileSize) {
+      return true; // No existing image, need to download
+    }
+
+    const moodleLastModified = new Date(overviewFile.timemodified * 1000);
+    const moodleFileSize = overviewFile.filesize;
+
+    // Update if Moodle image is newer or different size
+    return moodleLastModified > existingLastModified || moodleFileSize !== existingFileSize;
   }
 
   // Sync categories from Moodle to local database
@@ -60,9 +170,69 @@ export class MoodleSyncService {
           cat.id === moodleCourse.categoryid.toString()
         );
 
+        // Get existing course data for comparison
+        const existingCourse = await prisma.course.findUnique({
+          where: { moodleCourseId: moodleCourse.id },
+          select: {
+            localImagePath: true,
+            imageLastModified: true,
+            imageFileSize: true,
+          }
+        });
+
         // Process course images
         const imageData = this.moodleClient.processOverviewFiles(moodleCourse.overviewfiles);
-        console.log(`🖼️ Course ${moodleCourse.fullname}: Found ${imageData.allImages.length} images`);
+        console.log(`🖼️ Course ${moodleCourse.fullname}:`);
+        console.log(`   - Overview files: ${moodleCourse.overviewfiles?.length || 0}`);
+        console.log(`   - Processed images: ${imageData.allImages.length}`);
+        console.log(`   - Primary image: ${imageData.primaryImage ? 'YES' : 'NO'}`);
+
+        // Download image locally if needed
+        let localImageData = null;
+        if (imageData.metadata.length > 0) {
+          const primaryImageFile = imageData.metadata.find(file => 
+            file.mimetype.startsWith('image/') && 
+            (file.filename.toLowerCase().includes('course') || 
+             file.filename.toLowerCase().includes('overview') ||
+             imageData.metadata.length === 1)
+          );
+
+          if (primaryImageFile) {
+            console.log(`   - Found primary image file: ${primaryImageFile.filename}`);
+            
+            // Check if we need to update the image
+            const shouldUpdate = this.shouldUpdateImage(
+              primaryImageFile,
+              existingCourse?.imageLastModified,
+              existingCourse?.imageFileSize
+            );
+
+            if (shouldUpdate) {
+              console.log(`   - Downloading new/updated image...`);
+              localImageData = await this.downloadAndSaveImage(
+                primaryImageFile.fileurl,
+                moodleCourse.id,
+                primaryImageFile.filename
+              );
+              
+              if (localImageData) {
+                console.log(`   - ✅ Image downloaded successfully: ${localImageData.localPath}`);
+              } else {
+                console.log(`   - ❌ Failed to download image`);
+              }
+            } else {
+              console.log(`   - ⏭️ Image is up to date, skipping download`);
+              // Keep existing local image data
+              if (existingCourse?.localImagePath) {
+                localImageData = {
+                  localPath: existingCourse.localImagePath,
+                  mimeType: primaryImageFile.mimetype,
+                  fileSize: primaryImageFile.filesize,
+                };
+              }
+            }
+          }
+        }
 
         const courseData = {
           moodleCourseId: moodleCourse.id,
@@ -78,6 +248,14 @@ export class MoodleSyncService {
           // Course images from Moodle
           moodleImageUrl: imageData.primaryImage,
           overviewFiles: imageData.metadata.length > 0 ? imageData.metadata : null,
+          
+          // Local image storage
+          localImagePath: localImageData?.localPath || existingCourse?.localImagePath,
+          imageMimeType: localImageData?.mimeType,
+          imageLastModified: localImageData ? 
+            new Date(imageData.metadata.find(f => f.mimetype.startsWith('image/'))?.timemodified * 1000) : 
+            existingCourse?.imageLastModified,
+          imageFileSize: localImageData?.fileSize || existingCourse?.imageFileSize,
           
           // Set default pricing - will be updated by admin later
           price: 0,
@@ -101,6 +279,11 @@ export class MoodleSyncService {
             // Update image data
             moodleImageUrl: courseData.moodleImageUrl,
             overviewFiles: courseData.overviewFiles,
+            // Update local image storage
+            localImagePath: courseData.localImagePath,
+            imageMimeType: courseData.imageMimeType,
+            imageLastModified: courseData.imageLastModified,
+            imageFileSize: courseData.imageFileSize,
             // SEO fields
             metaTitle: courseData.metaTitle,
             metaDescription: courseData.metaDescription,

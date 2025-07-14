@@ -1,9 +1,10 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 /* Import Cabala Design System */
 @import '../styles/design-system.css';
+
+@tailwind utilities;
 
 /* Global Base Styles */
 * {

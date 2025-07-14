@@ -121,6 +121,7 @@
 .bg-primary { background-color: var(--color-interactive); }
 .bg-surface { background-color: var(--color-surface); }
 .bg-accent { background-color: var(--color-accent-500); }
+.bg-interactive-light { background-color: var(--color-interactive-light); }
 
 .border-base { border-color: var(--color-border); }
 .border-light { border-color: var(--color-border-light); }

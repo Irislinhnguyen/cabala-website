@@ -7,17 +7,30 @@ export interface AuthUser {
   role?: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-jwt-secret';
+// Helper function to get JWT_SECRET with proper error handling
+function getJWTSecret(): string {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is required for authentication');
+  }
+  return JWT_SECRET;
+}
 
 export function generateToken(user: AuthUser): string {
-  return jwt.sign(user, JWT_SECRET, { expiresIn: '7d' });
+  const secret = getJWTSecret();
+  return jwt.sign(user, secret, { expiresIn: '7d' });
 }
 
 export function verifyToken(token: string): AuthUser | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as AuthUser;
-    return decoded;
-  } catch {
+    const secret = getJWTSecret();
+    const decoded = jwt.verify(token, secret);
+    // Ensure the decoded token has the expected structure
+    if (typeof decoded === 'object' && decoded !== null && 'userId' in decoded) {
+      return decoded as AuthUser;
+    }
+    return null;
+  } catch (error) {
     return null;
   }
 }
@@ -59,4 +72,28 @@ export function getCurrentUser(): AuthUser | null {
   if (!token) return null;
   
   return verifyToken(token);
+}
+
+// Logout function
+export async function logout(): Promise<void> {
+  const token = getStoredToken();
+  
+  try {
+    // Call logout API if token exists
+    if (token) {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  } catch (error) {
+    console.error('Logout API call failed:', error);
+    // Continue with local cleanup even if API fails
+  }
+  
+  // Always clear local storage
+  removeStoredToken();
 }

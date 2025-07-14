@@ -1,13 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createMoodleClient } from '@/lib/moodle/client';
 import { createMoodleSyncService } from '@/lib/moodle/sync';
+import { requireAdminAuth } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if request is from authorized source (you can add authentication here)
+    // Check admin authentication
     const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized - Bearer token required' }, { status: 401 });
+    }
+
+    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    
+    try {
+      const adminUser = requireAdminAuth(token);
+      console.log(`Admin sync requested by: ${adminUser.email}`);
+    } catch (authError) {
+      return NextResponse.json({ 
+        error: 'Access denied - Admin role required', 
+        details: authError instanceof Error ? authError.message : 'Auth failed' 
+      }, { status: 403 });
     }
 
     const body = await request.json();
@@ -51,6 +64,24 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check admin authentication for GET requests too
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized - Bearer token required' }, { status: 401 });
+    }
+
+    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    
+    try {
+      const adminUser = requireAdminAuth(token);
+      console.log(`Admin info requested by: ${adminUser.email}`);
+    } catch (authError) {
+      return NextResponse.json({ 
+        error: 'Access denied - Admin role required', 
+        details: authError instanceof Error ? authError.message : 'Auth failed' 
+      }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
 

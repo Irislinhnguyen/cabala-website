@@ -45,11 +45,12 @@ export default function AdminDashboard() {
   const handleMoodleSync = async () => {
     try {
       setSyncing(true);
+      const token = localStorage.getItem('auth_token');
       const response = await fetch('/api/moodle/sync', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer admin_token', // You'd use proper auth
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ action: 'sync-all' }),
       });
@@ -226,7 +227,7 @@ export default function AdminDashboard() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                <span>Course "CwC A2+" images synced</span>
+                <span>Course &quot;CwC A2+&quot; images synced</span>
                 <span className="text-gray-500 text-xs">2h ago</span>
               </div>
               <div className="flex items-center space-x-2">

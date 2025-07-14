@@ -36,8 +36,15 @@ function LoginForm() {
       if (res.ok) {
         // Store token and redirect
         localStorage.setItem('auth_token', data.token);
-        const redirectUrl = returnUrl ? decodeURIComponent(returnUrl) : '/dashboard';
-        window.location.href = redirectUrl;
+        
+        // Redirect admin users to admin dashboard
+        if (data.user?.role === 'ADMIN') {
+          const redirectUrl = returnUrl ? decodeURIComponent(returnUrl) : '/admin';
+          window.location.href = redirectUrl;
+        } else {
+          const redirectUrl = returnUrl ? decodeURIComponent(returnUrl) : '/dashboard';
+          window.location.href = redirectUrl;
+        }
       } else {
         setError(data.error || 'Đăng nhập thất bại');
       }

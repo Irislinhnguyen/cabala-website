@@ -52,33 +52,68 @@ export default function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
     if (!token) {
+      console.log('🔍 Dashboard: No auth token found, redirecting to login');
       window.location.href = '/login';
       return;
     }
 
-    // Decode token to get user info
+    console.log('🔍 Dashboard: Auth token found, verifying...');
+    
+    // Verify token using API endpoint (client-safe)
+    verifyTokenAndSetUser(token);
+  }, []);
+
+  const verifyTokenAndSetUser = async (token: string) => {
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      setUser({
-        id: payload.userId,
-        email: payload.email,
-        firstName: payload.name.split(' ')[0],
-        lastName: payload.name.split(' ').slice(1).join(' '),
-        name: payload.name,
-        role: payload.role || 'USER'
+      const response = await fetch('/api/test-auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
       });
+
+      const data = await response.json();
+      
+      if (!data.success || !data.user) {
+        console.log('🔍 Dashboard: Token verification failed:', data.error);
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
+        return;
+      }
+      
+      console.log('🔍 Dashboard: Token verified successfully:', data.user);
+      
+      // Redirect admin users to admin dashboard
+      if (data.user.role === 'ADMIN') {
+        console.log('🔍 Dashboard: Admin user detected, redirecting to admin dashboard');
+        window.location.href = '/admin';
+        return;
+      }
+      
+      // Set user info from verified token
+      setUser({
+        id: data.user.userId,
+        email: data.user.email,
+        firstName: data.user.name?.split(' ')[0] || 'User',
+        lastName: data.user.name?.split(' ').slice(1).join(' ') || '',
+        name: data.user.name || 'User',
+        role: data.user.role || 'STUDENT'
+      });
+      
+      console.log('🔍 Dashboard: User set successfully, fetching data...');
+      
+      // Fetch courses, enrollments and stats
+      fetchCourses();
+      fetchUserEnrollments();
+      fetchUserStats();
+      
     } catch (error) {
-      console.error('Invalid token:', error);
+      console.error('🔍 Dashboard: Token verification error:', error);
       localStorage.removeItem('auth_token');
       window.location.href = '/login';
-      return;
     }
-
-    // Fetch courses, enrollments and stats
-    fetchCourses();
-    fetchUserEnrollments();
-    fetchUserStats();
-  }, []);
+  };
 
   const fetchUserEnrollments = async () => {
     try {
@@ -135,9 +170,36 @@ export default function Dashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('auth_token');
-    window.location.href = '/';
+  const handleLogout = async () => {
+    try {
+      console.log('🔍 Dashboard: Initiating logout...');
+      
+      const token = localStorage.getItem('auth_token');
+      
+      // Call logout API endpoint
+      if (token) {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      }
+      
+      // Clear local storage
+      localStorage.removeItem('auth_token');
+      console.log('🔍 Dashboard: Token cleared, redirecting to home');
+      
+      // Redirect to home page
+      window.location.href = '/';
+      
+    } catch (error) {
+      console.error('🔍 Dashboard: Logout error:', error);
+      // Even if API call fails, still clear local storage and redirect
+      localStorage.removeItem('auth_token');
+      window.location.href = '/';
+    }
   };
 
   if (loading) {

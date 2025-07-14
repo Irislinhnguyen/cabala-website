@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -43,14 +44,32 @@ async function main() {
     });
   }
 
-  // Create admin user
+  // Create admin user with password
+  const adminPassword = await bcrypt.hash('Admin123!', 10);
   await prisma.user.upsert({
     where: { email: 'admin@cabala.edu.vn' },
     update: {},
     create: {
       email: 'admin@cabala.edu.vn',
       name: 'Admin Cabala',
+      password: adminPassword,
       role: 'ADMIN',
+      isActive: true,
+    },
+  });
+
+  // Create test student user
+  const studentPassword = await bcrypt.hash('Student123!', 10);
+  await prisma.user.upsert({
+    where: { email: 'test@cabala.edu.vn' },
+    update: {},
+    create: {
+      email: 'test@cabala.edu.vn',
+      name: 'Test Student',
+      firstName: 'Test',
+      lastName: 'Student',
+      password: studentPassword,
+      role: 'STUDENT',
       isActive: true,
     },
   });

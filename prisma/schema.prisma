@@ -96,6 +96,13 @@ model Course {
   moodleImageUrl    String?            // Primary course image from Moodle
   overviewFiles     Json?              // Store all overview files metadata
   
+  // Local image storage
+  localImagePath    String?            // Path to locally stored image file
+  customImagePath   String?            // Path to admin-uploaded custom image file
+  imageMimeType     String?            // Image MIME type (image/jpeg, image/png, etc.)
+  imageLastModified DateTime?          // Last modified timestamp for change detection
+  imageFileSize     Int?               // File size in bytes for comparison
+  
   // Moodle tag integration
   moodleTags        String[]           @default([]) // Original Moodle tags
   customTags        String[]           @default([]) // Custom website tags

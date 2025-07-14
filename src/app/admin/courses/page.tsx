@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 interface AdminCourse {
   id: number;
@@ -11,6 +12,7 @@ interface AdminCourse {
   shortName: string;
   description: string;
   moodleImageUrl?: string;
+  customImagePath?: string;
   price: number;
   currency: string;
   level: string;
@@ -21,7 +23,7 @@ interface AdminCourse {
   duration: string;
   moodleTags: string[];
   customTags: string[];
-  overviewFiles?: any[];
+  overviewFiles?: unknown[];
 }
 
 export default function AdminCoursesPage() {
@@ -42,12 +44,29 @@ export default function AdminCoursesPage() {
       
       if (data.success) {
         // Transform the course data for admin use
-        const adminCourses = data.courses.map((course: any) => ({
+        const adminCourses = data.courses.map((course: {
+          id: number;
+          title: string;
+          shortName: string;
+          description: string;
+          courseImage?: string;
+          customImagePath?: string;
+          price: number;
+          currency: string;
+          level: string;
+          visible: boolean;
+          instructor: string;
+          rating: number;
+          students: number;
+          duration: string;
+          overviewFiles?: unknown[];
+        }) => ({
           id: course.id,
           title: course.title,
           shortName: course.shortName,
           description: course.description,
           moodleImageUrl: course.courseImage,
+          customImagePath: course.customImagePath,
           price: course.price,
           currency: course.currency,
           level: course.level,
@@ -85,23 +104,50 @@ export default function AdminCoursesPage() {
     if (!editingCourse) return;
 
     try {
-      // This would be an API call to update course metadata
-      console.log('Saving course metadata:', { courseId: editingCourse, ...formData });
+      const response = await fetch(`/api/courses/${editingCourse}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
       
-      // Update local state
-      setCourses(courses.map(course => 
-        course.id === editingCourse 
-          ? { ...course, ...formData }
-          : course
-      ));
-      
-      setEditingCourse(null);
-      setFormData({});
-      alert('Course updated successfully!');
+      if (result.success) {
+        // Update local state
+        setCourses(courses.map(course => 
+          course.id === editingCourse 
+            ? { ...course, ...formData }
+            : course
+        ));
+        
+        setEditingCourse(null);
+        setFormData({});
+        alert('Course updated successfully!');
+      } else {
+        alert('Failed to save course: ' + result.error);
+      }
     } catch (error) {
       console.error('Error saving course:', error);
       alert('Failed to save course');
     }
+  };
+
+  const handleImageUploaded = (courseId: number, imagePath: string) => {
+    setCourses(courses.map(course => 
+      course.id === courseId 
+        ? { ...course, customImagePath: imagePath }
+        : course
+    ));
+  };
+
+  const handleImageRemoved = (courseId: number) => {
+    setCourses(courses.map(course => 
+      course.id === courseId 
+        ? { ...course, customImagePath: undefined }
+        : course
+    ));
   };
 
   const handleCancel = () => {
@@ -145,7 +191,13 @@ export default function AdminCoursesPage() {
                 {/* Course Image */}
                 <div className="flex-shrink-0">
                   <div className="w-32 h-24 rounded-lg overflow-hidden bg-gray-100">
-                    {course.moodleImageUrl ? (
+                    {course.customImagePath ? (
+                      <img 
+                        src={course.customImagePath} 
+                        alt={course.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : course.moodleImageUrl ? (
                       <img 
                         src={course.moodleImageUrl} 
                         alt={course.title}
@@ -157,11 +209,14 @@ export default function AdminCoursesPage() {
                       </div>
                     )}
                   </div>
-                  {course.overviewFiles && course.overviewFiles.length > 0 && (
-                    <div className="text-xs text-green-600 mt-1">
-                      ✓ {course.overviewFiles.length} files
-                    </div>
-                  )}
+                  <div className="mt-1 text-xs">
+                    {course.customImagePath && (
+                      <div className="text-blue-600">✓ Custom Image</div>
+                    )}
+                    {course.overviewFiles && course.overviewFiles.length > 0 && (
+                      <div className="text-green-600">✓ {course.overviewFiles.length} files</div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Course Info */}
@@ -199,53 +254,66 @@ export default function AdminCoursesPage() {
 
                   {/* Course Metadata */}
                   {editingCourse === course.id ? (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="space-y-6">
+                      {/* Course Image Upload */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
-                          Price
-                        </label>
-                        <input
-                          type="number"
-                          value={formData.price || 0}
-                          onChange={(e) => setFormData({...formData, price: Number(e.target.value)})}
-                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                        <ImageUpload
+                          courseId={course.id.toString()}
+                          currentImage={course.customImagePath}
+                          onImageUploaded={(imagePath) => handleImageUploaded(course.id, imagePath)}
+                          onImageRemoved={() => handleImageRemoved(course.id)}
                         />
                       </div>
-                      <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
-                          Level
-                        </label>
-                        <select
-                          value={formData.level || course.level}
-                          onChange={(e) => setFormData({...formData, level: e.target.value})}
-                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-                        >
-                          <option value="Beginner">Beginner</option>
-                          <option value="Intermediate">Intermediate</option>
-                          <option value="Advanced">Advanced</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
-                          Instructor
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.instructor || course.instructor}
-                          onChange={(e) => setFormData({...formData, instructor: e.target.value})}
-                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
-                          Duration
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.duration || course.duration}
-                          onChange={(e) => setFormData({...formData, duration: e.target.value})}
-                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-                        />
+
+                      {/* Course Metadata Form */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">
+                            Price
+                          </label>
+                          <input
+                            type="number"
+                            value={formData.price || 0}
+                            onChange={(e) => setFormData({...formData, price: Number(e.target.value)})}
+                            className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">
+                            Level
+                          </label>
+                          <select
+                            value={formData.level || course.level}
+                            onChange={(e) => setFormData({...formData, level: e.target.value})}
+                            className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                          >
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">
+                            Instructor
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.instructor || course.instructor}
+                            onChange={(e) => setFormData({...formData, instructor: e.target.value})}
+                            className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">
+                            Duration
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.duration || course.duration}
+                            onChange={(e) => setFormData({...formData, duration: e.target.value})}
+                            className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
                       </div>
                     </div>
                   ) : (

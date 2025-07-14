@@ -1,8 +1,13 @@
 // JWT Token Generator for miniOrange SSO
 import jwt from 'jsonwebtoken';
 
-// From miniOrange configuration screenshot
-const JWT_SECRET = '951a13d46d67f57e472e41ecdc19d6177194f384fe95d1b7f551b6667669a5622';
+// Use environment variable for JWT secret - NEVER hardcode secrets!
+const JWT_SECRET = process.env.MOODLE_SSO_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('MOODLE_SSO_SECRET environment variable is required');
+}
+// Type assertion is safe after null check
+const JWT_SECRET_STRING: string = JWT_SECRET;
 const JWT_ISSUER = 'cabala-learning-system';
 
 export interface JWTUser {
@@ -44,7 +49,7 @@ export function generateJWTToken(user: JWTUser): string {
     iss: JWT_ISSUER
   };
 
-  return jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256' });
+  return jwt.sign(payload, JWT_SECRET_STRING, { algorithm: 'HS256' });
 }
 
 // Minimal JWT for Moodle SSO - only includes required fields
@@ -65,7 +70,7 @@ export function generateMoodleJWT(user: JWTUser): string {
 
   console.log('🔥 FINAL JWT PAYLOAD:', payload);
   
-  const token = jwt.sign(payload, JWT_SECRET, { algorithm: 'HS256' });
+  const token = jwt.sign(payload, JWT_SECRET_STRING, { algorithm: 'HS256' });
   console.log('🔥 GENERATED JWT TOKEN:', token);
   
   return token;
@@ -87,7 +92,7 @@ export function generateSSOUrl(token: string, redirectUrl?: string): string {
 // Utility function to verify JWT tokens (for debugging)
 export function verifyJWTToken(token: string): JWTUser | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET_STRING);
     return typeof decoded === 'object' ? decoded as JWTUser : null;
   } catch (error) {
     console.error('JWT verification failed:', error);

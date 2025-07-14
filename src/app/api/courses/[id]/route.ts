@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createMoodleClient } from '@/lib/moodle/client';
+import { prisma } from '@/lib/prisma';
+import { unlink } from 'fs/promises';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 export async function GET(
   request: NextRequest,
@@ -74,6 +78,96 @@ export async function GET(
         error: 'Failed to fetch course details',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+    
+    // Update course in database
+    const updatedCourse = await prisma.course.update({
+      where: { id: id },
+      data: {
+        price: body.price ? parseFloat(body.price) : undefined,
+        currency: body.currency,
+        level: body.level,
+        instructorName: body.instructor,
+        duration: body.duration ? parseInt(body.duration) : undefined,
+        customTags: body.customTags || [],
+      }
+    });
+
+    return NextResponse.json({
+      success: true,
+      course: updatedCourse,
+      message: 'Course updated successfully'
+    });
+
+  } catch (error) {
+    console.error('Error updating course:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to update course' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const { action } = await request.json();
+    
+    if (action === 'remove-image') {
+      // Get course with current image
+      const course = await prisma.course.findUnique({
+        where: { id: id },
+        select: { customImagePath: true }
+      });
+
+      if (course?.customImagePath) {
+        // Remove physical file
+        const filePath = join(process.cwd(), 'public', course.customImagePath);
+        if (existsSync(filePath)) {
+          await unlink(filePath);
+        }
+
+        // Update database
+        await prisma.course.update({
+          where: { id: id },
+          data: {
+            customImagePath: null,
+            imageMimeType: null,
+            imageFileSize: null,
+            imageLastModified: null
+          }
+        });
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: 'Custom image removed successfully'
+      });
+    }
+
+    return NextResponse.json(
+      { success: false, error: 'Invalid action' },
+      { status: 400 }
+    );
+
+  } catch (error) {
+    console.error('Error processing delete request:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to process request' },
       { status: 500 }
     );
   }

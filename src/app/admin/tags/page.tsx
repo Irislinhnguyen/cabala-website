@@ -383,9 +383,9 @@ export default function AdminTagsPage() {
             <div>
               <h4 className="font-medium text-blue-900 mb-1">How Tag Mapping Works</h4>
               <p className="text-sm text-blue-800">
-                Tag mappings help organize courses by connecting Moodle's internal tags 
+                Tag mappings help organize courses by connecting Moodle&apos;s internal tags 
                 to user-friendly Vietnamese tags and categories on your website. When courses 
-                are synced from Moodle, they'll automatically be categorized based on these mappings.
+                are synced from Moodle, they&apos;ll automatically be categorized based on these mappings.
               </p>
             </div>
           </div>

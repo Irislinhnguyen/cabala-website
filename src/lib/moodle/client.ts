@@ -495,9 +495,34 @@ export class MoodleClient {
   // Image Processing Utilities
   getAuthenticatedImageUrl(fileUrl: string): string {
     if (!fileUrl) return '';
-    // Add token parameter for authenticated access to Moodle files
-    const separator = fileUrl.includes('?') ? '&' : '?';
-    return `${fileUrl}${separator}token=${this.config.token}`;
+    
+    // Transform Moodle URLs to use local proxy instead of direct token authentication
+    try {
+      const url = new URL(fileUrl);
+      const pathParts = url.pathname.split('/');
+      
+      // Find pluginfile.php index
+      const pluginFileIndex = pathParts.findIndex(part => part === 'pluginfile.php');
+      if (pluginFileIndex === -1 || pathParts.length < pluginFileIndex + 4) {
+        console.warn('Invalid Moodle image URL format:', fileUrl);
+        return fileUrl; // Return original URL as fallback
+      }
+      
+      const contextId = pathParts[pluginFileIndex + 1];
+      const component = pathParts[pluginFileIndex + 2]; // Should be "course"
+      const filearea = pathParts[pluginFileIndex + 3]; // Should be "overviewfiles"
+      const filename = pathParts.slice(pluginFileIndex + 4).join('/');
+      
+      if (component === 'course' && filearea === 'overviewfiles' && contextId && filename) {
+        return `/api/moodle/image/${contextId}/${filename}`;
+      }
+      
+      console.warn('Unexpected Moodle URL structure:', fileUrl);
+      return fileUrl; // Return original URL as fallback
+    } catch (error) {
+      console.error('Error parsing Moodle image URL:', fileUrl, error);
+      return fileUrl; // Return original URL as fallback
+    }
   }
 
   extractPrimaryImage(overviewFiles?: MoodleOverviewFile[]): string | null {

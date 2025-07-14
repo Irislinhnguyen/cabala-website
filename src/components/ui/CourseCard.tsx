@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card, CardContent, CardHeader } from './Card';
 import { Badge } from './Badge';
 import { Button } from './Button';
@@ -47,12 +46,51 @@ const CourseCard = ({ course, className }: CourseCardProps) => {
       {/* Course Thumbnail */}
       <div className="relative h-36 sm:h-40 overflow-hidden" 
            style={{ backgroundColor: 'var(--color-surface)' }}>
-        {course.courseImage ? (
-          <Image 
-            src={course.courseImage} 
+        <style jsx>{`
+          .placeholder-fallback {
+            background: linear-gradient(135deg, #E55A2B 0%, #2C3E50 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+          }
+          .placeholder-fallback::after {
+            content: '${course.shortName || course.title}';
+          }
+        `}</style>
+        {(course.courseImage || course.thumbnail) ? (
+          // Use regular img tag for all images to avoid Next.js restrictions
+          <img 
+            src={`${course.courseImage || course.thumbnail}${(course.courseImage || course.thumbnail).includes('?') ? '&' : '?'}v=${Date.now()}`} 
             alt={course.title}
-            fill
-            className="object-cover"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              const imageUrl = course.courseImage || course.thumbnail;
+              console.error('❌ Course image failed to load:', {
+                courseId: course.id,
+                courseTitle: course.title,
+                imageUrl: imageUrl,
+                isProxyUrl: imageUrl?.startsWith('/api/moodle/image/'),
+                timestamp: new Date().toISOString()
+              });
+              // Fallback to CSS gradient if image fails
+              e.currentTarget.style.display = 'none';
+              if (e.currentTarget.parentElement) {
+                e.currentTarget.parentElement.classList.add('placeholder-fallback');
+              }
+            }}
+            onLoad={() => {
+              const imageUrl = course.courseImage || course.thumbnail;
+              console.log('✅ Course image loaded successfully:', {
+                courseId: course.id,
+                courseTitle: course.title,
+                imageUrl: imageUrl,
+                isProxyUrl: imageUrl?.startsWith('/api/moodle/image/'),
+                timestamp: new Date().toISOString()
+              });
+            }}
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br flex items-center justify-center"
