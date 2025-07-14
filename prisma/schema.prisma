@@ -92,6 +92,14 @@ model Course {
   description       String?            @db.Text
   shortDescription  String?
   thumbnail         String?
+  // Course images from Moodle
+  moodleImageUrl    String?            // Primary course image from Moodle
+  overviewFiles     Json?              // Store all overview files metadata
+  
+  // Moodle tag integration
+  moodleTags        String[]           @default([]) // Original Moodle tags
+  customTags        String[]           @default([]) // Custom website tags
+  
   price             Decimal            @default(0) @db.Decimal(10, 2)
   originalPrice     Decimal?           @db.Decimal(10, 2)
   currency          String             @default("VND")
@@ -154,11 +162,30 @@ model Category {
   
   // Relationships
   courses     Course[]
+  tagMappings TagMapping[]
   
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   
   @@map("categories")
+}
+
+// Tag Mapping for Admin Dashboard
+model TagMapping {
+  id            String   @id @default(cuid())
+  moodleTag     String   @unique // Original Moodle tag
+  websiteTag    String   // Mapped website tag/category
+  categoryId    String?  // Optional category association
+  description   String?
+  isActive      Boolean  @default(true)
+  
+  // Relationships
+  category      Category? @relation(fields: [categoryId], references: [id])
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("tag_mappings")
 }
 
 // Student Course Enrollment

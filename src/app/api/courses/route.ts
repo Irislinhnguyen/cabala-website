@@ -1,76 +1,76 @@
 import { NextResponse } from 'next/server';
-
-const MOODLE_URL = process.env.MOODLE_URL;
-const MOODLE_TOKEN = process.env.MOODLE_TOKEN;
+import { createMoodleClient } from '@/lib/moodle/client';
 
 export async function GET() {
   try {
-    if (!MOODLE_URL || !MOODLE_TOKEN) {
-      throw new Error('Moodle configuration missing');
-    }
+    const moodleClient = createMoodleClient();
+    let courses;
+    let usingImages = false;
 
-    // Fetch courses from Moodle
-    const url = `${MOODLE_URL}/webservice/rest/server.php`;
-    const params = new URLSearchParams({
-      wstoken: MOODLE_TOKEN,
-      wsfunction: 'core_course_get_courses',
-      moodlewsrestformat: 'json',
-    });
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: params,
-    });
-
-    const courses = await response.json();
-
-    if (courses.exception) {
-      throw new Error(`Moodle Error: ${courses.message}`);
+    // Try to fetch courses with images first, fallback to basic course fetching
+    try {
+      console.log('🔍 Attempting to fetch courses with images...');
+      courses = await moodleClient.getAllCoursesWithImages();
+      usingImages = true;
+      console.log('✅ Successfully fetched courses with image support');
+    } catch (imageError) {
+      console.warn('⚠️ Image-enabled course fetching failed, falling back to basic method:', imageError);
+      try {
+        courses = await moodleClient.getAllCourses();
+        usingImages = false;
+        console.log('✅ Successfully fetched courses using basic method');
+      } catch (basicError) {
+        console.error('❌ Both image and basic course fetching failed:', basicError);
+        throw basicError;
+      }
     }
 
     // Filter out the site course and transform data
     const transformedCourses = courses
-      .filter((course: { id: number }) => course.id !== 1) // Remove site course
-      .map((course: { 
-        id: number; 
-        fullname: string; 
-        shortname: string; 
-        summary?: string; 
-        categoryid: number;
-        visible: number;
-        startdate: number;
-        enddate: number;
-        format: string;
-        courseimage?: string;
-      }) => ({
-        id: course.id,
-        title: course.fullname,
-        shortName: course.shortname,
-        description: course.summary || 'Mô tả khóa học sẽ được cập nhật sớm',
-        category: course.categoryid,
-        visible: course.visible === 1,
-        startDate: course.startdate,
-        endDate: course.enddate,
-        format: course.format,
-        courseImage: course.courseimage || null,
-        // Add default pricing (will be set by admin later)
-        price: 0,
-        currency: 'VND',
-        level: 'Beginner',
-        instructor: 'Teacher Linh Nguyen', // From our Moodle site info
-        rating: 4.8,
-        students: Math.floor(Math.random() * 100) + 10, // Random for now
-        duration: '8 tuần',
-        thumbnail: course.courseimage || `/api/placeholder/400/300?text=${encodeURIComponent(course.shortname)}`,
-      }));
+      .filter((course) => course.id !== 1) // Remove site course
+      .map((course) => {
+        let courseImage = null;
+        let overviewFiles = null;
+
+        // Process course images only if we successfully fetched them
+        if (usingImages && course.overviewfiles) {
+          const imageData = moodleClient.processOverviewFiles(course.overviewfiles);
+          courseImage = imageData.primaryImage;
+          overviewFiles = imageData.metadata;
+        }
+        
+        return {
+          id: course.id,
+          title: course.fullname,
+          shortName: course.shortname,
+          description: course.summary || 'Mô tả khóa học sẽ được cập nhật sớm',
+          category: course.categoryid,
+          visible: course.visible === 1,
+          startDate: course.startdate,
+          endDate: course.enddate,
+          format: course.format,
+          // Use Moodle image if available, otherwise fallback to basic courseimage or placeholder
+          courseImage: courseImage || course.courseimage || null,
+          overviewFiles: overviewFiles,
+          // Add default pricing (will be set by admin later)
+          price: 0,
+          currency: 'VND',
+          level: 'Beginner',
+          instructor: 'Teacher Linh Nguyen',
+          rating: 4.8,
+          students: Math.floor(Math.random() * 100) + 10, // Random for now
+          duration: '8 tuần',
+          language: course.lang || 'vi',
+          // Use best available image with fallback to placeholder
+          thumbnail: courseImage || course.courseimage || `/api/placeholder/400/300?text=${encodeURIComponent(course.shortname)}`,
+        };
+      });
 
     return NextResponse.json({
       success: true,
       courses: transformedCourses,
       total: transformedCourses.length,
+      imageSupport: usingImages, // Indicate whether images are working
     });
   } catch (error) {
     console.error('Error fetching courses:', error);

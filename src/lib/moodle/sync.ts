@@ -45,7 +45,9 @@ export class MoodleSyncService {
   // Sync courses from Moodle to local database
   async syncCourses(): Promise<void> {
     try {
-      const moodleCourses = await this.moodleClient.getAllCourses();
+      console.log('🔍 Syncing courses with images from Moodle...');
+      // Use the new method that includes overview files (images)
+      const moodleCourses = await this.moodleClient.getAllCoursesWithImages();
       
       for (const moodleCourse of moodleCourses) {
         // Skip site course (id = 1)
@@ -58,6 +60,10 @@ export class MoodleSyncService {
           cat.id === moodleCourse.categoryid.toString()
         );
 
+        // Process course images
+        const imageData = this.moodleClient.processOverviewFiles(moodleCourse.overviewfiles);
+        console.log(`🖼️ Course ${moodleCourse.fullname}: Found ${imageData.allImages.length} images`);
+
         const courseData = {
           moodleCourseId: moodleCourse.id,
           title: moodleCourse.fullname,
@@ -68,6 +74,11 @@ export class MoodleSyncService {
           isActive: moodleCourse.visible === 1,
           isVisible: moodleCourse.visible === 1,
           categoryId: matchingCategory?.id || null,
+          
+          // Course images from Moodle
+          moodleImageUrl: imageData.primaryImage,
+          overviewFiles: imageData.metadata.length > 0 ? imageData.metadata : null,
+          
           // Set default pricing - will be updated by admin later
           price: 0,
           currency: 'VND',
@@ -87,6 +98,10 @@ export class MoodleSyncService {
             isActive: courseData.isActive,
             isVisible: courseData.isVisible,
             language: courseData.language,
+            // Update image data
+            moodleImageUrl: courseData.moodleImageUrl,
+            overviewFiles: courseData.overviewFiles,
+            // SEO fields
             metaTitle: courseData.metaTitle,
             metaDescription: courseData.metaDescription,
             keywords: courseData.keywords,

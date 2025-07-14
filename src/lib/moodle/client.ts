@@ -27,6 +27,16 @@ export interface MoodleCourse {
   enrollmentmethods?: string[];
   lang?: string;
   courseimage?: string;
+  overviewfiles?: MoodleOverviewFile[];
+}
+
+export interface MoodleOverviewFile {
+  filename: string;
+  filepath: string;
+  filesize: number;
+  fileurl: string;
+  timemodified: number;
+  mimetype: string;
 }
 
 export interface MoodleCategory {
@@ -272,6 +282,17 @@ export class MoodleClient {
     return this.makeRequest<MoodleCourse[]>('core_course_get_courses');
   }
 
+  async getAllCoursesWithImages(): Promise<MoodleCourse[]> {
+    // Use search API to get courses with overview files (images)
+    const response = await this.makeRequest<{ courses: MoodleCourse[] }>('core_course_search_courses', {
+      criterianame: 'search',
+      criteriavalue: '', // Empty search to get all courses
+      page: 0,
+      perpage: 0, // 0 means no limit
+    });
+    return response.courses || [];
+  }
+
   async getCourseById(courseId: number): Promise<MoodleCourse> {
     const response = await this.makeRequest<MoodleCourse[]>('core_course_get_courses', {
       options: {
@@ -279,6 +300,17 @@ export class MoodleClient {
       },
     });
     return response[0];
+  }
+
+  async getCourseByIdWithImages(courseId: number): Promise<MoodleCourse> {
+    // Use search API to get course with overview files
+    const response = await this.makeRequest<{ courses: MoodleCourse[] }>('core_course_search_courses', {
+      criterianame: 'ids',
+      criteriavalue: courseId.toString(),
+      page: 0,
+      perpage: 1,
+    });
+    return response.courses?.[0] || this.getCourseById(courseId);
   }
 
   async getCoursesByCategory(categoryId: number): Promise<MoodleCourse[]> {
@@ -443,6 +475,7 @@ export class MoodleClient {
         'core_user_get_users_by_field',
         'core_user_create_users',
         'core_course_get_courses',
+        'core_course_search_courses',
         'enrol_manual_enrol_users',
         'core_enrol_get_enrolled_users'
       ];
@@ -457,6 +490,48 @@ export class MoodleClient {
     } catch (error) {
       console.error('Failed to check capabilities:', error);
     }
+  }
+
+  // Image Processing Utilities
+  getAuthenticatedImageUrl(fileUrl: string): string {
+    if (!fileUrl) return '';
+    // Add token parameter for authenticated access to Moodle files
+    const separator = fileUrl.includes('?') ? '&' : '?';
+    return `${fileUrl}${separator}token=${this.config.token}`;
+  }
+
+  extractPrimaryImage(overviewFiles?: MoodleOverviewFile[]): string | null {
+    if (!overviewFiles || overviewFiles.length === 0) return null;
+    
+    // Find the first image file
+    const imageFile = overviewFiles.find(file => 
+      file.mimetype.startsWith('image/') && 
+      (file.filename.toLowerCase().includes('course') || 
+       file.filename.toLowerCase().includes('overview') ||
+       overviewFiles.length === 1) // If only one file, use it
+    );
+    
+    return imageFile ? this.getAuthenticatedImageUrl(imageFile.fileurl) : null;
+  }
+
+  processOverviewFiles(overviewFiles?: MoodleOverviewFile[]): {
+    primaryImage: string | null;
+    allImages: string[];
+    metadata: MoodleOverviewFile[];
+  } {
+    if (!overviewFiles || overviewFiles.length === 0) {
+      return { primaryImage: null, allImages: [], metadata: [] };
+    }
+
+    const imageFiles = overviewFiles.filter(file => file.mimetype.startsWith('image/'));
+    const allImages = imageFiles.map(file => this.getAuthenticatedImageUrl(file.fileurl));
+    const primaryImage = allImages.length > 0 ? allImages[0] : null;
+
+    return {
+      primaryImage,
+      allImages,
+      metadata: overviewFiles,
+    };
   }
 }
 
